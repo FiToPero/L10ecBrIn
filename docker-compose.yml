@@ -1,0 +1,43 @@
+services:
+  php:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        WWWGROUP: 'yo'
+        PROJECT_NAME: '${APP_NAME}'
+    ports:
+      - '80:80'
+      - '5173:5173'
+    volumes:
+      - '.:/var/www/html/${APP_NAME}'
+    networks:
+      - project
+    environment:
+      - APP_ENV=local
+      - APP_DEBUG=true
+      - APP_URL=http://localhost
+      - VITE_HOST=0.0.0.0   # Asegura que Vite esté expuesto
+      - VITE_PORT=5173
+    depends_on:
+      - mysql
+  mysql:
+    image: 'mysql/mysql-server:8.0'
+    ports:
+      - '3306:3306'
+    environment:
+        MYSQL_ROOT_PASSWORD: '${DB_PASSWORD}'
+        MYSQL_ROOT_HOST: '%'
+        MYSQL_DATABASE: '${DB_DATABASE}'
+        MYSQL_USER: '${DB_USERNAME}'
+        MYSQL_PASSWORD: '${DB_PASSWORD}'
+    volumes:
+      - 'data_mysql:/var/lib/mysql'
+    networks:
+      - project
+networks:
+  project:
+    driver: bridge
+volumes:
+  data_mysql:
+    driver: local
