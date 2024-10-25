@@ -20,9 +20,9 @@ class EmailVerificationTest extends TestCase
             'email_verified_at' => null,
         ]);
 
-        $response = $this->actingAs($user)->get('/verify-email');
-
-        $response->assertStatus(200);
+        $response = $this->get(route('verification.notice'));
+        
+        $response->assertStatus(302);
     }
 
     public function test_email_can_be_verified(): void

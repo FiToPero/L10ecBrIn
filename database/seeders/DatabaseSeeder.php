@@ -49,5 +49,9 @@ class DatabaseSeeder extends Seeder
             'role_id' => 3
         ]);
 
+        /////////////  test  //////////////
+        User::factory(1)->create();
+
+
     }
 }
