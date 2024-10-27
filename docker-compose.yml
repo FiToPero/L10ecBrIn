@@ -15,6 +15,8 @@ services:
       - project
     depends_on:
       - mysql
+      - redis
+      - mailpit
   mysql:
     image: 'mysql/mysql-server:8.0'
     ports:
@@ -29,9 +31,33 @@ services:
       - 'data_mysql:/var/lib/mysql'
     networks:
       - project
+  redis:
+    image: 'redis:alpine'
+    ports:
+        - '6379:6379'
+    volumes:
+        - 'data-redis:/data'
+    networks:
+        - project
+    healthcheck:
+        test:
+            - CMD
+            - redis-cli
+            - ping
+        retries: 3
+        timeout: 5s
+  mailpit:
+    image: 'axllent/mailpit:latest'
+    ports:
+        - '1025:1025'
+        - '8025:8025'
+    networks:
+        - project
 networks:
   project:
     driver: bridge
 volumes:
   data_mysql:
+    driver: local
+  data-redis:
     driver: local

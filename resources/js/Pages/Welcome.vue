@@ -36,7 +36,7 @@ watch(search, (value) => {router.get('/welcome', {search: value}, {preserveState
 <Head title="Welcome" />
 <AuthenticatedLayout>
     <template #header>
-        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">Welcome</h2>
+        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">{{ $t('Welcome') }}</h2>
     </template>
     <p class="text-white">{{ page.props.flash }}</p>
 <div @click="closeShow" class=" min-h-screen bg-gray-100 dark:bg-gray-900 p-5">

@@ -29,10 +29,10 @@ const logout = () => { router.post('/logout') }  // logout(){ this.$inertia.post
 </script>
 
 <template>
-<Head title="W" />
+<Head title="Admin-Root" />
 <AuthenticatedLayout>
     <template #header>
-        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">Admin Root</h2>
+        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">{{ $t('Admin-Root') }}</h2>
     </template>
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
