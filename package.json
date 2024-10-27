@@ -18,6 +18,9 @@
         "vue": "^3.4.0"
     },
     "dependencies": {
-        "pinia": "^2.2.4"
+        "@intlify/unplugin-vue-i18n": "^5.2.0",
+        "laravel-vue-i18n": "^2.7.7",
+        "pinia": "^2.2.4",
+        "vue-i18n": "^10.0.4"
     }
 }

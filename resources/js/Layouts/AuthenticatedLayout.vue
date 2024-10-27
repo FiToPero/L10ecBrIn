@@ -12,13 +12,17 @@ import VerifyEmail from '@/Pages/Auth/VerifyEmail.vue'
 import { useLoginStore } from '@/stores/useLoginStore'
 import { storeToRefs } from 'pinia'
 
+
 ///// pinia ////
 const storeLogin = useLoginStore()
-const { modalLogin, modalRegister, modalVerified } = storeToRefs(storeLogin)
-const { showModalLogin, showModalRegister } = storeLogin
+const { modalLogin, modalRegister, modalVerified, localeLang } = storeToRefs(storeLogin)
+const { showModalLogin, showModalRegister, changeLocale } = storeLogin
 ////// pinia ////
 
+const selectedLang = ref(localStorage.getItem('localeLang')||'en')
 const showingNavigationDropdown = ref(false)
+
+const selectLang = (e) => { changeLocale(e.target.value) }
 
 const logout = () => { router.post('/logout') }  // logout(){ this.$inertia.post('/logout') }
 
@@ -44,13 +48,13 @@ const logout = () => { router.post('/logout') }  // logout(){ this.$inertia.post
                             <!-- Navigation Links -->
                             <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                                 <NavLink :href="route('product.index')" :active="route().current('product.index')">
-                                    Welcome
+                                    {{ $t('Welcome') }}
                                 </NavLink>
                                 <NavLink :href="route('dashboard')" :active="route().current('dashboard')">
-                                    Dashboard
+                                    {{ $t('Dashboard') }}
                                 </NavLink>
                                 <NavLink :href="route('adminRoot')" :active="route().current('adminRoot')">
-                                    Admin Root
+                                    {{ $t('Admin Root') }}
                                 </NavLink>
                                 <p class="text-white m-4">{{ $page.props.auth }}</p>
                             </div>
@@ -61,8 +65,18 @@ const logout = () => { router.post('/logout') }  // logout(){ this.$inertia.post
                                 <div class="hidden sm:flex">
                                     <!-- <button @click="showModalLogin" class="m-3 text-white bg-gray-700 hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-800">Login</button>
                                     <button @click="showModalRegister" class="m-3 text-white bg-gray-700 hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-800">Register</button> -->
-                                    <Link :href="route('login.create')" class="m-3 text-white bg-gray-700 hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-800">Login</Link>
-                                    <Link :href="route('register.create')" class="m-3 text-white bg-gray-700 hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-800">Register</Link>
+                                    <select 
+                                        id="lang" @change="selectLang" v-model="selectedLang"
+                                        class="m-3 text-white bg-gray-700 hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm w-full sm:w-auto px-8 py-2.5 text-center dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-800"
+                                    >
+                                        <option value="en">English</option>
+                                        <option value="it">Italiano</option>
+                                        <option value="es">Español</option>
+                                    </select>
+
+
+                                    <Link :href="route('login.create')" class="m-3 text-white bg-gray-700 hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-800">{{ $t('Login') }}</Link>
+                                    <Link :href="route('register.create')" class="m-3 text-white bg-gray-700 hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-800">{{ $t('Register') }}</Link>
                                 </div>
                             </template>
                             <template v-else>

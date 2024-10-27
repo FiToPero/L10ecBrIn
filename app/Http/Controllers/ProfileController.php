@@ -53,11 +53,12 @@ class ProfileController extends Controller
 
         Auth::logout();
 
-        $user->delete();
+        $user->destroy();
 
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
-        return Redirect::to('/');
+        //return Redirect::to('/');
+        return redirect()->route('product.index')->with('message', 'User deleted.');
     }
 }
