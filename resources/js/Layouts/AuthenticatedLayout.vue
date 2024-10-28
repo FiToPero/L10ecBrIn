@@ -56,7 +56,6 @@ const logout = () => { router.post('/logout') }  // logout(){ this.$inertia.post
                                 <NavLink :href="route('adminRoot.index')" :active="route().current('adminRoot.index')">
                                     {{ $t('Admin-Root') }}
                                 </NavLink>
-                                <div class="w-auto"><p class="text-white m-4">{{ $page.props.auth }}</p></div>
                             </div>
                         </div>
                         <div class="">
