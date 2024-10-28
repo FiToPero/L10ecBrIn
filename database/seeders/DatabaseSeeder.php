@@ -16,9 +16,10 @@ class DatabaseSeeder extends Seeder
         Product::factory(50)->create();
 
         // Crear roles
+        $rootRole = Role::create(['name' => 'root']);
         $adminRole = Role::create(['name' => 'admin']);
         $userRole = Role::create(['name' => 'user']);
-        $professionalRole = Role::create(['name' => 'professional']);
+        
 
         // Crear permisos
         $permissions = ['view_product', 'create_product', 'update_product', 'delete_product', 'restore_product', 'forceDelete_product'];
@@ -28,29 +29,27 @@ class DatabaseSeeder extends Seeder
         }
 
         // Asignar permisos al Roles
-        $adminRole->permissions()->attach(Permission::whereIn('name', ['view_product', 'create_product', 'update_product', 'delete_product', 'restore_product', 'forceDelete_product'])->pluck('id'));
+        $rootRole->permissions()->attach(Permission::whereIn('name', ['view_product', 'create_product', 'update_product', 'delete_product', 'restore_product', 'forceDelete_product'])->pluck('id'));
+        $adminRole->permissions()->attach(Permission::whereIn('name', ['view_product', 'create_product', 'update_product', 'delete_product'])->pluck('id'));
         $userRole->permissions()->attach(Permission::where('name', 'view_product')->pluck('id'));
-        $professionalRole->permissions()->attach(Permission::whereIn('name', ['view_product', 'create_product', 'update_product', 'delete_product'])->pluck('id'));
 
         // create User
         User::factory()->create([
-            'name' => 'fito',
-            'email' => 'fito@gmail.com',
+            'name' => 'root',
+            'email' => 'root@gmail.com',
             'role_id' => 1
+        ]);
+        User::factory()->create([
+            'name' => 'admin',
+            'email' => 'admin@gmail.com',
+            'role_id' => 2
         ]);
         User::factory()->create([
             'name' => 'usuario',
             'email' => 'usuario@gmail.com',
-            'role_id' => 2
-        ]);
-        User::factory()->create([
-            'name' => 'profesional',
-            'email' => 'profesional@gmail.com',
             'role_id' => 3
         ]);
-
-        /////////////  test  //////////////
-        User::factory(1)->create();
+        
 
 
     }

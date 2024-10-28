@@ -1,5 +1,5 @@
 <script setup>
-import { computed, ref, watch } from 'vue'
+import { ref, watch } from 'vue'
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue'
 import { Link, usePage, router, Head } from '@inertiajs/vue3'
 import Pagination from '@/Components/Pagination.vue'
@@ -14,8 +14,6 @@ const page = usePage()
 
 const props = defineProps({
     products: { type: Object, required: true },
-    canLogin: { type: Boolean },
-    canRegister: { type: Boolean },
 })
 
 const openShow = (product) => {
@@ -38,10 +36,8 @@ watch(search, (value) => {router.get('/welcome', {search: value}, {preserveState
     <template #header>
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">{{ $t('Welcome') }}</h2>
     </template>
-    <p class="text-white">{{ page.props.flash }}</p>
 <div @click="closeShow" class=" min-h-screen bg-gray-100 dark:bg-gray-900 p-5">
     <p class="text-white">{{ UserStore }}</p>
-    <Link v-if="$page.props.auth && $page.props.auth.user && $page.props.auth.user.permissions.includes('create_product')" :href="route('product.create')" class="mb-5 text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">Create New Product</Link>
     <input v-model="search" type="text" class="block my-5 py-2.5 px-2 w-full text-sm text-gray-100 placeholder-gray-900 bg-transparent border-2 rounded-lg border-gray-300 appearance-none dark:placeholder-gray-300 dark:border-gray-600" placeholder="Buscar / Search"/> 
     <Show v-if="modalShow" :product="productShow" @closeShow="closeShow"/>
     <!-- FLASH MESSAGE -->

@@ -39,7 +39,7 @@ const logout = () => { router.post('/logout') }  // logout(){ this.$inertia.post
                         <div class="flex">
                             <!-- Logo -->
                             <div class="shrink-0 flex items-center">
-                                <Link :href="route('dashboard')">
+                                <Link :href="route('dashboard.index')">
                                     <ApplicationLogo
                                         class="block h-24 w-auto fill-current text-gray-800 dark:text-gray-200"
                                     />
@@ -50,10 +50,10 @@ const logout = () => { router.post('/logout') }  // logout(){ this.$inertia.post
                                 <NavLink :href="route('product.index')" :active="route().current('product.index')">
                                     {{ $t('Welcome') }}
                                 </NavLink>
-                                <NavLink :href="route('dashboard')" :active="route().current('dashboard')">
+                                <NavLink :href="route('dashboard.index')" :active="route().current('dashboard.index')">
                                     {{ $t('Dashboard') }}
                                 </NavLink>
-                                <NavLink :href="route('adminRoot')" :active="route().current('adminRoot')">
+                                <NavLink :href="route('adminRoot.index')" :active="route().current('adminRoot.index')">
                                     {{ $t('Admin-Root') }}
                                 </NavLink>
                                 <div class="w-auto"><p class="text-white m-4">{{ $page.props.auth }}</p></div>
@@ -63,8 +63,6 @@ const logout = () => { router.post('/logout') }  // logout(){ this.$inertia.post
                             <!-- -------- button logins -->
                             <template v-if="!$page.props.auth.user" >
                                 <div class="hidden sm:flex">
-                                    <!-- <button @click="showModalLogin" class="m-3 text-white bg-gray-700 hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-800">Login</button>
-                                    <button @click="showModalRegister" class="m-3 text-white bg-gray-700 hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-800">Register</button> -->
                                     <select 
                                         id="lang" @change="selectLang" v-model="selectedLang"
                                         class="m-3 text-white bg-gray-700 hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm w-full sm:w-auto px-8 py-2.5 text-center dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-800"
@@ -73,8 +71,8 @@ const logout = () => { router.post('/logout') }  // logout(){ this.$inertia.post
                                         <option value="it">Italiano</option>
                                         <option value="es">Español</option>
                                     </select>
-
-
+                                    <!-- <button @click="showModalLogin" class="m-3 text-white bg-gray-700 hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-800">Login</button>
+                                    <button @click="showModalRegister" class="m-3 text-white bg-gray-700 hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-800">Register</button> -->
                                     <Link :href="route('login.create')" class="m-3 text-white bg-gray-700 hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-800">{{ $t('Login') }}</Link>
                                     <Link :href="route('register.create')" class="m-3 text-white bg-gray-700 hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-800">{{ $t('Register') }}</Link>
                                 </div>
@@ -82,6 +80,14 @@ const logout = () => { router.post('/logout') }  // logout(){ this.$inertia.post
                             <template v-else>
                             <!-- -------- -- button logins -->
                                 <div class="hidden sm:flex sm:items-center h-full w-full">
+                                    <select 
+                                        id="lang" @change="selectLang" v-model="selectedLang"
+                                        class="m-3 text-white bg-gray-700 hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm w-full sm:w-auto px-8 py-2.5 text-center dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-800"
+                                    >
+                                        <option value="en">English</option>
+                                        <option value="it">Italiano</option>
+                                        <option value="es">Español</option>
+                                    </select>
                                     <!-- Settings Dropdown -->
                                     <div class="relative w-full">
                                         <Dropdown align="right">
@@ -95,8 +101,10 @@ const logout = () => { router.post('/logout') }  // logout(){ this.$inertia.post
                                                     </button>
                                                 </span>
                                             </template>
+                                           
 
                                             <template #content>
+
                                                 <DropdownLink :href="route('profile.edit')"> {{ $t('Profile') }} </DropdownLink>
                                                 <DropdownLink :href="route('logout')" method="post" as="button"> {{ $t('Log Out') }} </DropdownLink>
                                             </template>
@@ -128,10 +136,10 @@ const logout = () => { router.post('/logout') }  // logout(){ this.$inertia.post
                         <ResponsiveNavLink :href="route('product.index')" :active="route().current('product.index')">
                             {{ $t('Welcome') }}
                         </ResponsiveNavLink>
-                        <ResponsiveNavLink :href="route('dashboard')" :active="route().current('dashboard')">
+                        <ResponsiveNavLink :href="route('dashboard.index')" :active="route().current('dashboard.index')">
                             {{ $t('Dashboard') }}
                         </ResponsiveNavLink>
-                        <ResponsiveNavLink :href="route('adminRoot')" :active="route().current('adminRoot')">
+                        <ResponsiveNavLink :href="route('adminRoot.index')" :active="route().current('adminRoot.index')">
                             {{ $t('Admin-Root') }}
                         </ResponsiveNavLink>
                     </div>
@@ -140,12 +148,19 @@ const logout = () => { router.post('/logout') }  // logout(){ this.$inertia.post
                     <template v-if="$page.props.auth.user">
                     <div class="pt-4 pb-1 border-t border-gray-200 dark:border-gray-600">
                         <div class="px-4">
+                            <select 
+                                id="lang" @change="selectLang" v-model="selectedLang"
+                                class=" text-white bg-gray-700 hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm w-full sm:w-auto px-8 py-2.5 text-center dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-800"
+                            >
+                                <option value="en">English</option>
+                                <option value="it">Italiano</option>
+                                <option value="es">Español</option>
+                            </select>
                             <div class="font-medium text-base text-gray-800 dark:text-gray-200">
                                 {{ $page.props.auth.user.name }}
                             </div>
                             <div class="font-medium text-sm text-gray-500">{{ $page.props.auth.user.email }}</div>
                         </div>
-
                         <div class="mt-3 space-y-1">
                             <ResponsiveNavLink :href="route('profile.edit')"> {{ $t('Profile') }} </ResponsiveNavLink>
                             <ResponsiveNavLink :href="route('logout')" method="post" as="button"> {{ $t('Log Out') }} </ResponsiveNavLink>
@@ -155,14 +170,14 @@ const logout = () => { router.post('/logout') }  // logout(){ this.$inertia.post
                     <template v-else>
                         <div class="mx-10 flex justify-center gap-5">
                             <div class="w-full mx-3">
-                            <select 
-                                id="lang" @change="selectLang" v-model="selectedLang"
-                                class="m-3 text-white bg-gray-700 hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm w-full sm:w-auto px-8 py-2.5 text-center dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-800"
-                            >
-                                <option value="en">English</option>
-                                <option value="it">Italiano</option>
-                                <option value="es">Español</option>
-                            </select>
+                                <select 
+                                    id="lang" @change="selectLang" v-model="selectedLang"
+                                    class="m-3 text-white bg-gray-700 hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm w-full sm:w-auto px-8 py-2.5 text-center dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-800"
+                                >
+                                    <option value="en">English</option>
+                                    <option value="it">Italiano</option>
+                                    <option value="es">Español</option>
+                                </select>
                             </div>
                             <Link :href="route('login.create')" class="m-3 text-white bg-gray-700 hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-800">{{ $t('Login') }}</Link>
                             <Link :href="route('register.create')" class="m-3 text-white bg-gray-700 hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-800">{{ $t('Register') }}</Link>
