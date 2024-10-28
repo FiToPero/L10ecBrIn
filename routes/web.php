@@ -7,7 +7,7 @@ use App\Http\Controllers\RootController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [ProductController::class, 'index'])->name('product.index');
-Route::get('/welcome/show', [ProductController::class, 'show'])->name('product.show');
+Route::get('/product/show', [ProductController::class, 'show'])->name('product.show');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -17,17 +17,17 @@ Route::middleware('auth')->group(function () {
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
-    Route::get('/welcome/edit/{id}', [ProductController::class, 'edit'])->name('product.edit');
-    Route::get('/welcome/create', [ProductController::class, 'create'])->name('product.create');
-    Route::post('/welcome/store', [ProductController::class, 'store'])->name('product.store'); 
-    Route::post('/welcome/update/{id}', [ProductController::class, 'update'])->name('product.update');
-    Route::post('/welcome/delete/{id}', [ProductController::class, 'destroy'])->name('product.delete');
+    Route::get('/product/edit/{id}', [ProductController::class, 'edit'])->name('product.edit');
+    Route::get('/product/create', [ProductController::class, 'create'])->name('product.create');
+    Route::post('/product/store', [ProductController::class, 'store'])->name('product.store'); 
+    Route::post('/product/update/{id}', [ProductController::class, 'update'])->name('product.update');
+    Route::post('/product/delete/{id}', [ProductController::class, 'destroy'])->name('product.delete');
 });
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/adminRoot', [RootController::class, 'index'])->name('adminRoot.index');
-    Route::post('/welcome/restore/{id}', [ProductController::class, 'restore'])->name('product.restore');
-    Route::post('/welcome/forceDestroy/{id}', [ProductController::class, 'forceDestroy'])->name('product.forceDestroy');
+    Route::post('/product/restore/{id}', [ProductController::class, 'restore'])->name('product.restore');
+    Route::post('/product/forceDestroy/{id}', [ProductController::class, 'forceDestroy'])->name('product.forceDestroy');
 });
 
 

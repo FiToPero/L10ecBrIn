@@ -26,7 +26,7 @@ const closeMessage = () => { isMessage.value = false }
 watch(page.props.flash.message, () => {
         if(page.props.flash.message){ isMessage.value = true }
     }, { immediate: true })
-watch(search, (value) => {router.get('/welcome', {search: value}, {preserveState: true})})
+watch(search, (value) => {router.get('/', {search: value}, {preserveState: true})})
 
 </script>
 
