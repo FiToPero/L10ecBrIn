@@ -24,7 +24,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('/product/delete/{id}', [ProductController::class, 'destroy'])->name('product.delete');
 });
 
-Route::middleware(['auth', 'verified', 'can:root,role'])->group(function () {
+Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/adminRoot', [RootController::class, 'index'])->name('adminRoot.index');
     Route::post('/product/restore/{id}', [ProductController::class, 'restore'])->name('product.restore');
     Route::post('/product/forceDestroy/{id}', [ProductController::class, 'forceDestroy'])->name('product.forceDestroy');

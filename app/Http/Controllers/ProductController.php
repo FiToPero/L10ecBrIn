@@ -22,7 +22,6 @@ class ProductController extends Controller
 
     public function index(Request $request)
     {
-
         $filters = $request->all('search');
         
         $products = Product::when($filters['search'] ?? null, function($query, $search){$query->where('productName', 'LIKE', "%". $search ."%");})->paginate(10);

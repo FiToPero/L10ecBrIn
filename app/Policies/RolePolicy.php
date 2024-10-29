@@ -23,4 +23,13 @@ class RolePolicy
     {
         return $user->hasRole('user');
     }
+
+    public function hasAnyRole(User $user, array $roles)
+    {
+        foreach ($roles as $role) {
+            if ($user->hasRole($role)) {
+                return true;
+            }
+        }
+    }
 }

@@ -74,7 +74,7 @@ const selectLang = (e) => { changeLocale(e.target.value) }
                                 <NavLink v-if="AdminRoot" :href="route('adminRoot.index')" :active="route().current('adminRoot.index')">
                                     {{ $t('Admin-Root') }}
                                 </NavLink>
-                                <!-- <div class="p-3 text-white">{{ page.props.auth.user.role }} --- {{ page.props.auth.user.permissions }}</div> -->
+                                <!-- <div class="p-3 text-white text-sm">{{ page.props.auth }}</div> -->
                             </div>
                         </div>
                         <div class="">

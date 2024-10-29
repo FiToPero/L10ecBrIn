@@ -5,13 +5,22 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use App\Models\Product;
+use App\Models\Role;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 class RootController extends Controller
 {
+    use AuthorizesRequests;
+
     public function index()
     {
-        $products = Product::onlyTrashed()->get();
-        
-        return Inertia::render('Admin-Root', compact('products'));
+        try {
+            $this->authorize('root', Role::class);
+            $products = Product::onlyTrashed()->get();
+            
+            return Inertia::render('Admin-Root', compact('products'));
+        } catch (\Exception $e) {
+            return redirect()->route('dashboard.index')->with('message', 'You are not authorized to access this page');
+        }
     }
 }
