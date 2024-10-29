@@ -149,7 +149,6 @@ class ProductController extends Controller
             Product::withTrashed()->find($id)->restore();
             return redirect()->route('adminRoot.index')->with('message', 'Product Restored succcess.');
         } catch (\Exception $e) {
-            dd($e->getMessage());
             return redirect()->route('adminRoot.index')->with('message', 'Product Restored failed.');
         }
     }

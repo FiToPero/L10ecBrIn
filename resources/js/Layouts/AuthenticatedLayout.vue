@@ -1,11 +1,11 @@
 <script setup>
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import ApplicationLogo from '@/Components/ApplicationLogo.vue'
 import Dropdown from '@/Components/Dropdown.vue'
 import DropdownLink from '@/Components/DropdownLink.vue'
 import NavLink from '@/Components/NavLink.vue'
 import ResponsiveNavLink from '@/Components/ResponsiveNavLink.vue'
-import { Link } from '@inertiajs/vue3'
+import { Link, usePage } from '@inertiajs/vue3'
 import Login from '@/Pages/Auth/Login.vue'
 import Register from '@/Pages/Auth/Register.vue'
 import VerifyEmail from '@/Pages/Auth/VerifyEmail.vue'
@@ -19,14 +19,32 @@ const { modalLogin, modalRegister, modalVerified, localeLang } = storeToRefs(sto
 const { showModalLogin, showModalRegister, changeLocale } = storeLogin
 ////// pinia ////
 
+const navLinkDashboard = ref(false)
+const navLinkAdminRoot = ref(false)
+
+const page = usePage()
+
 const selectedLang = ref(localStorage.getItem('localeLang')||'en')
 const showingNavigationDropdown = ref(false)
 
+const Dashboard = computed(() => {
+    navLinkDashboard.value = false
+    if (page.props.auth && page.props.auth.user && page.props.auth.user.role && (page.props.auth.user.role.includes('admin') || page.props.auth.user.role.includes('root'))) {
+        return navLinkDashboard.value = true
+    }else{
+        return navLinkDashboard.value = false
+    }
+})
+const AdminRoot = computed(() => {
+    navLinkAdminRoot.value = false
+    if (page.props.auth && page.props.auth.user && page.props.auth.user.role.includes('root')) {
+        return navLinkAdminRoot.value = true
+    }
+})
+
 const selectLang = (e) => { changeLocale(e.target.value) }
-
-const logout = () => { router.post('/logout') }  // logout(){ this.$inertia.post('/logout') }
-
-
+// v-if="$page.props.auth && $page.props.auth.user && $page.props.auth.user.permissions.includes('create_product')"
+//const logout = () => { router.post('/logout') }  // const logout(){ this.$inertia.post('/logout') }
 </script>
 
 <template>
@@ -50,12 +68,13 @@ const logout = () => { router.post('/logout') }  // logout(){ this.$inertia.post
                                 <NavLink :href="route('product.index')" :active="route().current('product.index')">
                                     {{ $t('Welcome') }}
                                 </NavLink>
-                                <NavLink :href="route('dashboard.index')" :active="route().current('dashboard.index')">
+                                <NavLink v-if="Dashboard" :href="route('dashboard.index')" :active="route().current('dashboard.index')">
                                     {{ $t('Dashboard') }}
                                 </NavLink>
-                                <NavLink :href="route('adminRoot.index')" :active="route().current('adminRoot.index')">
+                                <NavLink v-if="AdminRoot" :href="route('adminRoot.index')" :active="route().current('adminRoot.index')">
                                     {{ $t('Admin-Root') }}
                                 </NavLink>
+                                <!-- <div class="p-3 text-white">{{ page.props.auth.user.role }} --- {{ page.props.auth.user.permissions }}</div> -->
                             </div>
                         </div>
                         <div class="">
@@ -135,10 +154,10 @@ const logout = () => { router.post('/logout') }  // logout(){ this.$inertia.post
                         <ResponsiveNavLink :href="route('product.index')" :active="route().current('product.index')">
                             {{ $t('Welcome') }}
                         </ResponsiveNavLink>
-                        <ResponsiveNavLink :href="route('dashboard.index')" :active="route().current('dashboard.index')">
+                        <ResponsiveNavLink v-if="Dashboard" :href="route('dashboard.index')" :active="route().current('dashboard.index')">
                             {{ $t('Dashboard') }}
                         </ResponsiveNavLink>
-                        <ResponsiveNavLink :href="route('adminRoot.index')" :active="route().current('adminRoot.index')">
+                        <ResponsiveNavLink v-if="AdminRoot" :href="route('adminRoot.index')" :active="route().current('adminRoot.index')">
                             {{ $t('Admin-Root') }}
                         </ResponsiveNavLink>
                     </div>

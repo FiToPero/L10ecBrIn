@@ -15,7 +15,7 @@ export const useLoginStore = defineStore('useLoginStore', () => {
       localeLang.value = lang, 
       localStorage.setItem('localeLang', lang)
       window.location.reload() }
-  
+      
   //const isModalLogin = computed(() => modalLogin.value)
  
 

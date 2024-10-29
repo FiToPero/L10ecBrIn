@@ -4,7 +4,9 @@ namespace App\Providers;
 
 // use Illuminate\Support\Facades\Gate;
 use App\Models\Product;
+use App\Models\Role;
 use App\Policies\ProductPolicy;
+use App\Policies\RolePolicy;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 
 class AuthServiceProvider extends ServiceProvider
@@ -16,6 +18,7 @@ class AuthServiceProvider extends ServiceProvider
      */
     protected $policies = [
         Product::class => ProductPolicy::class,
+        Role::class => RolePolicy::class,
     ];
 
     /**
@@ -24,23 +27,5 @@ class AuthServiceProvider extends ServiceProvider
     public function boot(): void
     {
         $this->registerPolicies();
-
-        // Registrar las Gates definidas
-        //$this->registerGates();
-
-        // ejemplo de Gate.
-        /*    
-        Gate::define('view_product', function (User $user) {
-            if($user->role->hasPermission('view_product')){
-                return true;
-            }
-            return false;
-        });
-        Gate::define('create_product', function (User $user) {
-            if($user->role->hasPermission('create_product')){
-                return true;
-            }
-            return false;
-        }); */
     }
 }
