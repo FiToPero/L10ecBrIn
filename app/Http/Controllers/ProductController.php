@@ -135,9 +135,9 @@ class ProductController extends Controller
         try {
             $this->authorize('delete', Product::class);
             Product::destroy($id);
-            return redirect()->route('product.index')->with('message', 'Product Deleted succcess.');
+            return redirect()->route('dashboard.index')->with('message', 'Product Deleted succcess.');
         } catch (\Exception $e) {
-            return redirect()->route('product.index')->with('message', 'Product Deleted failed.');
+            return redirect()->route('dashboard.index')->with('message', 'Product Deleted failed.');
         }
     }
 

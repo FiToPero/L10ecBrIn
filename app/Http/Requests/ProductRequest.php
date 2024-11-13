@@ -34,8 +34,9 @@ class ProductRequest extends FormRequest
             'website' => 'required|url|max:255',
             'email' => 'required|email',
             'priority' => 'required|integer|min:1',
-            'remember' => 'required|boolean',
-            'image_01' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
+            'remember' => 'boolean',
+            'image_01' => 'required|nullable'  
         ];
+        // |image|mimes:jpeg,png,jpg,gif,svg|max:2048
     }
 }

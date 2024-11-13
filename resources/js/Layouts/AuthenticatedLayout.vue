@@ -119,10 +119,7 @@ const selectLang = (e) => { changeLocale(e.target.value) }
                                                     </button>
                                                 </span>
                                             </template>
-                                           
-
                                             <template #content>
-
                                                 <DropdownLink :href="route('profile.edit')"> {{ $t('Profile') }} </DropdownLink>
                                                 <DropdownLink :href="route('logout')" method="post" as="button"> {{ $t('Log Out') }} </DropdownLink>
                                             </template>

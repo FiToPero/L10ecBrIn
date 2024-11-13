@@ -40,7 +40,7 @@ const store = () => {
         <p class="text-5xl text-center pt-2">CREATE PAGE</p>
         <hr class="border-5 border-gray-800"><br>
 <!--  -->
-<!-- <p class="text-white m-5">{{ $page.props.auth}}</p> -->
+<!-- <p class="text-white m-5">{{ errors }}</p> -->
 <form v-on:submit.prevent="store">
 <div class="grid xl:grid-cols-3 sm:grid-cols-1 p-6 bg-white dark:bg-gray-800/50 dark:bg-gradient-to-bl from-gray-700/50 via-transparent dark:ring-1 dark:ring-inset dark:ring-white/5 rounded-lg shadow-2xl shadow-gray-500/20 dark:shadow-none motion-safe:hover:scale-[1.01] transition-all duration-250 ">
     <!-- DropZone -->
@@ -169,7 +169,7 @@ const store = () => {
         <div v-if="errors.remember" class="text-red-500 text-sm font-bold">{{ errors.remember }}</div>
         <div class="flex justify-end items-center gap-6">
             <Link :href="route('dashboard.index')" class="m-3 text-white bg-gray-700 hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-gray-700 dark:hover:bg-gray-800 dark:focus:ring-gray-900">{{ $t('Close') }}</Link>
-            <button type="submit" class="m-3 text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">{{ $t('Store Create') }}</button>
+            <button type="submit" class="m-3 text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">{{ $t('Product Create') }}</button>
         </div>
     </div>
 </div>
