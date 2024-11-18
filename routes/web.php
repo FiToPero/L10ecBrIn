@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminUserController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\DashboardController;
@@ -30,7 +31,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('/product/forceDestroy/{id}', [ProductController::class, 'forceDestroy'])->name('product.forceDestroy');
 });
 
-
-
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::get('/adminUser', [AdminUserController::class, 'index'])->name('adminUser.index');
+    
+});
 
 require __DIR__.'/auth.php';

@@ -24,7 +24,7 @@ class ProductController extends Controller
     {
         $filters = $request->all('search');
         
-        $products = Product::when($filters['search'] ?? null, function($query, $search){$query->where('productName', 'LIKE', "%". $search ."%");})->paginate(10);
+        $products = Product::when($filters['search'] ?? null, function($query, $search){$query->where('productName', 'LIKE', "%". $search ."%");})->paginate(15);
 
         return Inertia::render('Welcome', compact('products'));
     }

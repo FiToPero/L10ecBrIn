@@ -21,6 +21,7 @@ const { showModalLogin, showModalRegister, changeLocale } = storeLogin
 
 const navLinkDashboard = ref(false)
 const navLinkAdminRoot = ref(false)
+const navLinkAdminUser = ref(false)
 
 const page = usePage()
 
@@ -39,6 +40,13 @@ const AdminRoot = computed(() => {
     navLinkAdminRoot.value = false
     if (page.props.auth && page.props.auth.user && page.props.auth.user.role.includes('root')) {
         return navLinkAdminRoot.value = true
+    }
+})
+
+const AdminUser = computed(() => {
+    navLinkAdminUser.value = false
+    if (page.props.auth && page.props.auth.user && page.props.auth.user.role.includes('root')) {
+        return navLinkAdminUser.value = true
     }
 })
 
@@ -73,6 +81,9 @@ const selectLang = (e) => { changeLocale(e.target.value) }
                                 </NavLink>
                                 <NavLink v-if="AdminRoot" :href="route('adminRoot.index')" :active="route().current('adminRoot.index')">
                                     {{ $t('Admin-Root') }}
+                                </NavLink> 
+                                <NavLink v-if="AdminUser" :href="route('adminUser.index')" :active="route().current('adminUser.index')">
+                                    {{ $t('Admin-User') }}
                                 </NavLink>
                                 <!-- <div class="p-3 text-white text-sm">{{ page.props.auth }}</div> -->
                             </div>
@@ -157,6 +168,9 @@ const selectLang = (e) => { changeLocale(e.target.value) }
                         <ResponsiveNavLink v-if="AdminRoot" :href="route('adminRoot.index')" :active="route().current('adminRoot.index')">
                             {{ $t('Admin-Root') }}
                         </ResponsiveNavLink>
+                        <NavLink v-if="AdminUser" :href="route('adminUser.index')" :active="route().current('adminUser.index')">
+                            {{ $t('Admin-User') }}
+                        </NavLink>
                     </div>
 
                     <!-- Responsive Settings Options -->
