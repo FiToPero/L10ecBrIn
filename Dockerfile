@@ -32,7 +32,7 @@ RUN apt-get update \
     && echo "deb [signed-by=/etc/apt/keyrings/nodesource.gpg] https://deb.nodesource.com/node_$NODE_VERSION.x nodistro main" > /etc/apt/sources.list.d/nodesource.list \
     && apt-get update \
     && apt-get install -y nodejs \
-#    && npm install -g npm \
+    && npm install -g npm \
     && npm install -g pnpm \
     && npm install -g bun \
     && curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | gpg --dearmor | tee /etc/apt/keyrings/yarn.gpg >/dev/null \
@@ -84,4 +84,5 @@ RUN setcap "cap_net_bind_service=+ep" /usr/bin/php8.3
 EXPOSE 80/tcp 5176
 
 CMD service php8.3-fpm start && apache2ctl -D FOREGROUND
+# CMD ["tail", "-f", "/dev/null"]
 

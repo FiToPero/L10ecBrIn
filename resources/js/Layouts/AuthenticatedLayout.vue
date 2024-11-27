@@ -22,6 +22,7 @@ const { showModalLogin, showModalRegister, changeLocale } = storeLogin
 const navLinkDashboard = ref(false)
 const navLinkAdminRoot = ref(false)
 const navLinkAdminUser = ref(false)
+const navLinkCarousel = ref(false)
 
 const page = usePage()
 
@@ -42,11 +43,16 @@ const AdminRoot = computed(() => {
         return navLinkAdminRoot.value = true
     }
 })
-
 const AdminUser = computed(() => {
     navLinkAdminUser.value = false
     if (page.props.auth && page.props.auth.user && page.props.auth.user.role.includes('root')) {
         return navLinkAdminUser.value = true
+    }
+})
+const Carousel = computed(() => {
+    navLinkCarousel.value = false
+    if (page.props.auth && page.props.auth.user && page.props.auth.user.role.includes('root')) {
+        return navLinkCarousel.value = true
     }
 })
 
@@ -84,6 +90,9 @@ const selectLang = (e) => { changeLocale(e.target.value) }
                                 </NavLink> 
                                 <NavLink v-if="AdminUser" :href="route('adminUser.index')" :active="route().current('adminUser.index')">
                                     {{ $t('Admin-User') }}
+                                </NavLink>
+                                <NavLink v-if="Carousel" :href="route('carousel.index')" :active="route().current('carousel.index')">
+                                    {{ $t('Carousel') }}
                                 </NavLink>
                                 <!-- <div class="p-3 text-white text-sm">{{ page.props.auth }}</div> -->
                             </div>
@@ -170,6 +179,9 @@ const selectLang = (e) => { changeLocale(e.target.value) }
                         </ResponsiveNavLink>
                         <NavLink v-if="AdminUser" :href="route('adminUser.index')" :active="route().current('adminUser.index')">
                             {{ $t('Admin-User') }}
+                        </NavLink>
+                        <NavLink v-if="Carousel" :href="route('carousel.index')" :active="route().current('carousel.index')">
+                            {{ $t('Carousel') }}
                         </NavLink>
                     </div>
 

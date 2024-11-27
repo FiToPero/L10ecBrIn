@@ -5,6 +5,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\RootController;
+use App\Http\Controllers\CarouselController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [ProductController::class, 'index'])->name('product.index');
@@ -33,6 +34,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/adminUser', [AdminUserController::class, 'index'])->name('adminUser.index');
+    
+});
+
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::get('/carousel', [CarouselController::class, 'index'])->name('carousel.index');
     
 });
 
