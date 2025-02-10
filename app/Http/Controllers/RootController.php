@@ -14,13 +14,12 @@ class RootController extends Controller
 
     public function index()
     {
-        try {
-            $this->authorize('root', Role::class);
-            $products = Product::onlyTrashed()->get();
-            
-            return Inertia::render('Admin-Root', compact('products'));
-        } catch (\Exception $e) {
-            return redirect()->route('dashboard.index')->with('message', 'You are not authorized to access this page');
-        }
+        $this->authorize('root', Role::class);
+        $products = Product::onlyTrashed()->get();
+        
+        return Inertia::render('Admin-Root', compact('products'));
+
+        return redirect()->route('dashboard.index')->with('message', 'You are not authorized to access this page');
+
     }
 }

@@ -37,7 +37,7 @@ const store = () => {
 
 <template>
     <div class="min-w-full min-h-full p-6 font-sans text-gray-900 bg-gray-100 dark:bg-gray-500 dark:text-gray-100 antialiased">
-        <p class="text-5xl text-center pt-2">CREATE PAGE</p>
+        <p class="text-3xl text-center pt-2">CREATE PAGE</p>
         <hr class="border-5 border-gray-800"><br>
 <!--  -->
 <!-- <p class="text-white m-5">{{ errors }}</p> -->

@@ -15,14 +15,13 @@ class AdminUserController extends Controller
 
     public function index()
     {
-        try {
-            $this->authorize('root', Role::class);
-            $users = User::with('role')->get();
-            
-            return Inertia::render('Admin-User', compact('users'));
-        } catch (\Exception $e) {
-            return redirect()->route('dashboard.index')->with('message', 'You are not authorized to access this page');
-        }
+        $this->authorize('root', Role::class);
+        $users = User::with('role')->get();
+        
+        return Inertia::render('Admin-User', compact('users'));
+    
+        return redirect()->route('dashboard.index')->with('message', 'You are not authorized to access this page');
+    
     }
 
 }

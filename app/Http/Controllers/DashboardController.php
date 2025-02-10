@@ -14,14 +14,13 @@ class DashboardController extends Controller
 
     public function index()
     {
-        try {
-            $this->authorize('hasAnyRole', [Role::class, ['root', 'admin']]);
+        $this->authorize('hasAnyRole', [Role::class, ['root', 'admin']]);
 
-            $products = Product::all();
-            
-            return Inertia::render('Dashboard', compact('products'));
-        } catch (\Exception $e) {
-            return redirect()->route('product.index')->with('message', 'You are not authorized to access this page');
-        }
+        $products = Product::all();
+        
+        return Inertia::render('Dashboard', compact('products'));
+    
+        return redirect()->route('product.index')->with('message', 'You are not authorized to access this page');
+    
     }
 }
