@@ -20,7 +20,7 @@ services:
   mysql:
     image: 'mysql/mysql-server:8.0'
     ports:
-      - '3306:3306'
+      - '3306:${DB_PORT}'
     environment:
         MYSQL_ROOT_PASSWORD: '${DB_PASSWORD}'
         MYSQL_ROOT_HOST: '%'
@@ -31,6 +31,17 @@ services:
       - 'data_mysql:/var/lib/mysql'
     networks:
       - project
+  mongodb:
+    image: 'mongo'
+    environment:
+        MONGO_INITDB_ROOT_USERNAME: '${DB_MONGO_USERNAME}'
+        MONGO_INITDB_ROOT_PASSWORD: '${DB_MONGO_PASSWORD}'
+    ports:
+        - '27017:${DB_MONGO_PORT}'
+    volumes:
+        - 'data_mongodb:/data/db'
+    networks:
+        - project
   redis:
     image: 'redis:alpine'
     ports:
@@ -60,4 +71,6 @@ volumes:
   data_mysql:
     driver: local
   data-redis:
+    driver: local
+  data_mongodb:
     driver: local
