@@ -26,56 +26,25 @@ jobs:
     - name: start docker compose 
       run: docker compose up -d
            
-
-    # - name: enter container laravel
-    #   run: docker exec -it l10ecbrin-php-1 bash
-    # - name: run npm
-    #   run: npm install && npm run dev
-    # - name: run php artisan
-    #   run: php artisan config:clear && php artisan test
-
-      ################################################
-
-      # - name: Create .env
-      #   run: cp .env.example .env
-
       # - name: Generate app key
       #   run: php artisan key:generate
 
-      # - name: Run Laravel tests with SQLite
-      #   env:
-      #     DB_CONNECTION: sqlite
-      #     DB_DATABASE: ":memory:"
-      #     APP_ENV: testing
-      #   run: |
-      #     php artisan config:clear
-      #     php artisan migrate --force
-      #     php artisan test
-
-####################################################
-
-
-    # Paso 5: Esperar a que el contenedor PHP esté listo
     - name: Wait for containers to be ready
       run: sleep 15
 
-    # Paso 7: Instalar dependencias de Node
     - name: Install Node dependencies
       run: docker compose exec php npm install
 
-    # Paso 8: Compilar assets con Vite
     - name: Compile front-end assets
-      run: docker compose exec php npm build
+      run: docker compose exec php npm run build
 
-    # Paso 9: Ejecutar migraciones
     # - name: Run migrations
     #   run: docker compose exec php php artisan migrate --env=testing --force
 
-    # Paso 10: Ejecutar los tests
     - name: Run PHPUnit tests
       run: docker compose exec php php artisan test --env=testing
 
-    # Paso 11: Apagar los contenedores
+    #  Apagar los contenedores
     - name: Shutdown Docker containers
       if: always()
       run: docker compose down -v

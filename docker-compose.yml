@@ -1,10 +1,9 @@
 services:
   php:
-    build:
-      context: .
-      dockerfile: Dockerfile
-      args:
-        WWWGROUP: 'yo'
+    image: 'fitopero/apache_node_generic:latest'
+  
+    environment:
+        WWWGROUP: '${APP_NAME}'
         PROJECT_NAME: '${APP_NAME}'
     ports:
       - '80:80'
