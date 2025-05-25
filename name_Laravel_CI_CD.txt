@@ -1,0 +1,89 @@
+name: Laravel CI/CD
+
+# 🔁 Cuándo se ejecuta este workflow
+on:
+  push:
+    branches: [main]        # Cuando se hace push a la rama main
+  pull_request:
+    branches: [main]        # O cuando se abre un pull request hacia main
+
+jobs:
+  laravel-tests:
+    runs-on: ubuntu-latest  # El sistema operativo que se usará para correr los jobs
+
+    services:
+      # 🔧 Servicio MySQL para los tests
+      mysql:
+        image: mysql:8
+        env:
+          MYSQL_ROOT_PASSWORD: root
+          MYSQL_DATABASE: laravel_test
+          MYSQL_USER: laravel
+          MYSQL_PASSWORD: secret
+        ports:
+          - 3306:3306
+        options: >-
+          --health-cmd="mysqladmin ping"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=3
+
+    steps:
+      # 📦 Clona el repositorio dentro del entorno de GitHub Actions
+      - name: Checkout código
+        uses: actions/checkout@v3
+
+      # ⚙️ Instala PHP y extensiones necesarias para Laravel
+      - name: Configurar PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: 8.2
+          extensions: mbstring, bcmath, mysql
+          coverage: none
+
+      # 📥 Instala las dependencias del proyecto Laravel
+      - name: Instalar dependencias
+        run: composer install --prefer-dist --no-progress --no-suggest
+
+      # 📄 Copia el .env.example a .env para tener variables de entorno disponibles
+      - name: Copiar archivo .env
+        run: cp .env.example .env
+
+      # 🔑 Genera la clave de la aplicación
+      - name: Generar key de la app
+        run: php artisan key:generate
+
+      # 🕒 Espera a que MySQL esté listo antes de correr migraciones
+      - name: Esperar MySQL
+        run: |
+          sudo apt-get install -y mysql-client
+          until mysql -h 127.0.0.1 -u laravel -psecret -e "SHOW DATABASES"; do
+            echo "Esperando a que MySQL esté listo..."
+            sleep 5
+          done
+
+      # 🧱 Ejecuta las migraciones en la base de datos de test
+      - name: Ejecutar migraciones
+        run: php artisan migrate --force
+
+      # 🧪 Corre los tests de PHPUnit
+      - name: Ejecutar tests
+        run: php artisan test
+
+      # 🚀 (OPCIONAL) Etapa de deploy si los tests pasan
+      - name: Deploy al servidor de producción
+        if: github.ref == 'refs/heads/main'  # Solo en la rama main
+        uses: appleboy/ssh-action@v1.0.0
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          port: 22
+          script: |
+            cd /var/www/mi-proyecto
+            git pull origin main
+            composer install --no-dev --optimize-autoloader
+            php artisan migrate --force
+            php artisan config:cache
+            php artisan route:cache
+

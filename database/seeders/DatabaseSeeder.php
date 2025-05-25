@@ -6,6 +6,7 @@ use App\Models\Product;
 use App\Models\User;
 use App\Models\Permission;
 use App\Models\Role;
+use App\Models\Carousel;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -31,7 +32,8 @@ class DatabaseSeeder extends Seeder
         // Asignar permisos al Roles
         $rootRole->permissions()->attach(Permission::whereIn('name', ['view_product', 'create_product', 'update_product', 'delete_product', 'restore_product', 'forceDelete_product'])->pluck('id'));
         $adminRole->permissions()->attach(Permission::whereIn('name', ['view_product', 'create_product', 'update_product', 'delete_product'])->pluck('id'));
-        $userRole->permissions()->attach(Permission::where('name', 'view_product')->pluck('id'));
+        $userRole->permissions()->attach(Permission::whereIn('name', ['view_product'])->pluck('id'));
+
 
         // create User
         User::factory()->create([
@@ -51,6 +53,7 @@ class DatabaseSeeder extends Seeder
         ]);
         
 
-
+        // Crear carousels
+        Carousel::factory(10)->create();
     }
 }

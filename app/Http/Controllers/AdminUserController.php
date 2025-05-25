@@ -20,7 +20,7 @@ class AdminUserController extends Controller
         
         return Inertia::render('Admin-User', compact('users'));
     
-        return redirect()->route('dashboard.index')->with('message', 'You are not authorized to access this page');
+        //return redirect()->route('dashboard.index')->with('message', 'You are not authorized to access this page');
     
     }
 

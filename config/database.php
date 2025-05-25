@@ -95,8 +95,10 @@ return [
 
         'mongodb' => [
             'driver' => 'mongodb',
-            'dsn' => env('MONGODB_URI', 'mongodb://localhost:27017'),
-            'database' => env('MONGODB_DATABASE', 'laravel_app'),
+            'dsn' => env('DB_MONGODB_URI'),
+            'host' => env('DB_MONGO_HOST'),
+            'port' => env('DB_MONGO_PORT', 27017),
+            'database' => env('DB_MONGO_DATABASE'),
              ],
     ],
 

@@ -17,6 +17,7 @@ services:
       - mysql
       - redis
       - mailpit
+      - mongodb
   mysql:
     image: 'mysql/mysql-server:8.0'
     ports:

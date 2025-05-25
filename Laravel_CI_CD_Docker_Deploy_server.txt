@@ -1,0 +1,79 @@
+# 👷‍♂️ Nombre del workflow
+name: Laravel Docker CI
+
+# 🔁 Ejecuta el workflow en push y PR hacia main
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  laravel-tests:
+    runs-on: ubuntu-latest  # Usa Ubuntu como sistema base
+
+    steps:
+      # 🧾 1. Clonar el repositorio
+      - name: Checkout código
+        uses: actions/checkout@v3
+
+      # 🐳 2. Levantar los contenedores definidos en docker-compose.yml
+      - name: Levantar contenedores Docker
+        run: docker-compose up -d --build
+
+      # 🕒 3. Esperar que los servicios estén listos (evita errores en migraciones)
+      - name: Esperar contenedor app
+        run: sleep 10
+
+      # 🛠️ 4. Ejecutar migraciones (usar SQLite configurado en .env.testing)
+      - name: Ejecutar migraciones
+        run: docker-compose exec -T app php artisan migrate --force
+
+      # ✅ 5. Ejecutar tests de PHPUnit usando SQLite
+      - name: Ejecutar tests
+        run: docker-compose exec -T app php artisan test
+
+      # 🚀 6. Despliegue automático (solo cuando se hace push a main)
+      - name: Deploy a producción
+        if: github.ref == 'refs/heads/main'
+        uses: appleboy/ssh-action@v1.0.0
+        with:
+          host: ${{ secrets.SSH_HOST }}           # IP o dominio del servidor
+          username: ${{ secrets.SSH_USER }}       # Usuario SSH con acceso
+          key: ${{ secrets.SSH_PRIVATE_KEY }}     # Clave privada SSH
+          port: 22
+          script: |
+            echo "📥 Pull del código"
+            cd /var/www/mi-proyecto
+            git pull origin main
+
+            echo "🧹 Detener contenedores anteriores"
+            docker-compose down
+
+            echo "🔨 Reconstruir y levantar contenedores"
+            docker-compose up -d --build
+
+            echo "⚙️ Ejecutar migraciones"
+            docker-compose exec -T app php artisan migrate --force
+
+            echo "🛠️ Cachear configuración y rutas"
+            docker-compose exec -T app php artisan config:clear
+            docker-compose exec -T app php artisan config:cache
+            docker-compose exec -T app php artisan route:cache
+            docker-compose exec -T app php artisan view:cache
+
+            echo "🎨 Compilar assets con Vite"
+            docker-compose exec -T app npm install
+            docker-compose exec -T app npm run build
+
+            echo "✅ Deploy completo"
+
+
+
+Debés ir a tu repositorio en GitHub y cargar los siguientes secrets:
+
+    SSH_HOST → IP o dominio del servidor (ej. 198.51.100.123)
+
+    SSH_USER → Usuario con permisos de deploy (ej. deploy)
+
+    SSH_PRIVATE_KEY → Clave privada SSH (contenido de tu ~/.ssh/id_rsa o similar)
