@@ -65,7 +65,7 @@ jobs:
 
     # Paso 8: Compilar assets con Vite
     - name: Compile front-end assets
-      run: docker compose exec php npm run dev
+      run: docker compose exec php npm build
 
     # Paso 9: Ejecutar migraciones
     # - name: Run migrations
