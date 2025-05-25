@@ -29,9 +29,6 @@ jobs:
       # - name: Generate app key
       #   run: php artisan key:generate
 
-    - name: Wait for containers to be ready
-      run: sleep 15
-
     - name: Install Node dependencies
       run: docker compose exec php npm install
 
@@ -42,7 +39,7 @@ jobs:
     #   run: docker compose exec php php artisan migrate --env=testing --force
 
     - name: Run PHPUnit tests
-      run: docker compose exec php php artisan test --env=testing
+      run: docker compose exec php php artisan test
 
     #  Apagar los contenedores
     - name: Shutdown Docker containers
