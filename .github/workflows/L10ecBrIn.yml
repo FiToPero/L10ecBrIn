@@ -35,6 +35,13 @@ jobs:
     - name: Compile front-end assets
       run: docker compose exec php npm run build
 
+    - name: ver posicion de trabajo
+      run: |
+          echo "Mostrando directorio actual:"
+          pwd
+          echo "Contenido del directorio:"
+          ls -la
+
     - name: Run PHPUnit tests
       run: docker compose exec php php artisan test
 
