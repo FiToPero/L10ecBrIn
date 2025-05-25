@@ -19,6 +19,9 @@ jobs:
         DB_MONGO_USERNAME: mongo_user
         DB_MONGO_PASSWORD: mongo_pass
         DB_MONGO_PORT: 27017
+        APP_ENV: testing
+        APP_DEBUG: false
+        DEBUGBAR_ENABLED: false
 
     steps:
     - uses: actions/checkout@v4
