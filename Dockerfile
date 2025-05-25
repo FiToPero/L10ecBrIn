@@ -8,7 +8,7 @@ ARG POSTGRES_VERSION=15
 
 WORKDIR /var/www/html/$PROJECT_NAME
 
-ENV DEBIAN_FRONTEND noninteractive
+ENV DEBIAN_FRONTEND=noninteractive
 ENV TZ=UTC
 
 RUN echo 'umask 000' >> /etc/bash.bashrc
@@ -62,7 +62,7 @@ RUN pecl channel-update pecl.php.net \
     && phpenmod mongodb
 # check install success php -m | grep mongodb
 
-RUN chown -R www-data:www-data /var/www/html && chmod -R 777 /var/www/html
+RUN chown -R www-data:www-data /var/www/html && chmod -R 775 /var/www/html
 
 # Configurar umask para que los archivos creados tengan permisos de escritura
 # Permitir lectura/escritura para usuario, grupo, y otros
@@ -95,6 +95,6 @@ RUN setcap "cap_net_bind_service=+ep" /usr/bin/php8.3
 
 EXPOSE 80/tcp 5176
 
-CMD service php8.3-fpm start && apache2ctl -D FOREGROUND
+CMD ["sh", "-c", "service php8.3-fpm start && apache2ctl -D FOREGROUND"]
 # CMD ["tail", "-f", "/dev/null"]
 
