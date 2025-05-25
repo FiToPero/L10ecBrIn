@@ -42,7 +42,7 @@ jobs:
     #   run: docker compose exec php php artisan migrate --env=testing --force
 
     - name: clear cache
-      run: docker compose exec php php artisan config:cache && php artisan route:cache
+      run: docker compose exec php php artisan config:cache && php artisan cache:clear
 
     - name: Run PHPUnit tests
       run: docker compose exec php php artisan test
