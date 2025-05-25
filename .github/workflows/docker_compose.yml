@@ -25,3 +25,25 @@ jobs:
           DB_MONGO_USERNAME: mongo_user
           DB_MONGO_PASSWORD: mongo_pass
           DB_MONGO_PORT: 27017
+    - name: enter container laravel
+      run: docker exec -it l10ecbrin-php-1 bash
+    - name: run npm
+      run: npm install && npm run dev
+    - name: run php artisan
+      run: php artisan config:clear && php artisan test
+
+      # - name: Create .env
+      #   run: cp .env.example .env
+
+      # - name: Generate app key
+      #   run: php artisan key:generate
+
+      # - name: Run Laravel tests with SQLite
+      #   env:
+      #     DB_CONNECTION: sqlite
+      #     DB_DATABASE: ":memory:"
+      #     APP_ENV: testing
+      #   run: |
+      #     php artisan config:clear
+      #     php artisan migrate --force
+      #     php artisan test
