@@ -20,7 +20,7 @@ class DashboardController extends Controller
         
         return Inertia::render('Dashboard', compact('products'));
     
-        return redirect()->route('product.index')->with('message', 'You are not authorized to access this page');
+        // return redirect()->route('product.index')->with('message', 'You are not authorized to access this page');
     
     }
 }
