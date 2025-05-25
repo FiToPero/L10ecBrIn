@@ -29,17 +29,11 @@ jobs:
     - name: start docker compose 
       run: docker compose up -d
            
-      # - name: Generate app key
-      #   run: php artisan key:generate
-
     - name: Install Node dependencies
       run: docker compose exec php npm install
 
     - name: Compile front-end assets
       run: docker compose exec php npm run build
-
-    # - name: Run migrations
-    #   run: docker compose exec php php artisan migrate --env=testing --force
 
     - name: Run PHPUnit tests
       run: docker compose exec php php artisan test
