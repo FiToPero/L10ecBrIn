@@ -10,21 +10,22 @@ jobs:
   build-test:
     runs-on: ubuntu-latest
 
+    env:
+        APP_NAME: Laravel
+        DB_PORT: 3306
+        DB_DATABASE: test_db
+        DB_USERNAME: root
+        DB_PASSWORD: root
+        DB_MONGO_USERNAME: mongo_user
+        DB_MONGO_PASSWORD: mongo_pass
+        DB_MONGO_PORT: 27017
+
     steps:
     - uses: actions/checkout@v4
 
     - name: start docker compose 
       run: docker compose up -d
-      env:
-          APP_NAME: Laravel
-          DB_PORT: 3306
-          DB_DATABASE: test_db
-          DB_USERNAME: root
-          DB_PASSWORD: root
-          DB_MONGO_USERNAME: mongo_user
-          DB_MONGO_PASSWORD: mongo_pass
-          DB_MONGO_PORT: 27017
-        
+           
 
     # - name: enter container laravel
     #   run: docker exec -it l10ecbrin-php-1 bash
@@ -67,8 +68,8 @@ jobs:
       run: docker compose exec php npm run dev
 
     # Paso 9: Ejecutar migraciones
-    - name: Run migrations
-      run: docker compose exec php php artisan migrate --env=testing --force
+    # - name: Run migrations
+    #   run: docker compose exec php php artisan migrate --env=testing --force
 
     # Paso 10: Ejecutar los tests
     - name: Run PHPUnit tests
