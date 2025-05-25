@@ -16,3 +16,12 @@ jobs:
     - uses: actions/checkout@v4
     - name: Build and up
       run: docker compose up -d
+      env:
+          APP_NAME: Laravel
+          DB_PORT: 3306
+          DB_DATABASE: test_db
+          DB_USERNAME: root
+          DB_PASSWORD: root
+          DB_MONGO_USERNAME: mongo_user
+          DB_MONGO_PASSWORD: mongo_pass
+          DB_MONGO_PORT: 27017
