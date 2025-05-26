@@ -1,5 +1,4 @@
 name: Laravel CI
-
 on:
   push:
     branches: [ "master" ]
@@ -25,12 +24,13 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+
       - name: start docker compose 
         run: docker compose up -d
 
       - name: Install PHP dependencies
-        #run: docker compose exec php composer install --no-interaction --prefer-dist --optimize-autoloader       
         run: docker compose exec php composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
+
       - name: Copy .env
         run: cp .env.example .env
 
@@ -42,7 +42,14 @@ jobs:
 
       - name: Compile front-end assets
         run: docker compose exec php npm run build
- 
+
+      - name: ver posicion de trabajo
+        run: |
+          echo "Mostrando directorio actual:"
+          pwd
+          echo "Contenido del directorio:"
+          ls -la
+
       - name: clear cache
         run: |
           docker compose exec php php artisan cache:clear
@@ -57,7 +64,6 @@ jobs:
         uses: php-actions/phpunit@v3
         with:
           php_version: '8.3'
-          bootstrap: vendor/autoload.php
           configuration: phpunit.xml
           args: --no-coverage
 
