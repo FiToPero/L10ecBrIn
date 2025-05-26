@@ -1,12 +1,15 @@
-name: L10ecBrin
+name: Laravel CI
+
 on:
   push:
     branches: [ "master" ]
   pull_request:
     branches: [ "master" ]
+
 jobs:
   build-test:
     runs-on: ubuntu-latest
+
     env:
       APP_NAME: laravel
       DB_PORT: 3306
@@ -19,36 +22,45 @@ jobs:
       APP_ENV: testing
       APP_DEBUG: false
       DEBUGBAR_ENABLED: false
+
     steps:
       - uses: actions/checkout@v4
       - name: start docker compose 
         run: docker compose up -d
+
       - name: Install PHP dependencies
         #run: docker compose exec php composer install --no-interaction --prefer-dist --optimize-autoloader       
         run: docker compose exec php composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
       - name: Copy .env
-        run: cp .env.example .env
+        run: docker compose exec php cp .env.example .env
+
       - name: Generate application key
         run: docker compose exec php php artisan key:generate
+
       - name: Install Node dependencies
         run: docker compose exec php npm install
+
       - name: Compile front-end assets
         run: docker compose exec php npm run build
-      - name: ver posicion de trabajo
-        run: |
-          echo "Mostrando directorio actual:"
-          pwd
-          cd ..
-          echo "Contenido del directorio:"
-          ls -la
+ 
       - name: clear cache
         run: |
           docker compose exec php php artisan cache:clear
           docker compose exec php php artisan config:clear
           docker compose exec php php artisan route:clear
           docker compose exec php php artisan view:clear
+
+      # - name: Run PHPUnit tests
+      #   run: docker compose exec php php artisan test
+
       - name: Run PHPUnit tests
-        run: docker compose exec php php artisan test
+        uses: php-actions/phpunit@v3
+        with:
+          php_version: '8.3'
+          bootstrap: vendor/autoload.php
+          configuration: phpunit.xml
+          args: --no-coverage
+
       - name: Shutdown Docker containers
         if: always()
         run: docker compose down -v
