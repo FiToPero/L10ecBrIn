@@ -1,0 +1,67 @@
+name: L10ecBrin
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+
+jobs:
+  build-test:
+    runs-on: ubuntu-latest
+
+    env:
+        APP_NAME: laravel
+        DB_PORT: 3306
+        DB_DATABASE: test_db
+        DB_USERNAME: root
+        DB_PASSWORD: root
+        DB_MONGO_USERNAME: mongo_user
+        DB_MONGO_PASSWORD: mongo_pass
+        DB_MONGO_PORT: 27017
+        APP_ENV: testing
+        APP_DEBUG: false
+        DEBUGBAR_ENABLED: false
+
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: start docker compose 
+        run: docker compose up -d
+       
+      - name: Install PHP dependencies
+        run: docker compose exec php composer install --no-interaction --prefer-dist --optimize-autoloader
+      
+      - name: Copy .env
+        run: cp .env.example .env
+      
+      - name: Generate application key
+        run: docker compose exec php php artisan key:generate
+      
+      
+      - name: Install Node dependencies
+        run: docker compose exec php npm install
+      
+      - name: Compile front-end assets
+        run: docker compose exec php npm run build
+      
+      - name: ver posicion de trabajo
+        run: |
+          echo "Mostrando directorio actual:"
+          pwd
+          echo "Contenido del directorio:"
+          ls -la
+      - name: clear cache
+        run: |
+          docker compose exec php php artisan cache:clear
+          docker compose exec php php artisan config:clear
+          docker compose exec php php artisan route:clear
+          docker compose exec php php artisan view:clear
+      
+      - name: Run PHPUnit tests
+        run: docker compose exec php php artisan test
+      
+      #  Apagar los contenedores
+      - name: Shutdown Docker containers
+        if: always()
+        run: docker compose down -v
