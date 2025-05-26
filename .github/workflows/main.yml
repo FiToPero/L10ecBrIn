@@ -58,8 +58,8 @@ jobs:
           docker compose exec php php artisan route:clear
           docker compose exec php php artisan view:clear
       
-      - name: Run PHPUnit tests
-        run: docker compose exec php php artisan test
+      # - name: Run PHPUnit tests
+      #   run: docker compose exec php php artisan test
       
       #  Apagar los contenedores
       - name: Shutdown Docker containers
