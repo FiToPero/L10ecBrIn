@@ -57,15 +57,15 @@ jobs:
           docker compose exec php php artisan route:clear
           docker compose exec php php artisan view:clear
 
-      # - name: Run PHPUnit tests
-      #   run: docker compose exec php php artisan test
-
       - name: Run PHPUnit tests
-        uses: php-actions/phpunit@v3
-        with:
-          php_version: '8.3'
-          configuration: phpunit.xml
-          args: --no-coverage
+        run: docker compose exec -T php php artisan test
+
+      # - name: Run PHPUnit tests
+      #   uses: php-actions/phpunit@v3
+      #   with:
+      #     php_version: '8.3'
+      #     configuration: phpunit.xml
+      #     args: --no-coverage
 
       - name: Shutdown Docker containers
         if: always()
