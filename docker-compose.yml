@@ -1,15 +1,15 @@
 services:
   php:
-    # image: 'fitopero/laravel_apache_node:latest'
-    # environment:
-    #     WWWGROUP: '${APP_NAME}'
-    #     PROJECT_NAME: '${APP_NAME}'
-    build:
-      context: .
-      dockerfile: Dockerfile
-      args:
+    image: 'fitopero/laravel_apache_node:latest'
+    environment:
         WWWGROUP: '${APP_NAME}'
         PROJECT_NAME: '${APP_NAME}'
+    # build:
+    #   context: .
+    #   dockerfile: Dockerfile
+    #   args:
+    #     WWWGROUP: '${APP_NAME}'
+    #     PROJECT_NAME: '${APP_NAME}'
     ports:
       - '80:80'
       - '5173:5173'

@@ -25,11 +25,14 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Build containers
+        run: docker compose build --no-cache
+
       - name: start docker compose 
         run: docker compose up -d
 
       - name: Install PHP dependencies
-        run: docker compose exec php composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
+        run: docker compose exec php composer install --no-interaction --no-progress --prefer-dist
 
       - name: Copy .env
         run: cp .env.testing .env
