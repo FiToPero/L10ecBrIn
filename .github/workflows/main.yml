@@ -9,25 +9,25 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
-    env:
-      APP_NAME: EcomLara10_Inertia
-      DB_PORT: 3306
-      DB_DATABASE: test_db
-      DB_USERNAME: root
-      DB_PASSWORD: root
-      DB_MONGO_USERNAME: mongo_user
-      DB_MONGO_PASSWORD: mongo_pass
-      DB_MONGO_PORT: 27017
-      APP_ENV: testing
-      APP_DEBUG: false
-      DEBUGBAR_ENABLED: false
+    # env:
+    #   APP_NAME: EcomLara10_Inertia
+    #   DB_PORT: 3306
+    #   DB_DATABASE: test_db
+    #   DB_USERNAME: root
+    #   DB_PASSWORD: root
+    #   DB_MONGO_USERNAME: mongo_user
+    #   DB_MONGO_PASSWORD: mongo_pass
+    #   DB_MONGO_PORT: 27017
+    #   APP_ENV: testing
+    #   APP_DEBUG: false
+    #   DEBUGBAR_ENABLED: false
 
     steps:
       - uses: actions/checkout@v4
 
       - name: Copy .env
         run: cp .env.testing .env
-        
+
       - name: Build containers
         run: docker compose build --no-cache
 
