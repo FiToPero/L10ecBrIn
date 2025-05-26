@@ -38,6 +38,7 @@ jobs:
         run: |
           echo "Mostrando directorio actual:"
           pwd
+          cd ..
           echo "Contenido del directorio:"
           ls -la
       - name: clear cache
