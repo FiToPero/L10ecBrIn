@@ -132,7 +132,7 @@ const selectLang = (e) => { changeLocale(e.target.value) }
                                             <template #trigger>
                                                 <span class="inline-flex justify-end rounded-md border border-gray-300 w-full">
                                                     <button type="button" class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 dark:text-gray-200 bg-white dark:bg-gray-800 hover:text-gray-700 dark:hover:text-gray-300 focus:outline-none transition ease-in-out duration-150">
-                                                        {{ $page.props.auth.user.name }}
+                                                        {{ $page.props.auth.user.username }}
                                                         <svg class="ms-2 -me-0.5 h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
                                                             <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/>
                                                         </svg>
@@ -198,7 +198,7 @@ const selectLang = (e) => { changeLocale(e.target.value) }
                                 <option value="es">Español</option>
                             </select>
                             <div class="font-medium text-base text-gray-800 dark:text-gray-200">
-                                {{ $page.props.auth.user.name }}
+                                {{ $page.props.auth.user.username }}
                             </div>
                             <div class="font-medium text-sm text-gray-500">{{ $page.props.auth.user.email }}</div>
                         </div>

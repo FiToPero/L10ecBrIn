@@ -23,6 +23,14 @@ export const useLoginStore = defineStore('useLoginStore', () => {
 })
 
 
+
+
+
+
+
+
+
+
 /* 
   state: () => ({
     openStatePinia: "state Pinia"

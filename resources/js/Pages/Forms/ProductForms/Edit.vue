@@ -1,52 +1,57 @@
 <script setup>
-import { useForm, Link } from '@inertiajs/vue3'
+import { useForm, router, Link } from '@inertiajs/vue3'
 import { ref } from 'vue'
 import DropZone from "@/Components/DropZone.vue"
 
 const props = defineProps({
-    errors: {type: Object}
+    errors: {type: Object},
+    product: {type: Object}
 })
 
-const dropzoneFile = ref("")
+const dropzoneFile = ref(props.product.image_01)
 
 const receiveImageFile = (image) => {
     dropzoneFile.value = image
 }
 const form = useForm({
-    productName: '',
-    shortDescription: '',
-    company: '',
-    brand: '',
-    price: '',
-    stock: '',
-    address: '',
-    website: '',
-    email: '',
-    priority: '',
-    remember: '',
-    image_01: ''
+    productName: props.product.productName,
+    shortDescription: props.product.shortDescription,
+    company: props.product.company,
+    brand: props.product.brand,
+    price: props.product.price,
+    stock: props.product.stock,
+    address: props.product.address,
+    website: props.product.website,
+    email: props.product.email,
+    priority: props.product.priority,
+    remember: props.product.remember,
+    image_01: props.product.image_01
 })
 const handleFileChange = (event) => {
   form.image_01 = event.target.files[0]
   dropzoneFile.value = form.image_01.name
 }
-const store = () => {
-    form.post(route('product.store'))
+const submit = () => {
+    form.post(route('product.update', [props.product.id]))
 }
+
+const deleteStore = (id) => {
+    router.post(route('product.delete', [id]), {}, {});
+}
+
 </script>
 
 <template>
-    <div class="min-w-full min-h-full p-6 font-sans text-gray-900 bg-gray-100 dark:bg-gray-500 dark:text-gray-100 antialiased">
-        <p class="text-3xl text-center pt-2">CREATE PAGE</p>
-        <hr class="border-5 border-gray-800"><br>
-<!--  -->
-<!-- <p class="text-white m-5">{{ errors }}</p> -->
-<form v-on:submit.prevent="store">
-<div class="grid xl:grid-cols-3 sm:grid-cols-1 p-6 bg-white dark:bg-gray-800/50 dark:bg-gradient-to-bl from-gray-700/50 via-transparent dark:ring-1 dark:ring-inset dark:ring-white/5 rounded-lg shadow-2xl shadow-gray-500/20 dark:shadow-none motion-safe:hover:scale-[1.01] transition-all duration-250 ">
+  
+<div class="p-6 font-sans text-gray-900 bg-gray-100 dark:bg-gray-900 dark:text-gray-100 antialiased">
+<form v-on:submit.prevent="submit">
+<div class=" p-4 bg-white dark:bg-gray-800/50 dark:bg-gradient-to-bl from-gray-700/50 via-transparent dark:ring-1 dark:ring-inset dark:ring-white/5 rounded-lg shadow-2xl shadow-gray-500/20 dark:shadow-none motion-safe:hover:scale-[1.01] transition-all duration-250 ">
+    <p class="text-3xl text-center mb-2">EDIT PRODUCT</p>
+    <div class="grid xl:grid-cols-3 sm:grid-cols-1">
     <!-- DropZone -->
-    <div class=" p-5">
-        <DropZone @imageFile="receiveImageFile" @change="handleFileChange" :class="{'border border-red-500 dark:border-red-500' : errors.image_01}" @focus="errors.image_01 = ''"/>
-        <input class='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full h-10 mt-5 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-white' :class="{'border-red-500 dark:border-red-500' : errors.image_01}" @focus="errors.image_01 = ''" :placeholder="dropzoneFile.name" disabled/>
+    <div class=" mr-5">
+        <DropZone @imageFile="receiveImageFile" @change="handleFileChange" :imageEdit="product.image_01" :class="{'border border-red-500 dark:border-red-500' : errors.image_01}" @focus="errors.image_01 = ''"/>
+        <input class='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full h-10 mt-5 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-white' :class="{'border-red-500 dark:border-red-500' : errors.image_01}" @focus="errors.image_01 = ''" :placeholder="dropzoneFile" disabled/>
         <p v-if="errors.image_01" class="text-red-500 text-sm font-bold flex">{{ errors.image_01 }}</p>
     </div>
     <!-- Dropzone -->
@@ -168,13 +173,15 @@ const store = () => {
         </div>
         <div v-if="errors.remember" class="text-red-500 text-sm font-bold">{{ errors.remember }}</div>
         <div class="flex justify-end items-center gap-6">
-            <Link :href="route('dashboard.index')" class="m-3 text-white bg-gray-700 hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-gray-700 dark:hover:bg-gray-800 dark:focus:ring-gray-900">{{ $t('Close') }}</Link>
-            <button type="submit" class="m-3 text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">{{ $t('Product Create') }}</button>
+            <Link :href="route('dashboard.index')" class="m-3 text-white bg-gray-700 hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-gray-700 dark:hover:bg-gray-900 dark:focus:ring-gray-900">{{ $t('Close') }}</Link>
+            <button type="submit" class="my-5 text-white bg-cyan-700 hover:bg-cyan-800 focus:ring-4 focus:outline-none focus:ring-cyan-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-cyan-600 dark:hover:bg-cyan-700 dark:focus:ring-cyan-800 ">{{ $t('Update') }}</button>
+            <button type="button" @click="deleteStore(props.product.id)" class="my-5 text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800">{{ $t('Delete') }}</button>
         </div>
     </div>
 </div>
+</div>
 </form>
-<!--  -->
-    </div>
+</div>
+
 </template>
 

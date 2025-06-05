@@ -19,8 +19,8 @@ Route::middleware('auth')->group(function () {
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
-    Route::get('/product/edit/{id}', [ProductController::class, 'edit'])->name('product.edit');
     Route::get('/product/create', [ProductController::class, 'create'])->name('product.create');
+    Route::get('/product/edit/{id}', [ProductController::class, 'edit'])->name('product.edit');
     Route::post('/product/store', [ProductController::class, 'store'])->name('product.store'); 
     Route::post('/product/update/{id}', [ProductController::class, 'update'])->name('product.update');
     Route::post('/product/delete/{id}', [ProductController::class, 'destroy'])->name('product.delete');
@@ -34,7 +34,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/adminUser', [AdminUserController::class, 'index'])->name('adminUser.index');
-    
+    Route::get('/adminUser/create', [AdminUserController::class, 'create'])->name('adminUser.create');
+    Route::post('/adminUser/store', [AdminUserController::class, 'store'])->name('adminUser.store');
 });
 
 Route::middleware(['auth', 'verified'])->group(function () {

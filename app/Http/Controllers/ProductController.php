@@ -33,7 +33,7 @@ class ProductController extends Controller
     {
         $this->authorize('create', Product::class);
         
-        return Inertia::render('Create');
+        return Inertia::render('Forms/ProductForms/Create');
     }
 
     public function store(ProductRequest $request)
@@ -72,12 +72,12 @@ class ProductController extends Controller
 
     public function show(Request $request)
     {
-        try {
-            $product = Product::findOrFail($request->id);
-            return Inertia::render('Show', compact('product'));
-        } catch (\Exception $e){
+        // try {
+        //     $product = Product::findOrFail($request->id);
+        //     return Inertia::render('Show', compact('product'));
+        // } catch (\Exception $e){
 
-        }
+        // }
     }
 
     public function edit(string $id)
@@ -86,7 +86,7 @@ class ProductController extends Controller
             $this->authorize('update', Product::class);
             $product = Product::findOrFail($id);
             
-            return Inertia::render('Edit', compact('product'));
+            return Inertia::render('Forms/ProductForms/Edit', compact('product'));
         } catch (\Exception $e) {
             
         }
@@ -124,9 +124,9 @@ class ProductController extends Controller
                 'image_04' => null,
                 'image_05' => null
             ]);
-            return redirect()->route('product.index')->with('message', 'Product Update succcess.');
+            return redirect()->route('dashboard.index')->with('message', 'Product Update succcess.');
         } catch (\Exception $e){
-            return redirect()->route('product.index')->with('message', 'Product Update failed.');
+            return redirect()->route('dashboard.index')->with('message', 'Product Update failed.');
         }
     }
 

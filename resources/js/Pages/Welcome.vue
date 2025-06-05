@@ -3,7 +3,7 @@ import { ref, watch } from 'vue'
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue'
 import { Link, usePage, router, Head } from '@inertiajs/vue3'
 import Pagination from '@/Components/Pagination.vue'
-import Show from '@/Pages/Show.vue'
+import Show from '@/Pages/Forms/ProductForms/Show.vue'
 
 const search = ref('')
 const modalShow = ref(false)
@@ -62,40 +62,40 @@ watch(search, (value) => {router.get('/', {search: value}, {preserveState: true}
             <div class="w-1/3">
                 <img class="object-cover w-full rounded-lg" :src="`${product.image_01}`" >
             </div>
-            <div class=w-2/3>
-                <div class="ml-4">
+            <div class=w-2/3 >
+                <div class="ml-4" >
                     <input type="hidden" name="id_product" class=""  :placeholder="product.id" disabled/>
-                    <div class="relative z-0 w-full mb-2 group">
-                        <input type="text" name="productName" class="block py-2.5 px-0 w-full text-sm placeholder-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:placeholder-gray-300 dark:border-gray-600"  :placeholder="product.productName" disabled/> 
+                    <div class="relative z-0 w-full mb-2 group" >
+                        <input type="text" name="productName" class="pointer-events-none block py-2.5 px-0 w-full text-sm placeholder-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:placeholder-gray-300 dark:border-gray-600"  :placeholder="product.productName" /> 
                     </div>
                     <div class="relative z-0 w-full mb-2 group">
-                        <input type="text" name="shortDescription" class="block py-2.5 px-0 w-full text-sm placeholder-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:placeholder-gray-300 dark:border-gray-600" :placeholder="product.shortDescription" disabled/>
+                        <input type="text" name="shortDescription" class="pointer-events-none block py-2.5 px-0 w-full text-sm placeholder-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:placeholder-gray-300 dark:border-gray-600" :placeholder="product.shortDescription" disabled/>
                     </div>
                     <div class="relative z-0 w-full mb-2 group">
-                        <input type="text" name="company" class="block py-2.5 px-0 w-full text-sm placeholder-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:placeholder-gray-300 dark:border-gray-600"  :placeholder="product.company" disabled/>
+                        <input type="text" name="company" class="pointer-events-none block py-2.5 px-0 w-full text-sm placeholder-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:placeholder-gray-300 dark:border-gray-600"  :placeholder="product.company" disabled/>
                     </div>
                     <div class="grid md:grid-cols-3 md:gap-6">
                         <div class="relative z-0 w-full mb-2 group">
-                            <input type="text" name="stock" class="block py-2.5 px-0 w-full text-sm text-center placeholder-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:placeholder-gray-300 dark:border-gray-600" :placeholder="product.stock" disabled/>
+                            <input type="text" name="stock" class="pointer-events-none block py-2.5 px-0 w-full text-sm text-center placeholder-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:placeholder-gray-300 dark:border-gray-600" :placeholder="product.stock" disabled/>
                         </div>
                         <div class="relative z-0 w-full mb-2 group">
-                            <input type="text" name="price" class="block py-2.5 px-0 w-full text-sm text-center placeholder-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:placeholder-gray-300 dark:border-gray-600" :placeholder="`€ ${product.price}`" disabled/>
+                            <input type="text" name="price" class="pointer-events-none block py-2.5 px-0 w-full text-sm text-center placeholder-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:placeholder-gray-300 dark:border-gray-600" :placeholder="`€ ${product.price}`" disabled/>
                         </div>
                         <div class="relative z-0 w-full mb-2 group">
-                            <input type="text" name="priority" class="block py-2.5 px-0 w-full text-sm text-center placeholder-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:placeholder-gray-300 dark:border-gray-600"  :placeholder="product.priority" disabled/>
+                            <input type="text" name="priority" class="pointer-events-none block py-2.5 px-0 w-full text-sm text-center placeholder-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:placeholder-gray-300 dark:border-gray-600"  :placeholder="product.priority" disabled/>
                         </div>
                     </div>
                     <div class="relative z-0 w-full mb-2 group">
-                        <input type="text" name="brand" class="block py-2.5 px-0 w-full text-sm placeholder-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:placeholder-gray-300 dark:border-gray-600"  :placeholder="product.brand" disabled/>
+                        <input type="text" name="brand" class="pointer-events-none block py-2.5 px-0 w-full text-sm placeholder-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:placeholder-gray-300 dark:border-gray-600"  :placeholder="product.brand" disabled/>
                     </div>
                     <div class="relative z-0 w-full mb-2 group">
-                        <input type="text" name="address" class="block py-2.5 px-0 w-full text-sm placeholder-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:placeholder-gray-300 dark:border-gray-600"  :placeholder="product.address" disabled/>
+                        <input type="text" name="address" class="pointer-events-none block py-2.5 px-0 w-full text-sm placeholder-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:placeholder-gray-300 dark:border-gray-600"  :placeholder="product.address" disabled/>
                     </div>
                     <div class="relative z-0 w-full mb-2 group">
-                        <input type="text" name="website" class="block py-2.5 px-0 w-full text-sm placeholder-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:placeholder-gray-300 dark:border-gray-600"  :placeholder="product.website" disabled/>
+                        <input type="text" name="website" class="pointer-events-none block py-2.5 px-0 w-full text-sm placeholder-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:placeholder-gray-300 dark:border-gray-600"  :placeholder="product.website" disabled/>
                     </div>
                     <div class="relative z-0 w-full mb-2 group">
-                        <input type="text" name="email" class="block py-2.5 px-0 w-full text-sm placeholder-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:placeholder-gray-300 dark:border-gray-600"  :placeholder="product.email" disabled/>
+                        <input type="text" name="email" class="pointer-events-none block py-2.5 px-0 w-full text-sm placeholder-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:placeholder-gray-300 dark:border-gray-600"  :placeholder="product.email" disabled/>
                     </div>
                 </div>
             </div>

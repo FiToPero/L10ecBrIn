@@ -2,7 +2,7 @@
 import { ref, watch } from 'vue'
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue'
 import { Link, usePage, router, Head } from '@inertiajs/vue3'
-import Show from '@/Pages/Show.vue'
+import Show from '@/Pages/Forms/ProductForms/Show.vue'
 
 const props = defineProps({
     products: { type: Object, required: true },
