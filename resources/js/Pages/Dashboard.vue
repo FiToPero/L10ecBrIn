@@ -20,7 +20,7 @@ const openShow = (product) => {
 const closeShow = () => { modalShow.value = false }
 
 const deleteStore = (id) => {
-    router.post(route('product.delete', [id]), {}, {})   
+    router.delete(route('product.delete', [id]), {}, {})   
 }
 const editStore = (id) => {
     router.get(route('product.edit', [id]), {}, {})
@@ -62,6 +62,7 @@ watch(() => page.props.flash.message, (newValue) => {
                 <div class="m-5">
                     <Link :href="route('product.create')" class="mb-5 text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">{{ $t('Create New Product') }}</Link>
                 </div>
+                
                 <Show v-if="modalShow" :product="productShow" @closeShow="closeShow"/>
                 
                 <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
@@ -101,7 +102,7 @@ watch(() => page.props.flash.message, (newValue) => {
                             </tr>
                         </thead>
                         <tbody>
-                            <template v-for="product in products" :key="product.id">
+                            <template v-for="product in products" :key="'products'+product.id">
                                 <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                                     <th scope="row" class="px-2 py-1 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                         <p class="dark:text-white">{{ product.id }}</p>

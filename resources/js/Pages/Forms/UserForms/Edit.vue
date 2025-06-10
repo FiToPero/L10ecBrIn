@@ -1,51 +1,56 @@
 <script setup>
-import { useForm, Link } from '@inertiajs/vue3'
+import { useForm, router, Link } from '@inertiajs/vue3'
 import { ref } from 'vue'
 import DropZone from "@/Components/DropZone.vue"
 
 const props = defineProps({
-    errors: {type: Object},
-    roles: {type: Array}
+    user: { type: Object },
+    roles: { type: Array },
+    errors: { type: Object }
 })
-
-const dropzoneFile = ref("")
+const dropzoneFile = ref(props.user.profile_photo_path)
 
 const receiveImageFile = (image) => {
     dropzoneFile.value = image
 }
 const form = useForm({
-    first_name: '',
-    last_name: '',
-    username: '',
-    phone: '',
-    address: '',
-    city: '',
-    state: '',
-    country: '',
-    zip_code: '',
-    company: '',
-    profile_photo_path: '',  //image_01
-    email: '',
-    password: '',
-    password_confirmation: '',
-    role_id: ''
+    first_name: props.user.first_name,
+    last_name: props.user.last_name,    
+    username: props.user.username,
+    phone: props.user.phone,
+    address: props.user.address,
+    city: props.user.city,
+    state: props.user.state,
+    country: props.user.country,
+    zip_code: props.user.zip_code,
+    company: props.user.company,
+    profile_photo_path: props.user.profile_photo_path,
+    email: props.user.email,
+    role_id: props.user.role_id,
+ 
 })
 const handleFileChange = (event) => {
   form.profile_photo_path = event.target.files[0]
   dropzoneFile.value = form.profile_photo_path.name
 }
-const store = () => {
-    form.post(route('adminUser.store'))
+const submit = () => {
+    console.log(form)
+    form.put(route('adminUser.update', [props.user.id]))
 }
-</script>
 
+const deleteStore = (id) => {
+    router.delete(route('adminUser.delete', [id]), {}, {});
+}
+
+
+</script>
 <template>
     <div class="w-screen h-screen p-6 font-sans text-gray-900 bg-gray-100 dark:bg-gray-900 dark:text-gray-100 antialiased">
 <!--  -->
-<form v-on:submit.prevent="store">
+<form v-on:submit.prevent="submit">
 <div class="p-4 bg-white dark:bg-gray-800/50 dark:bg-gradient-to-bl from-gray-700/50 via-transparent dark:ring-1 dark:ring-inset dark:ring-white/5 rounded-lg shadow-2xl shadow-gray-500/20 dark:shadow-none motion-safe:hover:scale-[1.01] transition-all duration-250"> 
     <div class="flex justify-center items-center mb-5">
-        <span class="w-5/6 flex justify-center text-white dark:text-gray-300 text-3xl font-bold">Create New User</span>
+        <span class="w-5/6 flex justify-center text-white dark:text-gray-300 text-3xl font-bold">Edit User</span>
         <div class="w-1/6 flex justify-end">
             <Link :href="route('adminUser.index')" type="button" class="text-gray-600 dark:text-white bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-700 dark:bg-gray-600">
                 <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
@@ -57,9 +62,9 @@ const store = () => {
     <div class="grid xl:grid-cols-3 sm:grid-cols-1 ">
         <!-- DropZone -->
         <div class="mr-5">
-            <DropZone @imageFile="receiveImageFile" @change="handleFileChange" :class="{'border border-red-500 dark:border-red-500' : errors.image_01}" @focus="errors.image_01 = ''"/>
-            <input class='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full h-10 mt-5 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-white' :class="{'border-red-500 dark:border-red-500' : errors.image_01}" @focus="errors.image_01 = ''" :placeholder="dropzoneFile" disabled/>
-            <p v-if="errors.image_01" class="text-red-500 text-sm font-bold flex">{{ errors.image_01 }}</p>
+            <DropZone @imageFile="receiveImageFile" @change="handleFileChange" :imageEdit="form.profile_photo_path" :class="{'border border-red-500 dark:border-red-500' : errors.profile_photo_path}" @focus="errors.profile_photo_path = ''"/>
+            <input class='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full h-10 mt-5 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-white' :class="{'border-red-500 dark:border-red-500' : errors.profile_photo_path}" @focus="errors.profile_photo_path = ''" :placeholder="dropzoneFile" disabled/>
+            <p v-if="errors.profile_photo_path" class="text-red-500 text-sm font-bold flex">{{ errors.profile_photo_path }}</p>
         </div>
         <!-- Dropzone -->
         <div class="xl:col-span-2 sm:col-span-1">
@@ -96,6 +101,7 @@ const store = () => {
                         v-model="form.username"
                         type='text' 
                         id=username
+                        disabled
                         class='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:outline-none focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
                         :class="{'border-red-500 dark:border-red-500' : errors.username}"
                         @focus="errors.username = ''"
@@ -221,35 +227,10 @@ const store = () => {
                     <div v-if="errors.role_id" class="text-red-500 text-sm font-bold">{{ errors.role_id }}</div>
                 </div>
             </div>
-            <div class="grid xl:grid-cols-2 sm:grid-cols-1">
-                <div class="mx-2">
-                    <label for=password class='block m-2 text-sm text-gray-900 dark:text-white font-bold'>Password</label>
-                    <input
-                        v-model="form.password" 
-                        type='text' 
-                        id=password 
-                        class='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:outline-none focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
-                        :class="{'border-red-500 dark:border-red-500' : errors.password}"
-                        @focus="errors.password = ''"
-                    />
-                    <div v-if="errors.password" class="text-red-500 text-sm font-bold">{{ errors.password }}</div>
-                </div>
-                <div class="mx-2">
-                    <label for=password_confirmation class='block m-2 text-sm text-gray-900 dark:text-white font-bold'>Confirmation Password</label>
-                    <input
-                        v-model="form.password_confirmation" 
-                        type='text' 
-                        id=password_confirmation 
-                        class='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:outline-none focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
-                        :class="{'border-red-500 dark:border-red-500' : errors.password_confirmation}"
-                        @focus="errors.password_confirmation = ''"
-                    />
-                    <div v-if="errors.password" class="text-red-500 text-sm font-bold">{{ errors.password }}</div>
-                </div>
-            </div>
             <div class="flex justify-end items-center gap-6 mt-3">
                 <Link :href="route('adminUser.index')" class="m-3 text-white bg-gray-700 hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-gray-700 dark:hover:bg-gray-800 dark:focus:ring-gray-900">{{ $t('Close') }}</Link>
-                <button type="submit" class="m-3 text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">{{ $t('Product Create') }}</button>
+                <button type="submit" class="m-3 text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">{{ $t('Edit User') }}</button>
+                <button type="button" @click="deleteStore(props.user.id)" class="my-5 text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800">{{ $t('Delete') }}</button>
             </div>
         </div>
     </div>
@@ -258,4 +239,3 @@ const store = () => {
 <!--  -->
     </div>
 </template>
-

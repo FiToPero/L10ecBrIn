@@ -4,32 +4,62 @@ namespace App\Policies;
 
 use App\Models\User;
 
+
 class RolePolicy
 {
     /**
-     * Create a new policy instance.
+     * Determine whether the user can view any models.
      */
-    public function root(User $user)
+    public function viewAny(User $user): bool
     {
-        return $user->hasRole('root');
+        return $user->hasPermission('viewAny_role');
     }
 
-    public function admin(User $user)
+    /**
+     * Determine whether the user can view the model.
+     */
+    public function view(User $user): bool
     {
-        return $user->hasRole('admin');
+        return $user->hasPermission('view_role');
     }
 
-    public function user(User $user)
+    /**
+     * Determine whether the user can create models.
+     */
+    public function create(User $user): bool
     {
-        return $user->hasRole('user');
+        return $user->hasPermission('create_role');
     }
 
-    public function hasAnyRole(User $user, array $roles)
+    /**
+     * Determine whether the user can update the model.
+     */
+    public function update(User $user): bool
     {
-        foreach ($roles as $role) {
-            if ($user->hasRole($role)) {
-                return true;
-            }
-        }
+        return $user->hasPermission('update_role');
+    }
+
+    /**
+     * Determine whether the user can delete the model.
+     */
+    public function delete(User $user): bool
+    {
+        return $user->hasPermission('delete_role');
+    }
+
+    /**
+     * Determine whether the user can restore the model.
+     */
+    public function restore(User $user): bool
+    {
+        return $user->hasPermission('restore_role');
+    }
+
+    /**
+     * Determine whether the user can permanently delete the model.
+     */
+    public function forceDelete(User $user): bool
+    {
+        return $user->hasPermission('forceDelete_role');
     }
 }

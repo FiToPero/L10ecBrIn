@@ -32,11 +32,11 @@ const handleFileChange = (event) => {
   dropzoneFile.value = form.image_01.name
 }
 const submit = () => {
-    form.post(route('product.update', [props.product.id]))
+    form.put(route('product.update', [props.product.id]))
 }
 
 const deleteStore = (id) => {
-    router.post(route('product.delete', [id]), {}, {});
+    router.delete(route('product.delete', [id]), {}, {});
 }
 
 </script>

@@ -6,7 +6,6 @@ import { Link } from '@inertiajs/vue3'
 
 const close = ref(true)
 
-
 const props = defineProps({
     product: {type: Object}
 })

@@ -98,7 +98,7 @@ watch(() => page.props.flash.message, (newValue) => {
                             </tr>
                         </thead>
                         <tbody>
-                            <template v-for="product in products" :key="product.id">
+                            <template v-for="product in products" :key="'products'+product.id">
                                 <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                                     <th scope="row" class="px-2 py-1 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                         <p class="dark:text-white">{{ product.id }}</p>

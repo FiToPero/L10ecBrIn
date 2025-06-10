@@ -35,8 +35,7 @@ class ProductRequest extends FormRequest
             'email' => 'required|email',
             'priority' => 'required|integer|min:1',
             'remember' => 'boolean',
-            'image_01' => 'required|nullable'  
+            'profile_photo_path' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048'  
         ];
-        // |image|mimes:jpeg,png,jpg,gif,svg|max:2048
     }
 }

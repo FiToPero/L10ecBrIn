@@ -20,7 +20,7 @@ const { showModalLogin, showModalRegister, changeLocale } = storeLogin
 ////// pinia ////
 
 const navLinkDashboard = ref(false)
-const navLinkAdminRoot = ref(false)
+const navLinkAdminRoleUser = ref(false)
 const navLinkAdminUser = ref(false)
 const navLinkCarousel = ref(false)
 
@@ -29,32 +29,33 @@ const page = usePage()
 const selectedLang = ref(localStorage.getItem('localeLang')||'en')
 const showingNavigationDropdown = ref(false)
 
+const Carousel = computed(() => {
+    navLinkCarousel.value = false
+    if (page.props.auth && page.props.auth.user && page.props.auth.user.permissions.includes('viewAny_carousel')) {
+        return navLinkCarousel.value = true
+    }
+})
 const Dashboard = computed(() => {
     navLinkDashboard.value = false
-    if (page.props.auth && page.props.auth.user && page.props.auth.user.role && (page.props.auth.user.role.includes('admin') || page.props.auth.user.role.includes('root'))) {
+    if (page.props.auth && page.props.auth.user && page.props.auth.user.role && page.props.auth.user.permissions.includes('viewAny_product')) {
         return navLinkDashboard.value = true
     }else{
         return navLinkDashboard.value = false
     }
 })
-const AdminRoot = computed(() => {
-    navLinkAdminRoot.value = false
-    if (page.props.auth && page.props.auth.user && page.props.auth.user.role.includes('root')) {
-        return navLinkAdminRoot.value = true
-    }
-})
 const AdminUser = computed(() => {
     navLinkAdminUser.value = false
-    if (page.props.auth && page.props.auth.user && page.props.auth.user.role.includes('root')) {
+    if (page.props.auth && page.props.auth.user && page.props.auth.user.permissions.includes('viewAny_user')) {
         return navLinkAdminUser.value = true
     }
 })
-const Carousel = computed(() => {
-    navLinkCarousel.value = false
-    if (page.props.auth && page.props.auth.user && page.props.auth.user.role.includes('root')) {
-        return navLinkCarousel.value = true
+const AdminRoleUser = computed(() => {
+    navLinkAdminRoleUser.value = false
+    if (page.props.auth && page.props.auth.user && page.props.auth.user.permissions.includes('viewAny_role')) {
+        return navLinkAdminRoleUser.value = true
     }
 })
+
 
 const selectLang = (e) => { changeLocale(e.target.value) }
 // v-if="$page.props.auth && $page.props.auth.user && $page.props.auth.user.permissions.includes('create_product')"
@@ -80,21 +81,21 @@ const selectLang = (e) => { changeLocale(e.target.value) }
                             <!-- Navigation Links -->
                             <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                                 <NavLink :href="route('product.index')" :active="route().current('product.index')">
-                                    {{ $t('Welcome') }}
-                                </NavLink>
-                                <NavLink v-if="Dashboard" :href="route('dashboard.index')" :active="route().current('dashboard.index')">
-                                    {{ $t('Dashboard') }}
-                                </NavLink>
-                                <NavLink v-if="AdminRoot" :href="route('adminRoot.index')" :active="route().current('adminRoot.index')">
-                                    {{ $t('Admin-Root') }}
-                                </NavLink> 
-                                <NavLink v-if="AdminUser" :href="route('adminUser.index')" :active="route().current('adminUser.index')">
-                                    {{ $t('Admin-User') }}
+                                    {{ $t('Product') }}
                                 </NavLink>
                                 <NavLink v-if="Carousel" :href="route('carousel.index')" :active="route().current('carousel.index')">
                                     {{ $t('Carousel') }}
                                 </NavLink>
-                                <!-- <div class="p-3 text-white text-sm">{{ page.props.auth }}</div> -->
+                                <NavLink v-if="Dashboard" :href="route('dashboard.index')" :active="route().current('dashboard.index')">
+                                    {{ $t('Dashboard') }}
+                                </NavLink>
+                                <NavLink v-if="AdminUser" :href="route('adminUser.index')" :active="route().current('adminUser.index')">
+                                    {{ $t('Admin-User') }}
+                                </NavLink>
+                                <NavLink v-if="AdminRoleUser" :href="route('adminRoleUser.index')" :active="route().current('adminRoleUser.index')">
+                                    {{ $t('Admin-Role-User') }}
+                                </NavLink> 
+                                <!-- <div class="p-3 text-white text-sm">{{ page.props.auth.user.permissions }}</div> -->
                             </div>
                         </div>
                         <div class="">
@@ -170,19 +171,18 @@ const selectLang = (e) => { changeLocale(e.target.value) }
                     <div class="pt-2 pb-3 space-y-1">
                         <ResponsiveNavLink :href="route('product.index')" :active="route().current('product.index')">
                             {{ $t('Welcome') }}
+                        </ResponsiveNavLink> <ResponsiveNavLink v-if="Carousel" :href="route('carousel.index')" :active="route().current('carousel.index')">
+                            {{ $t('Carousel') }}
                         </ResponsiveNavLink>
                         <ResponsiveNavLink v-if="Dashboard" :href="route('dashboard.index')" :active="route().current('dashboard.index')">
                             {{ $t('Dashboard') }}
                         </ResponsiveNavLink>
-                        <ResponsiveNavLink v-if="AdminRoot" :href="route('adminRoot.index')" :active="route().current('adminRoot.index')">
-                            {{ $t('Admin-Root') }}
-                        </ResponsiveNavLink>
-                        <NavLink v-if="AdminUser" :href="route('adminUser.index')" :active="route().current('adminUser.index')">
+                        <ResponsiveNavLink v-if="AdminUser" :href="route('adminUser.index')" :active="route().current('adminUser.index')">
                             {{ $t('Admin-User') }}
-                        </NavLink>
-                        <NavLink v-if="Carousel" :href="route('carousel.index')" :active="route().current('carousel.index')">
-                            {{ $t('Carousel') }}
-                        </NavLink>
+                        </ResponsiveNavLink>
+                        <ResponsiveNavLink v-if="AdminRoleUser" :href="route('adminRoleUser.index')" :active="route().current('adminRoleUser.index')">
+                            {{ $t('Admin-Role-User') }}
+                        </ResponsiveNavLink>
                     </div>
 
                     <!-- Responsive Settings Options -->

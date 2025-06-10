@@ -22,20 +22,24 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/product/create', [ProductController::class, 'create'])->name('product.create');
     Route::get('/product/edit/{id}', [ProductController::class, 'edit'])->name('product.edit');
     Route::post('/product/store', [ProductController::class, 'store'])->name('product.store'); 
-    Route::post('/product/update/{id}', [ProductController::class, 'update'])->name('product.update');
-    Route::post('/product/delete/{id}', [ProductController::class, 'destroy'])->name('product.delete');
+    Route::put('/product/update/{id}', [ProductController::class, 'update'])->name('product.update');
+    Route::delete('/product/delete/{id}', [ProductController::class, 'destroy'])->name('product.delete');
+
+    Route::post('/product/restore/{id}', [ProductController::class, 'restore'])->name('product.restore');
+    Route::post('/product/forceDestroy/{id}', [ProductController::class, 'forceDestroy'])->name('product.forceDestroy');
 });
 
 Route::middleware(['auth', 'verified'])->group(function () {
-    Route::get('/adminRoot', [RootController::class, 'index'])->name('adminRoot.index');
-    Route::post('/product/restore/{id}', [ProductController::class, 'restore'])->name('product.restore');
-    Route::post('/product/forceDestroy/{id}', [ProductController::class, 'forceDestroy'])->name('product.forceDestroy');
+    Route::get('/adminRoleUser', [RootController::class, 'index'])->name('adminRoleUser.index');
 });
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/adminUser', [AdminUserController::class, 'index'])->name('adminUser.index');
     Route::get('/adminUser/create', [AdminUserController::class, 'create'])->name('adminUser.create');
     Route::post('/adminUser/store', [AdminUserController::class, 'store'])->name('adminUser.store');
+    Route::get('/adminUser/edit/{id}', [AdminUserController::class, 'edit'])->name('adminUser.edit');
+    Route::put('/adminUser/update/{id}', [AdminUserController::class, 'update'])->name('adminUser.update');
+    Route::delete('/adminUser/delete/{id}', [AdminUserController::class, 'destroy'])->name('adminUser.delete');   
 });
 
 Route::middleware(['auth', 'verified'])->group(function () {

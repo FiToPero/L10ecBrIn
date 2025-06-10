@@ -13,13 +13,6 @@ class ProductController extends Controller
 {
     use AuthorizesRequests;
 
-    // example of middleware Policy in controller with can method
-    // public function __construct()
-    // {
-    //     $this->middleware('can:update,product')->only(['edit', 'update']);
-    //     $this->middleware('can:delete,product')->only('destroy');
-    // }
-
     public function index(Request $request)
     {
         $filters = $request->all('search');

@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 // use Illuminate\Http\Request;
 use Inertia\Inertia;
 use App\Models\Product;
-use App\Models\Role;
+use App\Models\Permission;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 class DashboardController extends Controller
@@ -14,7 +14,7 @@ class DashboardController extends Controller
 
     public function index()
     {
-        $this->authorize('hasAnyRole', [Role::class, ['root', 'admin']]);
+        $this->authorize('view', Permission::class);
 
         $products = Product::all();
         

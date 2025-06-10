@@ -4,14 +4,14 @@ namespace App\Policies;
 
 use App\Models\User;
 
-class ProductPolicy
+class UserPolicy
 {
     /**
      * Determine whether the user can view any models.
      */
     public function viewAny(User $user): bool
     {
-        return $user->role->hasPermission('viewAny_product');
+        return $user->role->hasPermission('viewAny_user');
     }
 
     /**
@@ -19,7 +19,7 @@ class ProductPolicy
      */
     public function view(User $user): bool
     {
-        return $user->role->hasPermission('view_product');
+        return $user->role->hasPermission('view_user');
     }
 
     /**
@@ -27,7 +27,7 @@ class ProductPolicy
      */ 
     public function create(User $user): bool
     {
-        return $user->role->hasPermission('create_product');
+        return $user->role->hasPermission('create_user');
     }
 
     /**
@@ -35,14 +35,14 @@ class ProductPolicy
      */
     public function update(User $user): bool
     {
-        return $user->role->hasPermission('update_product');
+        return $user->role->hasPermission('update_user');
     }
     /**
      * Determine whether the user can delete the model.
      */
     public function delete(User $user): bool
     {
-        return $user->role->hasPermission('delete_product');
+        return $user->role->hasPermission('delete_user');
             
     }
 
@@ -51,7 +51,7 @@ class ProductPolicy
      */
     public function restore(User $user): bool
     {
-        return $user->role->hasPermission('restore_product');
+        return $user->role->hasPermission('restore_user');
     }
 
     /**
@@ -59,7 +59,8 @@ class ProductPolicy
      */
     public function forceDelete(User $user): bool
     {
-        return $user->role->hasPermission('forceDelete_product');
+        return $user->role->hasPermission('forceDelete_user');
            
     }
+    
 }

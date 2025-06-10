@@ -31,10 +31,10 @@ watch(search, (value) => {router.get('/', {search: value}, {preserveState: true}
 </script>
 
 <template>
-<Head title="Welcome" />
+<Head title="Products" />
 <AuthenticatedLayout>
     <template #header>
-        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">{{ $t('Welcome') }}</h2>
+        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">{{ $t('Products') }}</h2>
     </template>
 <div @click="closeShow" class=" min-h-screen bg-gray-100 dark:bg-gray-900 p-5">
     <p class="text-white">{{ UserStore }}</p>
@@ -57,7 +57,7 @@ watch(search, (value) => {router.get('/', {search: value}, {preserveState: true}
     <!-- FLASH MESSAGE -->
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
     <!-- all card -->  
-    <template v-for="product in products.data" :key="product.id">
+    <template v-for="product in products.data" :key="'products'+product.id">
         <div @dblclick="openShow(product)" tabindex="0" :class="[product.priority == 1 ? 'md:col-span-4': '', product.priority == 2 ? 'md:col-span-2': '', 'sm:col-span-1 min-w-full min-h-96 p-6 bg-white dark:bg-gray-800/50 dark:bg-gradient-to-bl from-gray-700/50 via-transparent dark:ring-1 dark:ring-inset dark:ring-white/5 rounded-lg shadow-2xl shadow-gray-500/20 dark:shadow-none flex motion-safe:hover:scale-[1.01] transition-all duration-250 focus:outline focus:outline-2 focus:outline-red-500']">
             <div class="w-1/3">
                 <img class="object-cover w-full rounded-lg" :src="`${product.image_01}`" >
