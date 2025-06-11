@@ -31,13 +31,12 @@ watch(search, (value) => {router.get('/', {search: value}, {preserveState: true}
 </script>
 
 <template>
-<Head title="Products" />
+<Head title="Welcome" />
 <AuthenticatedLayout>
     <template #header>
-        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">{{ $t('Products') }}</h2>
+        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">{{ $t('Welcome') }}</h2>
     </template>
 <div @click="closeShow" class=" min-h-screen bg-gray-100 dark:bg-gray-900 p-5">
-    <p class="text-white">{{ UserStore }}</p>
     <input v-model="search" type="text" class="block my-5 py-2.5 px-2 w-full text-sm text-gray-100 placeholder-gray-900 bg-transparent border-2 rounded-lg border-gray-300 appearance-none dark:placeholder-gray-300 dark:border-gray-600" placeholder="Buscar / Search"/> 
     <Show v-if="modalShow" :product="productShow" @closeShow="closeShow"/>
     <!-- FLASH MESSAGE -->

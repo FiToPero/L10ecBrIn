@@ -74,7 +74,7 @@ const closeShow = () => {
                     <input type="text" name="email" class="block py-2.5 px-0 w-full text-sm placeholder-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:placeholder-gray-300 dark:border-gray-600"  :placeholder="user.email" disabled/>
                 </div>
                 <div class="relative z-0 w-full mb-2 group">
-                    <input type="text" name="role_id" class="block py-2.5 px-0 w-full text-sm placeholder-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:placeholder-gray-300 dark:border-gray-600"  :placeholder="user.role_id" disabled/>
+                    <input type="text" name="role_id" class="block py-2.5 px-0 w-full text-sm placeholder-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:placeholder-gray-300 dark:border-gray-600"  :placeholder="user.role_name" disabled/>
                 </div>
             </div>
         </div>

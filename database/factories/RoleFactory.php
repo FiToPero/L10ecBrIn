@@ -18,12 +18,12 @@ class RoleFactory extends Factory
     public function definition(): array
     {
         return [
-            Role::factory()->create(['name' => 'user']),
-            Role::factory()->create(['name' => 'admin_user']),
-            Role::factory()->create(['name' => 'adminRoot_user']),
+            Role::factory()->create(['name' => 'welcome_product']),
             Role::factory()->create(['name' => 'admin_product']),
-            Role::factory()->create(['name' => 'adminRoot_product']),
-            Role::factory()->create(['name' => 'root']),
+            Role::factory()->create(['name' => 'root_product']),
+            Role::factory()->create(['name' => 'admin_user']),
+            Role::factory()->create(['name' => 'root_user']),
+            Role::factory()->create(['name' => 'admin_role']),
             Role::factory()->create(['name' => 'super_root'])
         ];
     }

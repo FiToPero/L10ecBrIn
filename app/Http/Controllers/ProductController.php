@@ -7,7 +7,6 @@ use Illuminate\Http\Request;
 use Inertia\Inertia;
 use App\Http\Requests\ProductRequest;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
-use Illuminate\Support\Facades\Auth;
 
 class ProductController extends Controller
 {
@@ -15,17 +14,21 @@ class ProductController extends Controller
 
     public function index(Request $request)
     {
-        $filters = $request->all('search');
-        
-        $products = Product::when($filters['search'] ?? null, function($query, $search){$query->where('productName', 'LIKE', "%". $search ."%");})->orderBy('priority', 'asc')->paginate(15);
+        $this->authorize('view', Product::class);
 
-        return Inertia::render('Welcome', compact('products'));
+        $filters = $request->all('product', 'productTrashed');
+
+        $products = Product::when($filters['product'] ?? null, function($query, $search){$query->where('productName', 'LIKE', "%". $search ."%");})->paginate(10);
+        $productsTrashed = Product::onlyTrashed()->when($filters['productTrashed'] ?? null, function($query, $search){$query->where('productName', 'LIKE', "%". $search ."%");})->paginate(5);
+
+
+        return Inertia::render('Product', compact('products', 'productsTrashed'));
+        // return redirect()->route('product.index')->with('message', 'You are not authorized to access this page');
     }
 
     public function create()
     {
         $this->authorize('create', Product::class);
-        
         return Inertia::render('Forms/ProductForms/Create');
     }
 
@@ -63,16 +66,6 @@ class ProductController extends Controller
        }
     }
 
-    public function show(Request $request)
-    {
-        // try {
-        //     $product = Product::findOrFail($request->id);
-        //     return Inertia::render('Show', compact('product'));
-        // } catch (\Exception $e){
-
-        // }
-    }
-
     public function edit(string $id)
     {
         try {
@@ -94,9 +87,7 @@ class ProductController extends Controller
                 $imageUrl_01 = $request->image_01->store('public/images');
                 $imageUrl_01 = str_replace('public', 'storage', $imageUrl_01);
             } else {
-                if(is_string($request->image_01)){
-                    $imageUrl_01 = $request->image_01;
-                }
+                if(is_string($request->image_01)){ $imageUrl_01 = $request->image_01; }
             }
             
             Product::where('id', $id)->update([
@@ -117,9 +108,9 @@ class ProductController extends Controller
                 'image_04' => null,
                 'image_05' => null
             ]);
-            return redirect()->route('dashboard.index')->with('message', 'Product Update succcess.');
+            return redirect()->route('product.index')->with('message', 'Product Update succcess.');
         } catch (\Exception $e){
-            return redirect()->route('dashboard.index')->with('message', 'Product Update failed.');
+            return redirect()->route('product.index')->with('message', 'Product Update failed.');
         }
     }
 
@@ -128,9 +119,9 @@ class ProductController extends Controller
         try {
             $this->authorize('delete', Product::class);
             Product::destroy($id);
-            return redirect()->route('dashboard.index')->with('message', 'Product Deleted succcess.');
+            return redirect()->route('product.index')->with('message', 'Product Deleted succcess.');
         } catch (\Exception $e) {
-            return redirect()->route('dashboard.index')->with('message', 'Product Deleted failed.');
+            return redirect()->route('product.index')->with('message', 'Product Deleted failed.');
         }
     }
 
@@ -139,9 +130,9 @@ class ProductController extends Controller
        try {
             $this->authorize('restore', Product::class);
             Product::withTrashed()->find($id)->restore();
-            return redirect()->route('adminRoot.index')->with('message', 'Product Restored succcess.');
+            return redirect()->route('product.index')->with('message', 'Product Restored succcess.');
         } catch (\Exception $e) {
-            return redirect()->route('adminRoot.index')->with('message', 'Product Restored failed.');
+            return redirect()->route('product.index')->with('message', 'Product Restored failed.');
         }
     }
 
@@ -150,9 +141,9 @@ class ProductController extends Controller
         try {
             $this->authorize('forceDelete', Product::class);
             Product::withTrashed()->find($id)->forceDelete();
-            return redirect()->route('adminRoot.index')->with('message', 'Product Deleted permanently succcess.');
+            return redirect()->route('product.index')->with('message', 'Product Deleted permanently succcess.');
         } catch (\Exception $e) {
-            return redirect()->route('adminRoot.index')->with('message', 'Product Deleted permanently failed.');
+            return redirect()->route('product.index')->with('message', 'Product Deleted permanently failed.');
         }
     }
 

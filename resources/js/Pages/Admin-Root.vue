@@ -20,10 +20,10 @@ const openShow = (product) => {
 const closeShow = () => { modalShow.value = false }
 
 const forceDelete = (id) => {
-    router.post(route('product.forceDestroy', [id]), {}, {})   
+    router.delete(route('product.forceDestroy', [id]), {}, {})   
 }
 const restore = (id) => {
-    router.post(route('product.restore', [id]), {}, {})
+    router.patch(route('product.restore', [id]), {}, {})
 }
 const closeMessage = () => { isMessage.value = false }
 

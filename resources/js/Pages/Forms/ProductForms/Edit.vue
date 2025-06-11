@@ -173,7 +173,7 @@ const deleteStore = (id) => {
         </div>
         <div v-if="errors.remember" class="text-red-500 text-sm font-bold">{{ errors.remember }}</div>
         <div class="flex justify-end items-center gap-6">
-            <Link :href="route('dashboard.index')" class="m-3 text-white bg-gray-700 hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-gray-700 dark:hover:bg-gray-900 dark:focus:ring-gray-900">{{ $t('Close') }}</Link>
+            <Link :href="route('product.index')" class="m-3 text-white bg-gray-700 hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-gray-700 dark:hover:bg-gray-900 dark:focus:ring-gray-900">{{ $t('Close') }}</Link>
             <button type="submit" class="my-5 text-white bg-cyan-700 hover:bg-cyan-800 focus:ring-4 focus:outline-none focus:ring-cyan-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-cyan-600 dark:hover:bg-cyan-700 dark:focus:ring-cyan-800 ">{{ $t('Update') }}</button>
             <button type="button" @click="deleteStore(props.product.id)" class="my-5 text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800">{{ $t('Delete') }}</button>
         </div>

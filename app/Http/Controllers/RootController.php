@@ -19,7 +19,6 @@ class RootController extends Controller
         
         return Inertia::render('Admin-Root', compact('products'));
 
-        // return redirect()->route('dashboard.index')->with('message', 'You are not authorized to access this page');
 
     }
 }

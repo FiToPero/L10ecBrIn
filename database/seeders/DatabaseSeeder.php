@@ -19,12 +19,12 @@ class DatabaseSeeder extends Seeder
         Product::factory(50)->create();
 
         // Crear roles
-        $userRole = Role::create(['name' => 'user']);
+        $welcomeRole = Role::create(['name' => 'welcome_product']);
+        $productAdminRole = Role::create(['name' => 'admin_product']);
+        $productRootRole = Role::create(['name' => 'root_product']);
         $userAdminRole = Role::create(['name' => 'admin_user']);
-        $userRootRole = Role::create(['name' => 'adminRoot_user']);
-        $adminRole = Role::create(['name' => 'admin_product']);
-        $adminRootRole = Role::create(['name' => 'adminRoot_product']);
-        $rootRole = Role::create(['name' => 'root']);
+        $userRootRole = Role::create(['name' => 'root_user']);
+        $roleAdminRole = Role::create(['name' => 'admin_role']);
         $superRootRole = Role::create(['name' => 'super_root']);
 
         // Crear permisos
@@ -32,7 +32,8 @@ class DatabaseSeeder extends Seeder
                         'viewAny_user', 'view_user', 'create_user', 'update_user', 'delete_user', 'restore_user', 'forceDelete_user',
                         'viewAny_role', 'view_role', 'create_role', 'update_role', 'delete_role', 'restore_role', 'forceDelete_role',
                         'viewAny_carousel', 'view_carousel', 'create_carousel', 'update_carousel', 'delete_carousel', 'restore_carousel', 'forceDelete_carousel',
-                        'view_permission', 'superRoot_permission'
+                        'view_role', 'create_role', 'edit_role', 'delete_role',
+                        'superRoot_permission'
                     ];
 
         foreach ($permissions as $permission) {
@@ -40,12 +41,12 @@ class DatabaseSeeder extends Seeder
         }
 
         // Asignar permisos al Roles
-        $userRole->permissions()->attach(Permission::whereIn('name', ['viewAny_product', 'view_product'])->pluck('id'));
-        $userAdminRole->permissions()->attach(Permission::whereIn('name', ['viewAny_product', 'view_product', 'create_product', 'update_product', 'delete_product'])->pluck('id'));
-        $userRootRole->permissions()->attach(Permission::whereIn('name', ['viewAny_product', 'view_product', 'create_product', 'update_product', 'delete_product', 'restore_product', 'forceDelete_product'])->pluck('id'));
-        $adminRole->permissions()->attach(Permission::whereIn('name', ['viewAny_product', 'view_product', 'create_product', 'update_product', 'delete_product', 'restore_product', 'forceDelete_product', 'viewAny_user', 'view_user', 'create_user', 'update_user', 'delete_user'])->pluck('id'));
-        $adminRootRole->permissions()->attach(Permission::whereIn('name', ['viewAny_product', 'view_product', 'create_product', 'update_product', 'delete_product', 'restore_product', 'forceDelete_product', 'viewAny_user', 'view_user', 'create_user', 'update_user', 'delete_user', 'restore_user', 'forceDelete_user'])->pluck('id'));
-        $rootRole->permissions()->attach(Permission::whereIn('name', ['viewAny_product', 'view_product', 'create_product', 'update_product', 'delete_product', 'restore_product', 'forceDelete_product', 'view_user', 'create_user', 'update_user', 'delete_user', 'restore_user', 'forceDelete_user', 'view_permission'])->pluck('id'));
+        $welcomeRole->permissions()->attach(Permission::whereIn('name', ['viewAny_product', 'viewAny_carousel'])->pluck('id'));
+        $productAdminRole->permissions()->attach(Permission::whereIn('name', ['viewAny_product', 'view_product', 'create_product', 'update_product', 'delete_product', 'viewAny_carousel'])->pluck('id'));
+        $productRootRole->permissions()->attach(Permission::whereIn('name', ['viewAny_product', 'view_product', 'create_product', 'update_product', 'delete_product', 'restore_product', 'forceDelete_product', 'viewAny_carousel'])->pluck('id'));
+        $userAdminRole->permissions()->attach(Permission::whereIn('name', ['viewAny_product', 'view_product', 'create_product', 'update_product', 'delete_product', 'restore_product', 'forceDelete_product', 'viewAny_user', 'view_user', 'create_user', 'update_user', 'delete_user', 'viewAny_carousel'])->pluck('id'));
+        $userRootRole->permissions()->attach(Permission::whereIn('name', ['viewAny_product', 'view_product', 'create_product', 'update_product', 'delete_product', 'restore_product', 'forceDelete_product', 'viewAny_user', 'view_user', 'create_user', 'update_user', 'delete_user', 'restore_user', 'forceDelete_user', 'viewAny_carousel'])->pluck('id'));
+        $roleAdminRole->permissions()->attach(Permission::whereIn('name', ['viewAny_product', 'view_product', 'create_product', 'update_product', 'delete_product', 'restore_product', 'forceDelete_product', 'viewAny_user', 'view_user', 'create_user', 'update_user', 'delete_user', 'restore_user', 'forceDelete_user', 'viewAny_carousel', 'view_role', 'create_role', 'edit_role', 'delete_role'])->pluck('id'));
         $superRootRole->permissions()->attach(Permission::all()->pluck('id'));
         
 
@@ -71,18 +72,75 @@ class DatabaseSeeder extends Seeder
         ]);
         User::factory()->create([
             'role_id' => 6,
-            'role_name' => 'root',
-            'first_name' => 'root',
-            'last_name' => 'root',
-            'username' => 'root',
+            'role_name' => 'admin_role',
+            'first_name' => 'admin_role',
+            'last_name' => 'admin_role',
+            'username' => 'admin_role',
             'phone' => '1234567890',
-            'address' => '123 Root St',
-            'city' => 'Root City',
-            'state' => 'Root State',
-            'country' => 'Root Country',
+            'address' => '123 admin_role St',
+            'city' => 'admin_role City',
+            'state' => 'admin_role State',
+            'country' => 'admin_role Country',
             'zip_code' => '12345',
-            'company' => 'Root Company',
-            'email' => 'root@gmail.com',
+            'company' => 'admin_role Company',
+            'email' => 'admin_role@gmail.com',
+            'email_verified_at' => now(),
+            'password' => Hash::make('12345678'),
+            'profile_photo_path' => 'storage/users/images/photo_'. random_int(1,3) . '.jpg',
+            'remember_token' => Str::random(10)
+        ]);
+        User::factory()->create([
+            'role_id' => 5,
+            'role_name' => 'root_user',
+            'first_name' => 'root_user',
+            'last_name' => 'root_user',
+            'username' => 'root_user',
+            'phone' => '1234567890',
+            'address' => '123 root_user St',
+            'city' => 'root_user City',
+            'state' => 'root_user State',
+            'country' => 'root_user Country',
+            'zip_code' => '12345',
+            'company' => 'root_user Company',
+            'email' => 'root_user@gmail.com',
+            'email_verified_at' => now(),
+            'password' => Hash::make('12345678'),
+            'profile_photo_path' => 'storage/users/images/photo_'. random_int(1, 3) . '.jpg',
+            'remember_token' => Str::random(10)
+        ]);
+        User::factory()->create([
+            'role_id' => 4,
+            'role_name' => 'admin_user',
+            'first_name' => 'admin_user',
+            'last_name' => 'admin_user',
+            'username' => 'admin_user',
+            'phone' => '1234567890',
+            'address' => '123 admin_user St',
+            'city' => 'admin_user City',
+            'state' => 'admin_user State',
+            'country' => 'admin_user Country',
+            'zip_code' => '12345',
+            'company' => 'admin_user Company',
+            'email' => 'admin_user@gmail.com',
+            'email_verified_at' => now(),
+            'password' => Hash::make('12345678'),
+            'profile_photo_path' => 'storage/users/images/photo_'. random_int(1,3) . '.jpg',
+            'remember_token' => Str::random(10)
+        ]);
+        User::factory()->create([
+            'role_id' => 3,
+            'role_name' => 'root_product',
+            'first_name' => 'root_product',
+            'last_name' => 'root_product',
+            'username' => 'root_product',
+            'phone' => '1234567890',
+            'address' => '123 root_product St',
+            'city' => 'root_product City',
+            'state' => 'root_product State',
+            'country' => 'root_product Country',
+            'zip_code' => '12345',
+            'company' => 'root_product Company',
+            'email' => 'root_product@gmail.com',
             'email_verified_at' => now(),
             'password' => Hash::make('12345678'),
             'profile_photo_path' => 'storage/users/images/photo_'. random_int(1,3) . '.jpg',
@@ -91,17 +149,17 @@ class DatabaseSeeder extends Seeder
         User::factory()->create([
             'role_id' => 2,
             'role_name' => 'admin_product',
-            'first_name' => 'admin',
-            'last_name' => 'admin',
-            'username' => 'admin',
+            'first_name' => 'admin_product',
+            'last_name' => 'admin_product',
+            'username' => 'admin_product',
             'phone' => '1234567890',
-            'address' => '123 admin St',
-            'city' => 'admin City',
-            'state' => 'admin State',
-            'country' => 'admin Country',
+            'address' => '123 admin_product St',
+            'city' => 'admin_product City',
+            'state' => 'admin_product State',
+            'country' => 'admin_product Country',
             'zip_code' => '12345',
-            'company' => 'admin Company',
-            'email' => 'admin@gmail.com',
+            'company' => 'admin_product Company',
+            'email' => 'admin_product@gmail.com',
             'email_verified_at' => now(),
             'password' => Hash::make('12345678'),
             'profile_photo_path' => 'storage/users/images/photo_'. random_int(1, 3) . '.jpg',
@@ -109,18 +167,18 @@ class DatabaseSeeder extends Seeder
         ]);
         User::factory()->create([
             'role_id' => 1,
-            'role_name' => 'user',
-            'first_name' => 'fito',
-            'last_name' => 'fito',
-            'username' => 'fito',
+            'role_name' => 'welcome_product',
+            'first_name' => 'welcome_product',
+            'last_name' => 'welcome_product',
+            'username' => 'welcome_product',
             'phone' => '1234567890',
-            'address' => '123 fito St',
-            'city' => 'fito City',
-            'state' => 'fito State',
-            'country' => 'fito Country',
+            'address' => '123 welcome_product St',
+            'city' => 'welcome_product City',
+            'state' => 'welcome_product State',
+            'country' => 'welcome_product Country',
             'zip_code' => '12345',
-            'company' => 'fito Company',
-            'email' => 'fito@gmail.com',
+            'company' => 'welcome_product Company',
+            'email' => 'welcome_product@gmail.com',
             'email_verified_at' => now(),
             'password' => Hash::make('12345678'),
             'profile_photo_path' => 'storage/users/images/photo_'. random_int(1, 3) . '.jpg',

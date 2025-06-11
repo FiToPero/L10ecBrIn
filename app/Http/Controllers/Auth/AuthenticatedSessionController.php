@@ -34,7 +34,7 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
-        return redirect()->route('product.index');
+        return redirect()->route('welcome.index');
     }
 
     /**
@@ -48,6 +48,6 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerateToken();
 
-        return redirect()->route('product.index');
+        return redirect()->route('welcome.index');
     }
 }
