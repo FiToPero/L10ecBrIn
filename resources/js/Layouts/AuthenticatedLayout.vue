@@ -47,17 +47,17 @@ const selectLang = (e) => { changeLocale(e.target.value) }
                         <NavLink :href="route('welcome.index')" :active="route().current('welcome.index')">
                             {{ $t('Welcome') }}
                         </NavLink>
-                        <NavLink v-if="page.props.auth.user.permissions.includes('viewAny_carousel')" :href="route('carousel.index')" :active="route().current('carousel.index')">
+                        <NavLink v-if="page.props.auth.user && page.props.auth.user.permissions && page.props.auth.user.permissions.includes('viewAny_carousel')" :href="route('carousel.index')" :active="route().current('carousel.index')">
                             {{ $t('Carousel') }}
                         </NavLink>
-                        <NavLink v-if="page.props.auth.user.permissions.includes('viewAny_product')" :href="route('product.index')" :active="route().current('product.index')">
+                        <NavLink v-if="page.props.auth.user && page.props.auth.user.permissions && page.props.auth.user.permissions.includes('viewAny_product')" :href="route('product.index')" :active="route().current('product.index')">
                             {{ $t('Product') }}
                         </NavLink>
-                        <NavLink v-if="page.props.auth.user.permissions.includes('viewAny_user')" :href="route('adminUser.index')" :active="route().current('adminUser.index')">
+                        <NavLink v-if="page.props.auth.user && page.props.auth.user.permissions && page.props.auth.user.permissions.includes('viewAny_user')" :href="route('adminUser.index')" :active="route().current('adminUser.index')">
                             {{ $t('Admin-User') }}
                         </NavLink>
-                        <NavLink v-if="page.props.auth.user.permissions.includes('viewAny_role')" :href="route('adminRoleUser.index')" :active="route().current('adminRoleUser.index')">
-                            {{ $t('Admin-Role-User') }}
+                        <NavLink v-if="page.props.auth.user && page.props.auth.user.permissions && page.props.auth.user.permissions.includes('viewAny_role')" :href="route('adminRole.index')" :active="route().current('adminRole.index')">
+                            {{ $t('Admin-Role') }}
                         </NavLink> 
                         <!-- <div class="p-3 text-white text-sm">{{ page.props.auth.user.permissions }}</div> -->
                     </div>
@@ -135,17 +135,18 @@ const selectLang = (e) => { changeLocale(e.target.value) }
             <div class="pt-2 pb-3 space-y-1">
                 <ResponsiveNavLink :href="route('welcome.index')" :active="route().current('welcome.index')">
                     {{ $t('Welcome') }}
-                </ResponsiveNavLink> <ResponsiveNavLink v-if="Carousel" :href="route('carousel.index')" :active="route().current('carousel.index')">
+                </ResponsiveNavLink> 
+                <ResponsiveNavLink v-if="page.props.auth.user && page.props.auth.user.permissions && page.props.auth.user.permissions.includes('viewAny_carousel')" :href="route('carousel.index')" :active="route().current('carousel.index')">
                     {{ $t('Carousel') }}
                 </ResponsiveNavLink>
-                <ResponsiveNavLink v-if="Product" :href="route('product.index')" :active="route().current('product.index')">
+                <ResponsiveNavLink v-if="page.props.auth.user && page.props.auth.user.permissions && page.props.auth.user.permissions.includes('viewAny_product')" :active="route().current('product.index')">
                     {{ $t('product') }}
                 </ResponsiveNavLink>
-                <ResponsiveNavLink v-if="AdminUser" :href="route('adminUser.index')" :active="route().current('adminUser.index')">
+                <ResponsiveNavLink v-if="page.props.auth.user && page.props.auth.user.permissions && page.props.auth.user.permissions.includes('viewAny_user')" :href="route('adminUser.index')" :active="route().current('adminUser.index')">
                     {{ $t('Admin-User') }}
                 </ResponsiveNavLink>
-                <ResponsiveNavLink v-if="AdminRoleUser" :href="route('adminRoleUser.index')" :active="route().current('adminRoleUser.index')">
-                    {{ $t('Admin-Role-User') }}
+                <ResponsiveNavLink v-if="page.props.auth.user && page.props.auth.user.permissions && page.props.auth.user.permissions.includes('viewAny_role')" :href="route('adminRole.index')" :active="route().current('adminRole.index')">
+                    {{ $t('Admin-Role') }}
                 </ResponsiveNavLink>
             </div>
 

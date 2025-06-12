@@ -4,7 +4,7 @@ use App\Http\Controllers\AdminUserController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\WelcomeController;
-use App\Http\Controllers\RootController;
+use App\Http\Controllers\RoleController;
 use App\Http\Controllers\CarouselController;
 use Illuminate\Support\Facades\Route;
 
@@ -26,13 +26,12 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('/product/store', [ProductController::class, 'store'])->name('product.store'); 
     Route::put('/product/update/{id}', [ProductController::class, 'update'])->name('product.update');
     Route::delete('/product/delete/{id}', [ProductController::class, 'destroy'])->name('product.delete');
-
     Route::patch('/product/restore/{id}', [ProductController::class, 'restore'])->name('product.restore');
     Route::delete('/product/forceDestroy/{id}', [ProductController::class, 'forceDestroy'])->name('product.forceDestroy');
 });
 
 Route::middleware(['auth', 'verified'])->group(function () {
-    Route::get('/adminRoleUser', [RootController::class, 'index'])->name('adminRoleUser.index');
+    Route::get('/adminRole', [RoleController::class, 'index'])->name('adminRole.index');
 });
 
 Route::middleware(['auth', 'verified'])->group(function () {
@@ -41,7 +40,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('/adminUser/store', [AdminUserController::class, 'store'])->name('adminUser.store');
     Route::get('/adminUser/edit/{id}', [AdminUserController::class, 'edit'])->name('adminUser.edit');
     Route::put('/adminUser/update/{id}', [AdminUserController::class, 'update'])->name('adminUser.update');
-    Route::delete('/adminUser/delete/{id}', [AdminUserController::class, 'destroy'])->name('adminUser.delete');   
+    Route::delete('/adminUser/delete/{id}', [AdminUserController::class, 'destroy'])->name('adminUser.delete');  
+    Route::patch('/adminUser/restore/{id}', [AdminUserController::class, 'restore'])->name('adminUser.restore');
+    Route::delete('/adminUser/forceDestroy/{id}', [AdminUserController::class, 'forceDestroy'])->name('adminUser.forceDestroy');
 });
 
 Route::middleware(['auth', 'verified'])->group(function () {

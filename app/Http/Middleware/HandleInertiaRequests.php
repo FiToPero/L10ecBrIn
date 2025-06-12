@@ -47,7 +47,7 @@ class HandleInertiaRequests extends Middleware
                         $user = Auth::user();
 
                         // Convierte los atributos del usuario en un array.
-                        $userArray = $user->getAttributes();
+                        $userArray = $user->getAttributes();  //(array)$user;
 
                         // Agrega el rol del usuario al array.
                         $userArray['role'] = $user->role->name;
@@ -64,7 +64,8 @@ class HandleInertiaRequests extends Middleware
             // Agrega una propiedad 'flash' para manejar mensajes flash desde la sesión.
             'flash' => [
                 // Obtiene el mensaje flash almacenado en la sesión, si existe.
-                'message' => fn () => $request->session()->get('message')
+                'message' => fn () => $request->session()->get('message'),
+                'color' => fn () => $request->session()->get('color'),
             ]
         ];
     }

@@ -60,9 +60,9 @@ class ProductController extends Controller
                 'image_04' => null,
                 'image_05' => null
             ]);
-            return redirect()->route('product.index')->with('message', 'Product created succcess.');
+            return redirect()->route('product.index')->with(['message' => 'Product created successfully.', 'color' => 'green']);
        } catch(\Exception $e) {
-            return redirect()->route('product.index')->with('message', 'Product created failed.');
+            return redirect()->route('product.index')->with(['message' => 'Product creation failed.', 'color' => 'red']);
        }
     }
 
@@ -108,9 +108,9 @@ class ProductController extends Controller
                 'image_04' => null,
                 'image_05' => null
             ]);
-            return redirect()->route('product.index')->with('message', 'Product Update succcess.');
+            return redirect()->route('product.index')->with(['message' => 'Product updated successfully.', 'color' => 'blue']);
         } catch (\Exception $e){
-            return redirect()->route('product.index')->with('message', 'Product Update failed.');
+            return redirect()->route('product.index')->with(['message' => 'Product updated failed.', 'color' => 'red']);
         }
     }
 
@@ -119,9 +119,9 @@ class ProductController extends Controller
         try {
             $this->authorize('delete', Product::class);
             Product::destroy($id);
-            return redirect()->route('product.index')->with('message', 'Product Deleted succcess.');
+            return redirect()->route('product.index')->with(['message' => 'Product Deleted succcess.', 'color' => 'red']);
         } catch (\Exception $e) {
-            return redirect()->route('product.index')->with('message', 'Product Deleted failed.');
+            return redirect()->route('product.index')->with(['message' => 'Product Deleted failed.', 'color' => 'red']);
         }
     }
 
@@ -130,9 +130,9 @@ class ProductController extends Controller
        try {
             $this->authorize('restore', Product::class);
             Product::withTrashed()->find($id)->restore();
-            return redirect()->route('product.index')->with('message', 'Product Restored succcess.');
+            return redirect()->route('product.index')->with(['message' => 'Product Restored succcess.', 'color' => 'blue']);
         } catch (\Exception $e) {
-            return redirect()->route('product.index')->with('message', 'Product Restored failed.');
+            return redirect()->route('product.index')->with(['message' => 'Product Restored failed.', 'color' => 'red']);
         }
     }
 
@@ -141,9 +141,9 @@ class ProductController extends Controller
         try {
             $this->authorize('forceDelete', Product::class);
             Product::withTrashed()->find($id)->forceDelete();
-            return redirect()->route('product.index')->with('message', 'Product Deleted permanently succcess.');
+            return redirect()->route('product.index')->with(['message' => 'Product Deleted permanently succcess.', 'color' => 'red']);
         } catch (\Exception $e) {
-            return redirect()->route('product.index')->with('message', 'Product Deleted permanently failed.');
+            return redirect()->route('product.index')->with(['message' => 'Product Deleted permanently failed.', 'color' => 'red']);
         }
     }
 

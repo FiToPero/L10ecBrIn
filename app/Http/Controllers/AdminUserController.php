@@ -14,13 +14,17 @@ class AdminUserController extends Controller
 {
     use AuthorizesRequests;
 
-    public function index()
+    public function index(Request $request)
     {
         $this->authorize('view', User::class); 
-        $users = User::all();
+
         $roles = Role::all();
-        
-        return Inertia::render('Admin-User', compact('users', 'roles'));
+        $filters = $request->all('user', 'userTrashed');
+
+        $users = User::when($filters['user'] ?? null, function($query, $search){$query->where('username', 'LIKE', "%". $search ."%");})->paginate(10);
+        $usersTrashed = User::onlyTrashed()->when($filters['userTrashed'] ?? null, function($query, $search){$query->where('username', 'LIKE', "%". $search ."%");})->paginate(5);
+
+        return Inertia::render('Admin-User', compact('users', 'usersTrashed', 'roles'));
     }
 
     public function create()
@@ -57,9 +61,9 @@ class AdminUserController extends Controller
                 'password' => Hash::make($request->password),
                 'role_id' => $request->role_id,
             ]);
-            return redirect()->route('adminUser.index')->with('message', 'User created successfully.');
+            return redirect()->route('adminUser.index')->with(['message' => 'User created successfully.', 'color' => 'green']);
         } catch (\Exception $e) {
-            return redirect()->route('adminUser.index')->with('message', 'User created fail.');
+            return redirect()->route('adminUser.index')->with(['message' => 'User created failed.', 'color' => 'red']);
         }
     }
 
@@ -106,9 +110,9 @@ class AdminUserController extends Controller
                 'profile_photo_path' => $imageUrl_01,
                 'role_id' => $request->role_id,
             ]);
-            return redirect()->route('adminUser.index')->with('message', 'User updated successfully.');
+            return redirect()->route('adminUser.index')->with(['message' => 'User updated successfully.', 'color' => 'blue']);
         }catch (\Exception $e) {
-            return redirect()->route('adminUser.index')->with('message', 'User updated fail.');
+            return redirect()->route('adminUser.index')->with(['message' => 'User updated failed.', 'color' => 'red']);
         }
     }
 
@@ -117,9 +121,9 @@ class AdminUserController extends Controller
         try {
             $this->authorize('delete', User::class);
             User::destroy($id);
-            return redirect()->route('adminUser.index')->with('message', 'User Deleted succcess.');
+            return redirect()->route('adminUser.index')->with(['message' => 'User Deleted succcess.', 'color' => 'red']);
         } catch (\Exception $e) {
-            return redirect()->route('adminUser.index')->with('message', 'User Deleted failed.');
+            return redirect()->route('adminUser.index')->with(['message' => 'User Deleted failed.', 'color' => 'red']);
         }
     }
 
@@ -128,9 +132,9 @@ class AdminUserController extends Controller
        try {
             $this->authorize('restore', User::class);
             User::withTrashed()->find($id)->restore();
-            return redirect()->route('adminRoot.index')->with('message', 'User Restored succcess.');
+            return redirect()->route('adminUser.index')->with(['message' => 'User Restored succcess.', 'color' => 'blue']);    
         } catch (\Exception $e) {
-            return redirect()->route('adminRoot.index')->with('message', 'User Restored failed.');
+            return redirect()->route('adminUser.index')->with(['message' => 'User Restored failed.', 'color' => 'red']);
         }
     }
 
@@ -139,9 +143,9 @@ class AdminUserController extends Controller
         try {
             $this->authorize('forceDelete', User::class);
             User::withTrashed()->find($id)->forceDelete();
-            return redirect()->route('adminRoot.index')->with('message', 'User Deleted permanently succcess.');
+            return redirect()->route('adminUser.index')->with(['message' => 'User Deleted permanently succcess.', 'color' => 'red']);
         } catch (\Exception $e) {
-            return redirect()->route('adminRoot.index')->with('message', 'User Deleted permanently failed.');
+            return redirect()->route('adminUser.index')->with(['message' => 'User Deleted permanently failed.', 'color' => 'red']);
         }
     }
 }
