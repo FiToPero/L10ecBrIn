@@ -32,6 +32,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/adminRole', [RoleController::class, 'index'])->name('adminRole.index');
+    Route::get('/adminRole/create', [RoleController::class, 'create'])->name('adminRole.create');
 });
 
 Route::middleware(['auth', 'verified'])->group(function () {

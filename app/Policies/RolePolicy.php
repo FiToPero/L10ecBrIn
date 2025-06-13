@@ -12,7 +12,7 @@ class RolePolicy
      */
     public function viewAny(User $user): bool
     {
-        return $user->hasPermission('viewAny_role');
+        return $user->role->hasPermission('viewAny_role');
     }
 
     /**
@@ -20,7 +20,7 @@ class RolePolicy
      */
     public function view(User $user): bool
     {
-        return $user->hasPermission('view_role');
+        return $user->role->hasPermission('view_role');
     }
 
     /**
@@ -28,7 +28,7 @@ class RolePolicy
      */
     public function create(User $user): bool
     {
-        return $user->hasPermission('create_role');
+        return $user->role->hasPermission('create_role');
     }
 
     /**
@@ -36,7 +36,7 @@ class RolePolicy
      */
     public function update(User $user): bool
     {
-        return $user->hasPermission('update_role');
+        return $user->role->hasPermission('update_role');
     }
 
     /**
@@ -44,7 +44,7 @@ class RolePolicy
      */
     public function delete(User $user): bool
     {
-        return $user->hasPermission('delete_role');
+        return $user->role->hasPermission('delete_role');
     }
 
     /**
@@ -52,7 +52,7 @@ class RolePolicy
      */
     public function restore(User $user): bool
     {
-        return $user->hasPermission('restore_role');
+        return $user->role->hasPermission('restore_role');
     }
 
     /**
@@ -60,6 +60,6 @@ class RolePolicy
      */
     public function forceDelete(User $user): bool
     {
-        return $user->hasPermission('forceDelete_role');
+        return $user->role->hasPermission('forceDelete_role');
     }
 }

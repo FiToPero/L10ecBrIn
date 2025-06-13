@@ -139,7 +139,7 @@ const selectLang = (e) => { changeLocale(e.target.value) }
                 <ResponsiveNavLink v-if="page.props.auth.user && page.props.auth.user.permissions && page.props.auth.user.permissions.includes('viewAny_carousel')" :href="route('carousel.index')" :active="route().current('carousel.index')">
                     {{ $t('Carousel') }}
                 </ResponsiveNavLink>
-                <ResponsiveNavLink v-if="page.props.auth.user && page.props.auth.user.permissions && page.props.auth.user.permissions.includes('viewAny_product')" :active="route().current('product.index')">
+                <ResponsiveNavLink v-if="page.props.auth.user && page.props.auth.user.permissions && page.props.auth.user.permissions.includes('viewAny_product')" :href="route('product.index')" :active="route().current('product.index')">
                     {{ $t('product') }}
                 </ResponsiveNavLink>
                 <ResponsiveNavLink v-if="page.props.auth.user && page.props.auth.user.permissions && page.props.auth.user.permissions.includes('viewAny_user')" :href="route('adminUser.index')" :active="route().current('adminUser.index')">
