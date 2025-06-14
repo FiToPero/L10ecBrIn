@@ -36,6 +36,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'password_confirmation',
         'profile_photo_path',
         'role_id',
+        'role_name',
     ];
 
 
@@ -49,6 +50,8 @@ class User extends Authenticatable implements MustVerifyEmail
         'password',
         'password_confirmation',
         'remember_token',
+        'role_id',
+        'role_name',
     ];
 
     /**

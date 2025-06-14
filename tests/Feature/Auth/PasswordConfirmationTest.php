@@ -12,6 +12,7 @@ class PasswordConfirmationTest extends TestCase
 
     public function test_confirm_password_screen_can_be_rendered(): void
     {
+        $role = \App\Models\Role::factory()->create();
         $user = User::factory()->create();
 
         $response = $this->get(route('password.confirm'));
@@ -21,10 +22,11 @@ class PasswordConfirmationTest extends TestCase
 
     public function test_password_can_be_confirmed(): void
     {
+        $role = \App\Models\Role::factory()->create();
         $user = User::factory()->create();
 
         $response = $this->actingAs($user)->post(route('password.confirm'), [
-            'password' => 'password',
+            'password' => '12345678',
         ]);
 
         $response->assertRedirect();
@@ -33,6 +35,7 @@ class PasswordConfirmationTest extends TestCase
 
     public function test_password_is_not_confirmed_with_invalid_password(): void
     {
+        $role = \App\Models\Role::factory()->create();
         $user = User::factory()->create();
 
         $response = $this->actingAs($user)->post(route('password.confirm'), [

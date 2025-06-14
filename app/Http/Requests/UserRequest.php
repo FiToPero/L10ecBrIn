@@ -27,7 +27,7 @@ class UserRequest extends FormRequest
         $rules = [ 
             'first_name' => 'required|string|max:255',
             'last_name' => 'required|string|max:255',
-            // 'username' => 'required|string|max:255|unique:users,username,' . $this->route('user'),
+            'username' => 'required|string|max:255|unique:users,username',
             'phone' => 'required|string|max:20',
             'address' => 'string|max:255',
             'city' => 'string|max:100',
@@ -35,18 +35,17 @@ class UserRequest extends FormRequest
             'country' => 'string|max:100',
             'zip_code' => 'string|max:20',
             'company' => 'string|max:255',
-            'email' => 'required|string|email|max:255|unique:users,username,' . $this->route('user'),
+            'email' => 'required|string|email|max:255|unique:users,username',
             'password' => 'required|string|min:8|confirmed',  /////////////////////////////////
             //'password' => 'required|string|min:8|confirmed|regex:/[a-z]/|regex:/[A-Z]/|regex:/[0-9]/|regex:/[@$!%*?&]/',
             'profile_photo_path' => $this->hasFile('profile_photo_path') ? 'image|mimes:jpeg,png,jpg,gif,svg|max:2048' : 'nullable|string|max:255',
             'role_id' => 'required|exists:roles,id',
+            'role_name' => 'required|string|exists:roles,name',
         ];
 
-        if ($this->isMethod('POST')) {
-            $rules['username'] = 'required|string|max:255|unique:users,username';
-        }
         if ($this->isMethod('post')) {
             // Solo en create (POST) es obligatorio el password
+            $rules['username'] = 'required|string|max:255|unique:users,username';
             $rules['password'] = 'required|string|min:8|confirmed';
         } else {
             // En update (PUT/PATCH) el password es opcional

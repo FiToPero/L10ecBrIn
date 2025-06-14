@@ -19,11 +19,18 @@ class RegistrationTest extends TestCase
 
     public function test_new_users_can_register(): void
     {
+        $role = \App\Models\Role::factory()->create();
+
         $response = $this->post('/register', [
-            'name' => 'Test User',
-            'email' => 'test@example.com',
-            'password' => 'password',
-            'password_confirmation' => 'password',
+            'first_name' => 'test',
+            'last_name' => 'test',
+            'username' => 'testuser',
+            'phone' => '1234567890',
+            'email' => 'testtest@gmail.com',
+            'password' => '12345678',
+            'password_confirmation' => '12345678',
+            'role_id' => 2,
+            'role_name' => 'welcome_product',
         ]);
 
         $this->assertAuthenticated();

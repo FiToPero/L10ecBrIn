@@ -18,13 +18,15 @@ class RoleFactory extends Factory
     public function definition(): array
     {
         return [
-            Role::factory()->create(['name' => 'welcome_product']),
-            Role::factory()->create(['name' => 'admin_product']),
-            Role::factory()->create(['name' => 'root_product']),
-            Role::factory()->create(['name' => 'admin_user']),
-            Role::factory()->create(['name' => 'root_user']),
-            Role::factory()->create(['name' => 'admin_role']),
-            Role::factory()->create(['name' => 'super_root'])
+            'name' => $this->faker->unique()->randomElement([
+                'welcome_product',
+                'admin_product',
+                'root_product',
+                'admin_user',
+                'root_user',
+                'admin_role',
+                'super_root'
+            ]),
         ];
     }
 }
