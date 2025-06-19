@@ -3,6 +3,7 @@ import { ref, watch } from 'vue'
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue'
 import { Link, usePage, router, Head } from '@inertiajs/vue3'
 import Show from '@/Pages/Forms/UserForms/Show.vue'
+import Edit from '@/Pages/Forms/UserForms/Edit.vue'
 import UserTable from '@/Tables/UserTable.vue'
 import FlashMessage from '@/Components/FlashMessage.vue'
 
@@ -16,6 +17,8 @@ const page = usePage()
 
 const modalShow = ref(false)
 const userShow = ref('')
+const modalEdit = ref(false)
+const userEdit = ref('')
 const isMessage = ref(false)
 
 const openShow = (user) => {
@@ -27,9 +30,13 @@ const closeShow = () => { modalShow.value = false }
 const deleteStore = (id) => {
     router.delete(route('adminUser.delete', [id]), {}, {})   
 }
-const editStore = (id) => {
-    router.get(route('adminUser.edit', [id]), {}, {})
+const openEdit = (user) => {
+    modalEdit.value = true
+    userEdit.value = user
+    // router.get(route('adminUser.edit', [id]), {}, {})
 }
+const closeEdit = () => { modalEdit.value = false }
+
 const forceDelete = (id) => {
     router.delete(route('adminUser.forceDestroy', [id]), {}, {})   
 }
@@ -64,11 +71,13 @@ watch(() => page.props.flash.message, (newValue) => {
             </div>
             <!-- MODAL SHOW -->
             <Show v-if="modalShow" :user="userShow" @closeShow="closeShow" />
+            <!-- MODAL EDIT -->
+            <Edit v-if="modalEdit" :user="userEdit" :roles="props.roles" @closeEdit="closeEdit" />
         </div>
              
         <UserTable :users="props.users" searchName="user" v-slot="{user}" >
             <button type="button" @click="openShow(user)" class="mx-3 text-white bg-yellow-700 hover:bg-yellow-800 focus:ring-4 focus:outline-none focus:ring-yellow-300 font-medium rounded-lg text-sm px-2 py-1 text-center dark:bg-yellow-600 dark:hover:bg-yellow-700 dark:focus:ring-yellow-800 ">{{ $t('Show') }}</button>
-            <button v-if="page.props.auth.user.permissions.includes('update_user')" type="button" @click="editStore(user.id)" class="mx-4 text-white bg-cyan-700 hover:bg-cyan-800 focus:ring-4 focus:outline-none focus:ring-cyan-300 font-medium rounded-lg text-sm w-136 px-2 py-1 text-center dark:bg-cyan-600 dark:hover:bg-cyan-700 dark:focus:ring-cyan-800 ">{{ $t('Edit') }}</button>
+            <button v-if="page.props.auth.user.permissions.includes('update_user')" type="button" @click="openEdit(user)" class="mx-4 text-white bg-cyan-700 hover:bg-cyan-800 focus:ring-4 focus:outline-none focus:ring-cyan-300 font-medium rounded-lg text-sm w-136 px-2 py-1 text-center dark:bg-cyan-600 dark:hover:bg-cyan-700 dark:focus:ring-cyan-800 ">{{ $t('Edit') }}</button>
             <button v-if="page.props.auth.user.permissions.includes('delete_user')" type="button" @click="deleteStore(user.id)" class="mx-3 text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-2 py-1 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800 ">{{ $t('Delete') }}</button>
         </UserTable>
 

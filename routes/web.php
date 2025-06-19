@@ -13,9 +13,9 @@ Route::get('/', [WelcomeController::class, 'index'])->name('welcome.index');
 // Authentication Routes
 
 Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile/update', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile/destroy', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
 Route::middleware(['auth', 'verified'])->group(function () {
@@ -40,7 +40,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/adminUser/create', [AdminUserController::class, 'create'])->name('adminUser.create');
     Route::post('/adminUser/store', [AdminUserController::class, 'store'])->name('adminUser.store');
     Route::get('/adminUser/edit/{id}', [AdminUserController::class, 'edit'])->name('adminUser.edit');
-    Route::put('/adminUser/update/{id}', [AdminUserController::class, 'update'])->name('adminUser.update');
+    Route::put('/adminUser/update', [AdminUserController::class, 'update'])->name('adminUser.update');
     Route::delete('/adminUser/delete/{id}', [AdminUserController::class, 'destroy'])->name('adminUser.delete');  
     Route::patch('/adminUser/restore/{id}', [AdminUserController::class, 'restore'])->name('adminUser.restore');
     Route::delete('/adminUser/forceDestroy/{id}', [AdminUserController::class, 'forceDestroy'])->name('adminUser.forceDestroy');

@@ -15,10 +15,10 @@
       <label for="dropzoneFile" class="font-bold text-lg mb-5 text-white bg-gray-700 hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-gray-300 rounded-lg w-full sm:w-auto px-5 py-2.5 text-center dark:bg-gray-500 dark:hover:bg-gray-800">Select Image File</label>
       <input type="file" id="dropzoneFile" class="hidden" />
       <template v-if="dropzoneFile">
-        <img class="w-full rounded-lg m-5" :src="dropzoneFile">
+        <img class="w-full max-w-[320px] rounded-lg m-5" :src="dropzoneFile">
       </template>
       <template v-else-if="imageEdit">
-        <img class="w-full rounded-lg m-5" :src="'/'+imageEdit">
+        <img class="w-full max-w-[320px] rounded-lg m-5" :src="'/'+imageEdit">
       </template>
     </div>
   </template>

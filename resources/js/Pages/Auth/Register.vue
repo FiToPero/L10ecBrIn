@@ -3,7 +3,7 @@ import GuestLayout from '@/Layouts/GuestLayout.vue';
 import InputError from '@/Components/InputError.vue';
 import InputLabel from '@/Components/InputLabel.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
-import TextInput from '@/Components/TextInput.vue';
+import InputText from '@/Components/InputText.vue';
 import { Head, Link, useForm } from '@inertiajs/vue3';
 
 const form = useForm({
@@ -38,7 +38,7 @@ const submit = () => {
         <form @submit.prevent="submit">
             <div>
                 <InputLabel for="first_name" value="first_name" />
-                <TextInput
+                <InputText
                     id="first_name"
                     type="text"
                     class="mt-1 block w-full"
@@ -51,7 +51,7 @@ const submit = () => {
             </div>
             <div>
                 <InputLabel for="last_name" value="last_name" />
-                <TextInput
+                <InputText
                     id="last_name"
                     type="text"
                     class="mt-1 block w-full"
@@ -64,7 +64,7 @@ const submit = () => {
             </div>
             <div>
                 <InputLabel for="username" value="username" />
-                <TextInput
+                <InputText
                     id="username"
                     type="text"
                     class="mt-1 block w-full"
@@ -77,7 +77,7 @@ const submit = () => {
             </div>
             <div>
                 <InputLabel for="phone" value="phone" />
-                <TextInput
+                <InputText
                     id="phone"
                     type="text"
                     class="mt-1 block w-full"
@@ -90,7 +90,7 @@ const submit = () => {
             </div>
             <div class="mt-4">
                 <InputLabel for="email" value="Email" />
-                <TextInput
+                <InputText
                     id="email"
                     type="email"
                     class="mt-1 block w-full"
@@ -102,7 +102,7 @@ const submit = () => {
             </div>
             <div class="mt-4">
                 <InputLabel for="password" value="Password" />
-                <TextInput
+                <InputText
                     id="password"
                     type="password"
                     class="mt-1 block w-full"
@@ -114,7 +114,7 @@ const submit = () => {
             </div>
             <div class="mt-4">
                 <InputLabel for="password_confirmation" value="Confirm Password" />
-                <TextInput
+                <InputText
                     id="password_confirmation"
                     type="password"
                     class="mt-1 block w-full"

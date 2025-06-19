@@ -21,7 +21,7 @@ class AdminUserController extends Controller
         $roles = Role::all();
         $filters = $request->all('user', 'userTrashed');
 
-        $users = User::when($filters['user'] ?? null, function($query, $search){$query->where('username', 'LIKE', "%". $search ."%");})->paginate(10);
+        $users = User::with('role')->when($filters['user'] ?? null, function($query, $search){$query->where('username', 'LIKE', "%". $search ."%");})->paginate(10);
         $usersTrashed = User::onlyTrashed()->when($filters['userTrashed'] ?? null, function($query, $search){$query->where('username', 'LIKE', "%". $search ."%");})->paginate(5);
 
         return Inertia::render('Admin-User', compact('users', 'usersTrashed', 'roles'));
@@ -71,7 +71,7 @@ class AdminUserController extends Controller
     {
         try {
             $this->authorize('update', User::class);
-            $user = User::findOrFail($id);
+            $user = User::with('role')->findOrFail($id);
             $roles = Role::all();
 
             return Inertia::render('Forms/UserForms/Edit', compact('user', 'roles'));
@@ -80,7 +80,7 @@ class AdminUserController extends Controller
         }
     }
 
-    public function update(UserRequest $request, String $id)
+    public function update(UserRequest $request)
     { 
         try {
             $this->authorize('update', User::class);
@@ -95,7 +95,7 @@ class AdminUserController extends Controller
                 }
             }
 
-            User::where('id', $id)->update([
+            User::where('id', $request->id)->update([
                 'first_name' => $request->first_name,
                 'last_name' => $request->last_name,
                 'username' => $request->username,

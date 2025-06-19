@@ -27,7 +27,6 @@ class UserRequest extends FormRequest
         $rules = [ 
             'first_name' => 'required|string|max:255',
             'last_name' => 'required|string|max:255',
-            'username' => 'required|string|max:255|unique:users,username',
             'phone' => 'required|string|max:20',
             'address' => 'string|max:255',
             'city' => 'string|max:100',
@@ -50,11 +49,8 @@ class UserRequest extends FormRequest
         } else {
             // En update (PUT/PATCH) el password es opcional
             $rules['password'] = 'nullable|string|min:8|confirmed';
-        }
-        if ($this->isMethod('PUT') || $this->isMethod('PATCH')) {
             $this->request->remove('username');
         }
-
         return $rules;
     }
 }

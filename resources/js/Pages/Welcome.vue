@@ -23,9 +23,10 @@ const openShow = (product) => {
 const closeShow = () => { modalShow.value = false }
 const closeMessage = () => { isMessage.value = false }
 
-watch(page.props.flash.message, () => {
-        if(page.props.flash.message){ isMessage.value = true }
+watch(() => page.props.flash.message, (newValue) => {
+        if(newValue){ isMessage.value = true }
     }, { immediate: true })
+
 watch(search, (value) => {router.get('/', {search: value}, {preserveState: true})})
 
 </script>

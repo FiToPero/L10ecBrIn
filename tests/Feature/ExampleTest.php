@@ -15,7 +15,7 @@ class ExampleTest extends TestCase
     {
         $products = Product::all();
 
-        $response = $this->get(route('product.index', ['products' => $products]));
+        $response = $this->get(route('welcome.index', ['products' => $products]));
 
         $response->assertStatus(200);
     }
