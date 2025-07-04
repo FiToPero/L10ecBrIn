@@ -36,14 +36,15 @@ class AdminUserController extends Controller
 
     public function store(UserRequest $request)
     {
+        dd($request->all());
         try {
             $this->authorize('create', User::class);
 
-                // save image in storage
-                if ($request->hasFile('profile_photo_path')) {
-                    $imageUrl_01 = $request->profile_photo_path->store('public/users/images');
-                    $imageUrl_01 = str_replace('public', 'storage', $imageUrl_01);
-                }
+            // save image in storage
+            if ($request->hasFile('profile_photo_path')) {
+                $imageUrl_01 = $request->profile_photo_path->store('public/users/images');
+                $imageUrl_01 = str_replace('public', 'storage', $imageUrl_01);
+            }
 
             User::create([
                 'first_name' => $request->first_name,
@@ -84,7 +85,6 @@ class AdminUserController extends Controller
     { 
         try {
             $this->authorize('update', User::class);
-
             ///// save image in storage
             if ($request->hasFile('profile_photo_path')) {
                 $imageUrl_01 = $request->profile_photo_path->store('public/users/images');
@@ -132,7 +132,7 @@ class AdminUserController extends Controller
        try {
             $this->authorize('restore', User::class);
             User::withTrashed()->find($id)->restore();
-            return redirect()->route('adminUser.index')->with(['message' => 'User Restored succcess.', 'color' => 'blue']);    
+            return redirect()->route('adminUser.index')->with(['message' => 'User Restored succcess.', 'color' => 'green']);    
         } catch (\Exception $e) {
             return redirect()->route('adminUser.index')->with(['message' => 'User Restored failed.', 'color' => 'red']);
         }

@@ -14,6 +14,7 @@ const receiveImageFile = (image) => {
     dropzoneFile.value = image
 }
 const form = useForm({
+    id: props.product.id,
     productName: props.product.productName,
     shortDescription: props.product.shortDescription,
     company: props.product.company,
@@ -32,13 +33,12 @@ const handleFileChange = (event) => {
   dropzoneFile.value = form.image_01.name
 }
 const submit = () => {
-    form.put(route('product.update', [props.product.id]))
+    form.post(route('product.update'))
 }
 
 const deleteStore = (id) => {
     router.delete(route('product.delete', [id]), {}, {});
 }
-
 </script>
 
 <template>

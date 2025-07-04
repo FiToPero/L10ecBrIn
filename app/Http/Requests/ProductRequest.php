@@ -11,8 +11,6 @@ class ProductRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        // Puedes agregar lógica de autorización aquí
-        // Por ahora, permitimos que todos los usuarios hagan esta solicitud
         return true;
     }
 
@@ -35,7 +33,8 @@ class ProductRequest extends FormRequest
             'email' => 'required|email',
             'priority' => 'required|integer|min:1',
             'remember' => 'boolean',
-            'profile_photo_path' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048'  
+            'profile_photo_path' => $this->hasFile('profile_photo_path') ? 'image|mimes:jpeg,png,jpg,gif,svg|max:2048' : 'nullable|string|max:255',
+
         ];
     }
 }

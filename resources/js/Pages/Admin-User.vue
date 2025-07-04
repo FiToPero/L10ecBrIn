@@ -4,8 +4,11 @@ import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue'
 import { Link, usePage, router, Head } from '@inertiajs/vue3'
 import Show from '@/Pages/Forms/UserForms/Show.vue'
 import Edit from '@/Pages/Forms/UserForms/Edit.vue'
+import Create from '@/Pages/Forms/UserForms/Create.vue'
 import UserTable from '@/Tables/UserTable.vue'
 import FlashMessage from '@/Components/FlashMessage.vue'
+import Modal from '@/Components/Modal.vue'
+import ButtonColor from '@/Components/ButtonColor.vue'
 
 const props = defineProps({
     users: { type: Object, required: true },
@@ -15,11 +18,21 @@ const props = defineProps({
 
 const page = usePage()
 
+const modalCreate = ref(false)
 const modalShow = ref(false)
 const userShow = ref('')
 const modalEdit = ref(false)
 const userEdit = ref('')
+const modalView = ref(false)
+const typeModalView = ref('')
+const idModalView = ref('')
+
 const isMessage = ref(false)
+
+const openCreate = () => {
+    modalCreate.value = true
+}
+const closeCreate = () => { modalCreate.value = false }
 
 const openShow = (user) => {
     modalShow.value = true
@@ -27,26 +40,55 @@ const openShow = (user) => {
 }
 const closeShow = () => { modalShow.value = false }
 
-const deleteStore = (id) => {
-    router.delete(route('adminUser.delete', [id]), {}, {})   
+const openModalView = (id, type) => { 
+    typeModalView.value = type
+    idModalView.value = id
+    modalView.value = true 
+} 
+const callFunction = (id) => {
+    if (typeModalView.value === 'Delete') {
+        deleteStore(id)
+    } else if (typeModalView.value === 'Force Delete') {
+        forceDelete(id)
+    } else if (typeModalView.value === 'Restore') {
+        restore(id)
+    }
 }
+
+
 const openEdit = (user) => {
     modalEdit.value = true
     userEdit.value = user
-    // router.get(route('adminUser.edit', [id]), {}, {})
 }
 const closeEdit = () => { modalEdit.value = false }
 
+const deleteStore = (id) => {
+    router.delete(route('adminUser.delete', [id]), {}, {})
+    modalView.value = false
+    typeModalView.value = ''
+    idModalView.value = ''  
+}
+
 const forceDelete = (id) => {
-    router.delete(route('adminUser.forceDestroy', [id]), {}, {})   
+    router.delete(route('adminUser.forceDestroy', [id]), {}, {})
+    modalView.value = false
+    typeModalView.value = ''
+    idModalView.value = ''   
 }
 const restore = (id) => {
     router.patch(route('adminUser.restore', [id]), {}, {})
+    modalView.value = false
+    typeModalView.value = ''
+    idModalView.value = '' 
 }
 
 const closeMessage = () => { 
     isMessage.value = false
-    page.props.flash.message = null;
+    page.props.flash.message = null
+    page.props.flash.color = null
+}
+const modalIsView = () => {
+    modalView.value = !modalView.value
 }
 
 watch(() => page.props.flash.message, (newValue) => {
@@ -64,26 +106,40 @@ watch(() => page.props.flash.message, (newValue) => {
         </template>
         <div class="w-full m-3">
             <!-- FLASH MESSAGE -->
+             {{ $page.props.flash }}
             <FlashMessage v-if="isMessage" :message=$page.props.flash.message :color="$page.props.flash.color" @closeMessage="closeMessage"  />
+            
             <!-- CREATE BUTTON -->
             <div class="m-5">
-                <Link v-if="page.props.auth.user.permissions.includes('create_user')" :href="route('adminUser.create')" class="mb-5 text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">{{ $t('Create New User') }}</Link>
+                <ButtonColor text="white" bg="green" v-if="page.props.auth.user.permissions.includes('create_user')" @click="openCreate()" >{{ $t('Create New User') }}</ButtonColor>
             </div>
+           
+            <!-- MODAL CREATE -->
+            <Create v-if="modalCreate" @closeCreate="closeCreate" :roles="props.roles" />
             <!-- MODAL SHOW -->
             <Show v-if="modalShow" :user="userShow" @closeShow="closeShow" />
             <!-- MODAL EDIT -->
             <Edit v-if="modalEdit" :user="userEdit" :roles="props.roles" @closeEdit="closeEdit" />
+
+            <!-- MODAL MESSEGE -->
+            <Modal :show="modalView" maxWidth="lg" @close="modalIsView" >
+                <p class="my-5 mx-auto text-xl dark:text-white font-semibold mb-4">{{ $t('Are you sure to '+typeModalView+' this user?') }}</p>
+                <div class="flex justify-between my-5">
+                    <ButtonColor text="white" bg="gray" @click="modalIsView" class="mr-2">{{ $t('Cancel') }}</ButtonColor>
+                    <ButtonColor text="white" bg="red"  @click=callFunction(idModalView)>{{ $t(typeModalView) }}</ButtonColor>
+                </div>
+            </Modal>
         </div>
              
         <UserTable :users="props.users" searchName="user" v-slot="{user}" >
-            <button type="button" @click="openShow(user)" class="mx-3 text-white bg-yellow-700 hover:bg-yellow-800 focus:ring-4 focus:outline-none focus:ring-yellow-300 font-medium rounded-lg text-sm px-2 py-1 text-center dark:bg-yellow-600 dark:hover:bg-yellow-700 dark:focus:ring-yellow-800 ">{{ $t('Show') }}</button>
-            <button v-if="page.props.auth.user.permissions.includes('update_user')" type="button" @click="openEdit(user)" class="mx-4 text-white bg-cyan-700 hover:bg-cyan-800 focus:ring-4 focus:outline-none focus:ring-cyan-300 font-medium rounded-lg text-sm w-136 px-2 py-1 text-center dark:bg-cyan-600 dark:hover:bg-cyan-700 dark:focus:ring-cyan-800 ">{{ $t('Edit') }}</button>
-            <button v-if="page.props.auth.user.permissions.includes('delete_user')" type="button" @click="deleteStore(user.id)" class="mx-3 text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-2 py-1 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800 ">{{ $t('Delete') }}</button>
+            <ButtonColor text="white" bg="yellow" class="mx-2" @click="openShow(user)" >{{ $t('Show') }}</ButtonColor>
+            <ButtonColor text="white" bg="blue" class="mx-2" v-if="page.props.auth.user.permissions.includes('update_user')"  @click="openEdit(user)" >{{ $t('Edit') }}</ButtonColor>
+            <ButtonColor text="white" bg="red" class="mx-2" v-if="page.props.auth.user.permissions.includes('delete_user')"  @click="openModalView(user.id, 'Delete')" >{{ $t('Delete') }}</ButtonColor>
         </UserTable>
 
         <UserTable :users="props.usersTrashed" searchName="userTrashed" v-slot="{user}" >
-            <button v-if="page.props.auth.user.permissions.includes('restore_user')" type="button" @click="restore(user.id)" class="mx-4 text-white bg-cyan-700 hover:bg-cyan-800 focus:ring-4 focus:outline-none focus:ring-cyan-300 font-medium rounded-lg text-sm w-136 px-2 py-1 text-center dark:bg-cyan-600 dark:hover:bg-cyan-700 dark:focus:ring-cyan-800 ">{{ $t('Restore') }}</button>
-            <button v-if="page.props.auth.user.permissions.includes('forceDelete_user')" type="button" @click="forceDelete(user.id)" class="mx-3 text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-2 py-1 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800 ">{{ $t('Force Delete') }}</button>
+            <ButtonColor text="white" bg="green" class="mx-2" v-if="page.props.auth.user.permissions.includes('restore_user')"  @click="openModalView(user.id, 'Restore')" >{{ $t('Restore') }}</ButtonColor>
+            <ButtonColor text="white" bg="red" class="mx-2" v-if="page.props.auth.user.permissions.includes('forceDelete_user')"  @click="openModalView(user.id, 'Force Delete')" >{{ $t('Force Delete') }}</ButtonColor>
         </UserTable>     
 
     </AuthenticatedLayout>

@@ -78,7 +78,7 @@ class ProductController extends Controller
         }
     }
 
-    public function update(ProductRequest $request, string $id)
+    public function update(ProductRequest $request)
     {
         try {
             $this->authorize('update', Product::class);
@@ -90,7 +90,7 @@ class ProductController extends Controller
                 if(is_string($request->image_01)){ $imageUrl_01 = $request->image_01; }
             }
             
-            Product::where('id', $id)->update([
+            Product::where('id', $request->id)->update([
                 'productName' => $request->productName,
                 'shortDescription' => $request->shortDescription,
                 'company' => $request->company,

@@ -47,7 +47,7 @@ class HandleInertiaRequests extends Middleware
                         $user = Auth::user();
 
                         // Convierte los atributos del usuario en un array.
-                        $userArray = $user->getAttributes();  //(array)$user;
+                        $userArray = $user->toArray();  //(array)$user;
 
                         // Agrega el rol del usuario al array.
                         $userArray['role'] = $user->role->name;

@@ -24,7 +24,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/product/create', [ProductController::class, 'create'])->name('product.create');
     Route::get('/product/edit/{id}', [ProductController::class, 'edit'])->name('product.edit');
     Route::post('/product/store', [ProductController::class, 'store'])->name('product.store'); 
-    Route::put('/product/update/{id}', [ProductController::class, 'update'])->name('product.update');
+    Route::post('/product/update', [ProductController::class, 'update'])->name('product.update');
     Route::delete('/product/delete/{id}', [ProductController::class, 'destroy'])->name('product.delete');
     Route::patch('/product/restore/{id}', [ProductController::class, 'restore'])->name('product.restore');
     Route::delete('/product/forceDestroy/{id}', [ProductController::class, 'forceDestroy'])->name('product.forceDestroy');
@@ -40,7 +40,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/adminUser/create', [AdminUserController::class, 'create'])->name('adminUser.create');
     Route::post('/adminUser/store', [AdminUserController::class, 'store'])->name('adminUser.store');
     Route::get('/adminUser/edit/{id}', [AdminUserController::class, 'edit'])->name('adminUser.edit');
-    Route::put('/adminUser/update', [AdminUserController::class, 'update'])->name('adminUser.update');
+    Route::post('/adminUser/update', [AdminUserController::class, 'update'])->name('adminUser.update');
     Route::delete('/adminUser/delete/{id}', [AdminUserController::class, 'destroy'])->name('adminUser.delete');  
     Route::patch('/adminUser/restore/{id}', [AdminUserController::class, 'restore'])->name('adminUser.restore');
     Route::delete('/adminUser/forceDestroy/{id}', [AdminUserController::class, 'forceDestroy'])->name('adminUser.forceDestroy');

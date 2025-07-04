@@ -9,8 +9,7 @@ use App\Models\Role;
 
 class Permission extends Model
 {
-    use HasFactory;
-    use SoftDeletes;
+    use HasFactory, SoftDeletes;
 
     public function roles()
     {

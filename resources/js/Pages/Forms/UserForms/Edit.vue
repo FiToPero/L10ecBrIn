@@ -13,9 +13,6 @@ const props = defineProps({
 const page = usePage()
 const dropzoneFile = ref(props.user.profile_photo_path)
 
-const receiveImageFile = (image) => {
-    dropzoneFile.value = image
-}
 const form = useForm({
     id: props.user.id,
     first_name: props.user.first_name,
@@ -33,12 +30,15 @@ const form = useForm({
     role_id: props.user.role.id,
     role_name: props.user.role.name,
 })
+const receiveImageFile = (image) => {
+    dropzoneFile.value = image
+}
 const handleFileChange = (event) => {
   form.profile_photo_path = event.target.files[0]
   dropzoneFile.value = form.profile_photo_path.name
 }
 const submit = () => {
-    form.put(route('adminUser.update'), {onSuccess: () => {emit('closeEdit')}}
+    form.post(route('adminUser.update'), { onSuccess: () => {emit('closeEdit')} }
 )}
 const emit = defineEmits(['closeEdit'])
 
@@ -60,9 +60,9 @@ const emit = defineEmits(['closeEdit'])
     <div class="grid xl:grid-cols-3 sm:grid-cols-1 ">
         <!-- DropZone -->
         <div class="mr-5">
-            <DropZone @imageFile="receiveImageFile" @change="handleFileChange" :imageEdit="form.profile_photo_path" :class="{'border border-red-500 dark:border-red-500' : page.props.errors.profile_photo_path}" @focus="page.props.errors.profile_photo_path = ''"/>
+            <DropZone @imageFile="receiveImageFile" @change="handleFileChange" :imageEdit="user.profile_photo_path" :class="{'border border-red-500 dark:border-red-500' : page.props.errors.profile_photo_path}" @focus="page.props.errors.profile_photo_path = ''"/>
             <InputFull
-                    v-model:model="form.profile_photo_path"
+                    v-model:model="dropzoneFile"
                     v-model:errors="page.props.errors.profile_photo_path"
                     :label="$t('Profile Photo')"
                     :type="'text'"
@@ -189,6 +189,7 @@ const emit = defineEmits(['closeEdit'])
                     <InputFull
                         v-model:model="form.email"
                         v-model:errors="page.props.errors.email"
+                        :disabled="true"
                         :label="$t('Email')"
                         :type="'text'"
                         :id="'email'"
