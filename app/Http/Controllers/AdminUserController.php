@@ -2,13 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\UserRequest;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use App\Models\Role;
 use App\Models\User;
-use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
-use Illuminate\Support\Facades\Hash;
+use App\Http\Requests\UserRequest;
+use stdClass;
+use App\Actions\UpdateUser;
+use App\Actions\CreateUser;
+
 
 class AdminUserController extends Controller
 {
@@ -18,11 +21,20 @@ class AdminUserController extends Controller
     {
         $this->authorize('view', User::class); 
 
+        $usersTrashed = new stdClass();
         $roles = Role::all();
         $filters = $request->all('user', 'userTrashed');
 
-        $users = User::with('role')->when($filters['user'] ?? null, function($query, $search){$query->where('username', 'LIKE', "%". $search ."%");})->paginate(10);
-        $usersTrashed = User::onlyTrashed()->when($filters['userTrashed'] ?? null, function($query, $search){$query->where('username', 'LIKE', "%". $search ."%");})->paginate(5);
+        $users = User::with('role')
+            ->when($filters['user'] ?? null, function($query, $search){$query->where('username', 'LIKE', "%". $search ."%");})
+            ->paginate(10, ['*'], 'userPage');  
+
+        $usersTrashed = User::onlyTrashed()
+            ->when($filters['userTrashed'] ?? null, function($query, $search){$query->where('username', 'LIKE', "%". $search ."%");})
+            ->paginate(5, ['*'], 'trashedPage')
+            ->appends(['userPage' => $users->currentPage()]);
+
+        $users->appends(['trashedPage' => $usersTrashed->currentPage()]);
 
         return Inertia::render('Admin-User', compact('users', 'usersTrashed', 'roles'));
     }
@@ -36,32 +48,10 @@ class AdminUserController extends Controller
 
     public function store(UserRequest $request)
     {
-        dd($request->all());
+        $this->authorize('create', User::class);
         try {
-            $this->authorize('create', User::class);
-
-            // save image in storage
-            if ($request->hasFile('profile_photo_path')) {
-                $imageUrl_01 = $request->profile_photo_path->store('public/users/images');
-                $imageUrl_01 = str_replace('public', 'storage', $imageUrl_01);
-            }
-
-            User::create([
-                'first_name' => $request->first_name,
-                'last_name' => $request->last_name,
-                'username' => $request->username,
-                'phone' => $request->phone,
-                'address' => $request->address,
-                'city' => $request->city,
-                'state' => $request->state,
-                'country' => $request->country,
-                'zip_code' => $request->zip_code,
-                'company' => $request->company,
-                'profile_photo_path' => $imageUrl_01,
-                'email' => $request->email,
-                'password' => Hash::make($request->password),
-                'role_id' => $request->role_id,
-            ]);
+            CreateUser::run($request);
+            
             return redirect()->route('adminUser.index')->with(['message' => 'User created successfully.', 'color' => 'green']);
         } catch (\Exception $e) {
             return redirect()->route('adminUser.index')->with(['message' => 'User created failed.', 'color' => 'red']);
@@ -70,47 +60,22 @@ class AdminUserController extends Controller
 
     public function edit($id)
     {
-        try {
-            $this->authorize('update', User::class);
-            $user = User::with('role')->findOrFail($id);
-            $roles = Role::all();
+        $this->authorize('update', User::class);
 
-            return Inertia::render('Forms/UserForms/Edit', compact('user', 'roles'));
-        } catch (\Exception $e) {
-            return $e->getMessage();
-        }
+        $user = User::with('role')->findOrFail($id);
+        $roles = Role::all();
+
+        return Inertia::render('Forms/UserForms/Edit', compact('user', 'roles'));
+     
     }
 
     public function update(UserRequest $request)
     { 
+        $this->authorize('update', User::class);
         try {
-            $this->authorize('update', User::class);
-            ///// save image in storage
-            if ($request->hasFile('profile_photo_path')) {
-                $imageUrl_01 = $request->profile_photo_path->store('public/users/images');
-                $imageUrl_01 = str_replace('public', 'storage', $imageUrl_01);
-            } else {
-                if(is_string($request->profile_photo_path)){
-                    $imageUrl_01 = $request->profile_photo_path;
-                }
-            }
-
-            User::where('id', $request->id)->update([
-                'first_name' => $request->first_name,
-                'last_name' => $request->last_name,
-                'username' => $request->username,
-                'phone' => $request->phone,
-                'address' => $request->address,
-                'city' => $request->city,
-                'state' => $request->state,
-                'country' => $request->country,
-                'zip_code' => $request->zip_code,
-                'company' => $request->company,
-                'email' => $request->email,
-                'profile_photo_path' => $imageUrl_01,
-                'role_id' => $request->role_id,
-            ]);
-            return redirect()->route('adminUser.index')->with(['message' => 'User updated successfully.', 'color' => 'blue']);
+            UpdateUser::run($request);
+            
+            return redirect()->route('adminUser.index')->with(['message' => 'User updated successfully.', 'color' => 'cyan']);
         }catch (\Exception $e) {
             return redirect()->route('adminUser.index')->with(['message' => 'User updated failed.', 'color' => 'red']);
         }
@@ -118,9 +83,10 @@ class AdminUserController extends Controller
 
         public function destroy(string $id)
     {
+        $this->authorize('delete', User::class);
         try {
-            $this->authorize('delete', User::class);
             User::destroy($id);
+
             return redirect()->route('adminUser.index')->with(['message' => 'User Deleted succcess.', 'color' => 'red']);
         } catch (\Exception $e) {
             return redirect()->route('adminUser.index')->with(['message' => 'User Deleted failed.', 'color' => 'red']);
@@ -129,10 +95,11 @@ class AdminUserController extends Controller
 
     public function restore(string $id)
     {
+        $this->authorize('restore', User::class);
        try {
-            $this->authorize('restore', User::class);
             User::withTrashed()->find($id)->restore();
-            return redirect()->route('adminUser.index')->with(['message' => 'User Restored succcess.', 'color' => 'green']);    
+
+            return redirect()->route('adminUser.index')->with(['message' => 'User Restored succcess.', 'color' => 'blue']);    
         } catch (\Exception $e) {
             return redirect()->route('adminUser.index')->with(['message' => 'User Restored failed.', 'color' => 'red']);
         }
@@ -140,10 +107,11 @@ class AdminUserController extends Controller
 
     public function forceDestroy(string $id)
     {
+        $this->authorize('forceDelete', User::class);
         try {
-            $this->authorize('forceDelete', User::class);
             User::withTrashed()->find($id)->forceDelete();
-            return redirect()->route('adminUser.index')->with(['message' => 'User Deleted permanently succcess.', 'color' => 'red']);
+
+            return redirect()->route('adminUser.index')->with(['message' => 'User Deleted permanently succcess.', 'color' => 'gray']);
         } catch (\Exception $e) {
             return redirect()->route('adminUser.index')->with(['message' => 'User Deleted permanently failed.', 'color' => 'red']);
         }

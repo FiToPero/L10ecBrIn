@@ -28,7 +28,6 @@ class UserFactory extends Factory
 
         return [
             'role_id' => $role->id,
-            'role_name' => $role->name, 
             'first_name' => fake()->firstName(),
             'last_name' => fake()->lastName(),
             'username' => fake()->userName(),

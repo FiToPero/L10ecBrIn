@@ -33,7 +33,7 @@ class ProductRequest extends FormRequest
             'email' => 'required|email',
             'priority' => 'required|integer|min:1',
             'remember' => 'boolean',
-            'profile_photo_path' => $this->hasFile('profile_photo_path') ? 'image|mimes:jpeg,png,jpg,gif,svg|max:2048' : 'nullable|string|max:255',
+            'image_01' => $this->hasFile('image_01') ? 'image|mimes:jpeg,png,jpg,gif,svg|max:2048' : 'required|string|max:255',
 
         ];
     }

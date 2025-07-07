@@ -10,6 +10,7 @@ import FlashMessage from '@/Components/FlashMessage.vue'
 import Modal from '@/Components/Modal.vue'
 import ButtonColor from '@/Components/ButtonColor.vue'
 
+
 const props = defineProps({
     users: { type: Object, required: true },
     usersTrashed: { type: Object },
@@ -29,9 +30,7 @@ const idModalView = ref('')
 
 const isMessage = ref(false)
 
-const openCreate = () => {
-    modalCreate.value = true
-}
+const openCreate = () => { modalCreate.value = true }
 const closeCreate = () => { modalCreate.value = false }
 
 const openShow = (user) => {
@@ -54,7 +53,6 @@ const callFunction = (id) => {
         restore(id)
     }
 }
-
 
 const openEdit = (user) => {
     modalEdit.value = true
@@ -106,9 +104,8 @@ watch(() => page.props.flash.message, (newValue) => {
         </template>
         <div class="w-full m-3">
             <!-- FLASH MESSAGE -->
-             {{ $page.props.flash }}
             <FlashMessage v-if="isMessage" :message=$page.props.flash.message :color="$page.props.flash.color" @closeMessage="closeMessage"  />
-            
+           
             <!-- CREATE BUTTON -->
             <div class="m-5">
                 <ButtonColor text="white" bg="green" v-if="page.props.auth.user.permissions.includes('create_user')" @click="openCreate()" >{{ $t('Create New User') }}</ButtonColor>
@@ -121,11 +118,11 @@ watch(() => page.props.flash.message, (newValue) => {
             <!-- MODAL EDIT -->
             <Edit v-if="modalEdit" :user="userEdit" :roles="props.roles" @closeEdit="closeEdit" />
 
-            <!-- MODAL MESSEGE -->
+            <!-- MODAL MESSAGE -->
             <Modal :show="modalView" maxWidth="lg" @close="modalIsView" >
                 <p class="my-5 mx-auto text-xl dark:text-white font-semibold mb-4">{{ $t('Are you sure to '+typeModalView+' this user?') }}</p>
-                <div class="flex justify-between my-5">
-                    <ButtonColor text="white" bg="gray" @click="modalIsView" class="mr-2">{{ $t('Cancel') }}</ButtonColor>
+                <div class="flex justify-center my-5">
+                    <ButtonColor text="white" bg="gray" @click="modalIsView" class="mr-10">{{ $t('Cancel') }}</ButtonColor>
                     <ButtonColor text="white" bg="red"  @click=callFunction(idModalView)>{{ $t(typeModalView) }}</ButtonColor>
                 </div>
             </Modal>
@@ -133,12 +130,12 @@ watch(() => page.props.flash.message, (newValue) => {
              
         <UserTable :users="props.users" searchName="user" v-slot="{user}" >
             <ButtonColor text="white" bg="yellow" class="mx-2" @click="openShow(user)" >{{ $t('Show') }}</ButtonColor>
-            <ButtonColor text="white" bg="blue" class="mx-2" v-if="page.props.auth.user.permissions.includes('update_user')"  @click="openEdit(user)" >{{ $t('Edit') }}</ButtonColor>
+            <ButtonColor text="white" bg="cyan" class="mx-2" v-if="page.props.auth.user.permissions.includes('update_user')"  @click="openEdit(user)" >{{ $t('Edit') }}</ButtonColor>
             <ButtonColor text="white" bg="red" class="mx-2" v-if="page.props.auth.user.permissions.includes('delete_user')"  @click="openModalView(user.id, 'Delete')" >{{ $t('Delete') }}</ButtonColor>
         </UserTable>
 
-        <UserTable :users="props.usersTrashed" searchName="userTrashed" v-slot="{user}" >
-            <ButtonColor text="white" bg="green" class="mx-2" v-if="page.props.auth.user.permissions.includes('restore_user')"  @click="openModalView(user.id, 'Restore')" >{{ $t('Restore') }}</ButtonColor>
+        <UserTable :users="props.usersTrashed" searchName="userTrashed" v-slot="{user}" > >
+            <ButtonColor text="white" bg="blue" class="mx-2" v-if="page.props.auth.user.permissions.includes('restore_user')"  @click="openModalView(user.id, 'Restore')" >{{ $t('Restore') }}</ButtonColor>
             <ButtonColor text="white" bg="red" class="mx-2" v-if="page.props.auth.user.permissions.includes('forceDelete_user')"  @click="openModalView(user.id, 'Force Delete')" >{{ $t('Force Delete') }}</ButtonColor>
         </UserTable>     
 

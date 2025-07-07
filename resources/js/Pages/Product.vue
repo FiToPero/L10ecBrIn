@@ -3,8 +3,12 @@ import { ref, watch } from 'vue'
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue'
 import { Link, usePage, router, Head } from '@inertiajs/vue3'
 import Show from '@/Pages/Forms/ProductForms/Show.vue'
+import Create from '@/Pages/Forms/ProductForms/Create.vue'
+import Edit from '@/Pages/Forms/ProductForms/Edit.vue'
 import ProductTable from '@/Tables/ProductTable.vue'
 import FlashMessage from '@/Components/FlashMessage.vue'
+import Modal from '@/Components/Modal.vue'
+import ButtonColor from '@/Components/ButtonColor.vue'
 
 const props = defineProps({
     products: { type: Object, required: true },
@@ -13,8 +17,13 @@ const props = defineProps({
 const page = usePage()
 
 const modalShow = ref(false)
+const modalCreate = ref(false)
+const modalEdit = ref(false)
+const modalView = ref(false)
 const productShow = ref('')
 const isMessage = ref(false)
+
+const openCreate = () => { modalCreate.value = !modalCreate.value }
 
 const openShow = (product) => {
     productShow.value = product
@@ -57,21 +66,36 @@ watch(() => page.props.flash.message, (newValue) => {
             <FlashMessage v-if="isMessage" :message="$page.props.flash.message" :color="$page.props.flash.color" @closeMessage="closeMessage" />
             <!-- button Create -->
             <div class="m-5">
-                <Link v-if="page.props.auth.user.permissions.includes('create_product')" :href="route('product.create')" class="mb-5 text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">{{ $t('Create New Product') }}</Link>
+                <ButtonColor text="white" bg="green" v-if="page.props.auth.user.permissions.includes('create_product')" @click="openCreate()" class="mb-5"  >{{ $t('Create New Product') }}</ButtonColor>
             </div>
-            <!-- Modal Show -->
+
+            <!-- MODAL CREATE -->
+            <Create v-if="modalCreate" :roles="props.roles" @closeCreate="openCreate" />
+            <!-- MODAL SHOW -->
             <Show v-if="modalShow" :product="productShow" @closeShow="closeShow" />
+            <!-- MODAL EDIT -->
+            <Edit v-if="modalEdit" :product="productEdit" :roles="props.roles" @closeEdit="closeEdit" />
+
+            <!-- MODAL MESSAGE -->
+            <Modal :show="modalView" maxWidth="lg" @close="modalIsView" >
+                <p class="my-5 mx-auto text-xl dark:text-white font-semibold mb-4">{{ $t('Are you sure to '+typeModalView+' this user?') }}</p>
+                <div class="flex justify-center my-5">
+                    <ButtonColor text="white" bg="gray" @click="modalIsView" class="mr-10">{{ $t('Cancel') }}</ButtonColor>
+                    <ButtonColor text="white" bg="red"  @click=callFunction(idModalView)>{{ $t(typeModalView) }}</ButtonColor>
+                </div>
+            </Modal>
+
         </div>
         <!-- Product Table -->
         <ProductTable  :products="products" searchName="product" v-slot="{product}">
-            <button type="button" @click="openShow(product)" class="mx-3 text-white bg-yellow-700 hover:bg-yellow-800 focus:ring-4 focus:outline-none focus:ring-yellow-300 font-medium rounded-lg text-sm px-2 py-1 text-center dark:bg-yellow-600 dark:hover:bg-yellow-700 dark:focus:ring-yellow-800 ">{{ $t('Show') }}</button>
-            <button v-if="page.props.auth.user.permissions.includes('update_product')" type="button" @click="editStore(product.id)" class="mx-4 text-white bg-cyan-700 hover:bg-cyan-800 focus:ring-4 focus:outline-none focus:ring-cyan-300 font-medium rounded-lg text-sm w-136 px-2 py-1 text-center dark:bg-cyan-600 dark:hover:bg-cyan-700 dark:focus:ring-cyan-800 ">{{ $t('Edit') }}</button>
-            <button v-if="page.props.auth.user.permissions.includes('delete_product')" type="button" @click="deleteStore(product.id)" class="mx-3 text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-2 py-1 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800 ">{{ $t('Delete') }}</button>
+            <ButtonColor text="white" bg="yellow" type="button" @click="openShow(product)" class="mx-3" >{{ $t('Show') }}</ButtonColor>
+            <ButtonColor text="white" bg="cyan" v-if="page.props.auth.user.permissions.includes('update_product')" type="button" @click="editStore(product.id)" class="mx-4" >{{ $t('Edit') }}</ButtonColor>
+            <ButtonColor text="white" bg="red" v-if="page.props.auth.user.permissions.includes('delete_product')" type="button" @click="deleteStore(product.id)" class="mx-3" >{{ $t('Delete') }}</ButtonColor>
         </ProductTable>
         <!-- Product Trashed Table -->
         <ProductTable :products="productsTrashed" searchName="productTrashed" v-slot="{product}" >
-            <button v-if="page.props.auth.user.permissions.includes('restore_product')" type="button" @click="restore(product.id)" class="mx-4 text-white bg-cyan-700 hover:bg-cyan-800 focus:ring-4 focus:outline-none focus:ring-cyan-300 font-medium rounded-lg text-sm w-136 px-2 py-1 text-center dark:bg-cyan-600 dark:hover:bg-cyan-700 dark:focus:ring-cyan-800 ">{{ $t('Restore') }}</button>
-            <button v-if="page.props.auth.user.permissions.includes('forceDelete_product')" type="button" @click="forceDelete(product.id)" class="mx-3 text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-2 py-1 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800 ">{{ $t('Force Delete') }}</button>
+            <ButtonColor text="white" bg="gray" v-if="page.props.auth.user.permissions.includes('restore_product')" type="button" @click="restore(product.id)" class="mx-4" >{{ $t('Restore') }}</ButtonColor>
+            <ButtonColor text="white" bg="red" v-if="page.props.auth.user.permissions.includes('forceDelete_product')" type="button" @click="forceDelete(product.id)" class="mx-3" >{{ $t('Force Delete') }}</ButtonColor>
         </ProductTable>
 
     </AuthenticatedLayout>

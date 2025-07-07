@@ -53,7 +53,6 @@ class DatabaseSeeder extends Seeder
         // create User
         User::factory()->create([
             'role_id' => 7,
-            'role_name' => 'super_root',
             'first_name' => 'super_root',
             'last_name' => 'super_root',
             'username' => 'super_root',
@@ -72,7 +71,6 @@ class DatabaseSeeder extends Seeder
         ]);
         User::factory()->create([
             'role_id' => 6,
-            'role_name' => 'admin_role',
             'first_name' => 'admin_role',
             'last_name' => 'admin_role',
             'username' => 'admin_role',
@@ -91,7 +89,6 @@ class DatabaseSeeder extends Seeder
         ]);
         User::factory()->create([
             'role_id' => 5,
-            'role_name' => 'root_user',
             'first_name' => 'root_user',
             'last_name' => 'root_user',
             'username' => 'root_user',
@@ -110,7 +107,6 @@ class DatabaseSeeder extends Seeder
         ]);
         User::factory()->create([
             'role_id' => 4,
-            'role_name' => 'admin_user',
             'first_name' => 'admin_user',
             'last_name' => 'admin_user',
             'username' => 'admin_user',
@@ -129,7 +125,6 @@ class DatabaseSeeder extends Seeder
         ]);
         User::factory()->create([
             'role_id' => 3,
-            'role_name' => 'root_product',
             'first_name' => 'root_product',
             'last_name' => 'root_product',
             'username' => 'root_product',
@@ -148,7 +143,6 @@ class DatabaseSeeder extends Seeder
         ]);
         User::factory()->create([
             'role_id' => 2,
-            'role_name' => 'admin_product',
             'first_name' => 'admin_product',
             'last_name' => 'admin_product',
             'username' => 'admin_product',
@@ -167,7 +161,6 @@ class DatabaseSeeder extends Seeder
         ]);
         User::factory()->create([
             'role_id' => 1,
-            'role_name' => 'welcome_product',
             'first_name' => 'welcome_product',
             'last_name' => 'welcome_product',
             'username' => 'welcome_product',

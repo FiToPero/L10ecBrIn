@@ -2,8 +2,8 @@
 import { ref } from 'vue';
 
 
-const model = defineModel('model', { type: String, required: true })
-const errors = defineModel('errors',{ type: Object, required: true, default: null })
+const model = defineModel('model', { type: String, required: true, default: '' })
+const errors = defineModel('errors',{ type: String, required: true, default: '' })
 
 const props = defineProps({ 
     id : { type: String, required: true },

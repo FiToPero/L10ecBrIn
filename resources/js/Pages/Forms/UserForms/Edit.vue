@@ -8,7 +8,6 @@ import InputFull from '@/Components/InputFull.vue'
 const props = defineProps({
     user: { type: Object },
     roles: { type: Array },
-    // errors: { type: Object }
 })
 const page = usePage()
 const dropzoneFile = ref(props.user.profile_photo_path)
@@ -28,7 +27,6 @@ const form = useForm({
     profile_photo_path: props.user.profile_photo_path,
     email: props.user.email,
     role_id: props.user.role.id,
-    role_name: props.user.role.name,
 })
 const receiveImageFile = (image) => {
     dropzoneFile.value = image
@@ -205,7 +203,7 @@ const emit = defineEmits(['closeEdit'])
                         :class="{'border-red-500 dark:border-red-500' : page.props.errors.role_id}"
                         @focus="page.props.errors.role_id = ''"
                     >
-                        <option value="" disabled selected >Select a role</option>        
+                        <option value="" disabled >Select a role</option>        
                         <option v-for="role in roles" :key="role.id" :value="role.id">{{ role.name }}</option>
                     </select>
                     <div v-if="page.props.errors.role_id" class="text-red-500 text-sm font-bold">{{ page.props.errors.role_id }}</div>

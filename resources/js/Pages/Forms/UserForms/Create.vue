@@ -7,7 +7,6 @@ import InputFull from "@/Components/InputFull.vue"
 
 
 const props = defineProps({
-    // page.props.errors: {type: Object},
     roles: {type: Array}
 })
 const page = usePage()
@@ -38,8 +37,8 @@ const handleFileChange = (event) => {
   dropzoneFile.value = form.profile_photo_path.name
 }
 const submit = () => {
-    form.post(route('adminUser.store'))
-}
+    form.post(route('adminUser.store'), { onSuccess: () => {emit('closeCreate')} }
+)}
 const emit = defineEmits(['closeCreate'])
 </script>
 
@@ -205,7 +204,7 @@ const emit = defineEmits(['closeCreate'])
                             :class="{'border-red-500 dark:border-red-500' : page.props.errors.role_id}"
                             @focus="page.props.errors.role_id = ''"
                         >
-                            <option value="" disabled selected >Select a role</option>        
+                            <option value="" disabled >Select a role</option>        
                             <option v-for="role in roles" :key="role.id" :value="role.id">{{ role.name }}</option>
                         </select>
                         <div v-if="page.props.errors.role_id" class="text-red-500 text-sm font-bold">{{ page.props.errors.role_id }}</div>
