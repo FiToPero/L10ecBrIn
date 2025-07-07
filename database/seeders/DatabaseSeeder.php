@@ -53,8 +53,8 @@ class DatabaseSeeder extends Seeder
         // create User
         User::factory()->create([
             'role_id' => 7,
-            'first_name' => 'super_root',
-            'last_name' => 'super_root',
+            'first_name' => 'first SR',
+            'last_name' => 'last SR',
             'username' => 'super_root',
             'phone' => '1234567890',
             'address' => '123 super_root St',
@@ -71,8 +71,8 @@ class DatabaseSeeder extends Seeder
         ]);
         User::factory()->create([
             'role_id' => 6,
-            'first_name' => 'admin_role',
-            'last_name' => 'admin_role',
+            'first_name' => 'first AR',
+            'last_name' => 'last AR',
             'username' => 'admin_role',
             'phone' => '1234567890',
             'address' => '123 admin_role St',
@@ -89,8 +89,8 @@ class DatabaseSeeder extends Seeder
         ]);
         User::factory()->create([
             'role_id' => 5,
-            'first_name' => 'root_user',
-            'last_name' => 'root_user',
+            'first_name' => 'first RU',
+            'last_name' => 'last RU',
             'username' => 'root_user',
             'phone' => '1234567890',
             'address' => '123 root_user St',
@@ -107,8 +107,8 @@ class DatabaseSeeder extends Seeder
         ]);
         User::factory()->create([
             'role_id' => 4,
-            'first_name' => 'admin_user',
-            'last_name' => 'admin_user',
+            'first_name' => 'first admin_user',
+            'last_name' => 'last AU',
             'username' => 'admin_user',
             'phone' => '1234567890',
             'address' => '123 admin_user St',
@@ -125,8 +125,8 @@ class DatabaseSeeder extends Seeder
         ]);
         User::factory()->create([
             'role_id' => 3,
-            'first_name' => 'root_product',
-            'last_name' => 'root_product',
+            'first_name' => 'first RP',
+            'last_name' => 'last RP',
             'username' => 'root_product',
             'phone' => '1234567890',
             'address' => '123 root_product St',
@@ -143,8 +143,8 @@ class DatabaseSeeder extends Seeder
         ]);
         User::factory()->create([
             'role_id' => 2,
-            'first_name' => 'admin_product',
-            'last_name' => 'admin_product',
+            'first_name' => 'first AP',
+            'last_name' => 'last AP',
             'username' => 'admin_product',
             'phone' => '1234567890',
             'address' => '123 admin_product St',
@@ -161,8 +161,8 @@ class DatabaseSeeder extends Seeder
         ]);
         User::factory()->create([
             'role_id' => 1,
-            'first_name' => 'welcome_product',
-            'last_name' => 'welcome_product',
+            'first_name' => 'first WP',
+            'last_name' => 'last WP',
             'username' => 'welcome_product',
             'phone' => '1234567890',
             'address' => '123 welcome_product St',

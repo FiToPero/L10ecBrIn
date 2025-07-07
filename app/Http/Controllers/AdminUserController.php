@@ -99,7 +99,7 @@ class AdminUserController extends Controller
        try {
             User::withTrashed()->find($id)->restore();
 
-            return redirect()->route('adminUser.index')->with(['message' => 'User Restored succcess.', 'color' => 'blue']);    
+            return redirect()->route('adminUser.index')->with(['message' => 'User Restored succcess.', 'color' => 'gray']);    
         } catch (\Exception $e) {
             return redirect()->route('adminUser.index')->with(['message' => 'User Restored failed.', 'color' => 'red']);
         }
@@ -111,7 +111,7 @@ class AdminUserController extends Controller
         try {
             User::withTrashed()->find($id)->forceDelete();
 
-            return redirect()->route('adminUser.index')->with(['message' => 'User Deleted permanently succcess.', 'color' => 'gray']);
+            return redirect()->route('adminUser.index')->with(['message' => 'User Deleted permanently succcess.', 'color' => 'red']);
         } catch (\Exception $e) {
             return redirect()->route('adminUser.index')->with(['message' => 'User Deleted permanently failed.', 'color' => 'red']);
         }

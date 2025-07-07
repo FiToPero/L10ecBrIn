@@ -11,7 +11,7 @@ class UpdateProduct
 
     public function handle($data)
     {
-        if ($data['hasFile'] instanceof \Illuminate\Http\UploadedFile) {
+        if ($data['image_01'] instanceof \Illuminate\Http\UploadedFile) {
             $imageUrl_01 = $data['image_01']->store('public/images');
             $imageUrl_01 = str_replace('public', 'storage', $imageUrl_01);
         } else {

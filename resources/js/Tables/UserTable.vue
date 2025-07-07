@@ -9,11 +9,11 @@ const props = defineProps({
 })
 
 const search = ref('')
-
 watch(search, (value) => {router.get('adminUser', {[props.searchName]: value}, {preserveState: true})})
 </script>
 
 <template>
+
 <div class="w-full h-max mt-3 sm:px-6 lg:px-8">
     <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
         <!-- Search -->  
@@ -76,7 +76,7 @@ watch(search, (value) => {router.get('adminUser', {[props.searchName]: value}, {
                                 <p class="dark:text-white">{{ user.username }}</p>
                             </td>
                             <td class="px-2 py-1 font-medium text-gray-900 whitespace-nowrap">
-                                <p class="dark:text-white">{{ user.role_name }}</p>
+                                <p class="dark:text-white">{{ user.role.name }}</p>
                             </td>
                             <td class="px-2 py-1 font-medium text-gray-900 whitespace-nowrap">
                                 <p class="dark:text-white">{{ user.email }}</p>

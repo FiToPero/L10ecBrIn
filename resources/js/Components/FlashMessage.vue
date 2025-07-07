@@ -33,6 +33,7 @@ switch (props.color) {
     default:
         colorDiv.value = 'text-gray-800 border border-gray-800 bg-gray-500 dark:bg-gray-500 dark:text-gray-700 dark:border-gray-800'
         colorButton.value = 'bg-gray-400 text-gray-900 hover:bg-gray-500 focus:ring-2 focus:ring-gray-500'
+        break
 }
 
 const emit = defineEmits(['closeMessage'])

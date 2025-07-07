@@ -30,7 +30,6 @@ class RegistrationTest extends TestCase
             'password' => '12345678',
             'password_confirmation' => '12345678',
             'role_id' => 2,
-            'role_name' => 'welcome_product',
         ]);
 
         $this->assertAuthenticated();

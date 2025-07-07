@@ -27,23 +27,23 @@ const userEdit = ref('')
 const modalView = ref(false)
 const typeModalView = ref('')
 const idModalView = ref('')
-
 const isMessage = ref(false)
 
-const openCreate = () => { modalCreate.value = true }
-const closeCreate = () => { modalCreate.value = false }
-
+const openCreate = () => { modalCreate.value = !modalCreate.value }
 const openShow = (user) => {
-    modalShow.value = true
+    modalShow.value = !modalShow.value
     userShow.value = user
 }
-const closeShow = () => { modalShow.value = false }
-
+const openEdit = (user) => {
+    userEdit.value = user
+    modalEdit.value = !modalEdit.value
+}
 const openModalView = (id, type) => { 
     typeModalView.value = type
     idModalView.value = id
-    modalView.value = true 
-} 
+    modalView.value = !modalView.value
+}
+///////////// Select function to call /////////////
 const callFunction = (id) => {
     if (typeModalView.value === 'Delete') {
         deleteStore(id)
@@ -53,13 +53,7 @@ const callFunction = (id) => {
         restore(id)
     }
 }
-
-const openEdit = (user) => {
-    modalEdit.value = true
-    userEdit.value = user
-}
-const closeEdit = () => { modalEdit.value = false }
-
+////////  fuction modals ///////////
 const deleteStore = (id) => {
     router.delete(route('adminUser.delete', [id]), {}, {})
     modalView.value = false
@@ -85,9 +79,6 @@ const closeMessage = () => {
     page.props.flash.message = null
     page.props.flash.color = null
 }
-const modalIsView = () => {
-    modalView.value = !modalView.value
-}
 
 watch(() => page.props.flash.message, (newValue) => {
   if (newValue) {
@@ -112,17 +103,17 @@ watch(() => page.props.flash.message, (newValue) => {
             </div>
            
             <!-- MODAL CREATE -->
-            <Create v-if="modalCreate" @closeCreate="closeCreate" :roles="props.roles" />
+            <Create v-if="modalCreate" @closeCreate="openCreate" :roles="props.roles" />
             <!-- MODAL SHOW -->
-            <Show v-if="modalShow" :user="userShow" @closeShow="closeShow" />
+            <Show v-if="modalShow" :user="userShow" @closeShow="openShow" />
             <!-- MODAL EDIT -->
-            <Edit v-if="modalEdit" :user="userEdit" :roles="props.roles" @closeEdit="closeEdit" />
+            <Edit v-if="modalEdit" :user="userEdit" :roles="props.roles" @closeEdit="openEdit" />
 
             <!-- MODAL MESSAGE -->
-            <Modal :show="modalView" maxWidth="lg" @close="modalIsView" >
+            <Modal :show="modalView" maxWidth="lg" @close="openModalView" >
                 <p class="my-5 mx-auto text-xl dark:text-white font-semibold mb-4">{{ $t('Are you sure to '+typeModalView+' this user?') }}</p>
                 <div class="flex justify-center my-5">
-                    <ButtonColor text="white" bg="gray" @click="modalIsView" class="mr-10">{{ $t('Cancel') }}</ButtonColor>
+                    <ButtonColor text="white" bg="gray" @click="openModalView" class="mr-10">{{ $t('Cancel') }}</ButtonColor>
                     <ButtonColor text="white" bg="red"  @click=callFunction(idModalView)>{{ $t(typeModalView) }}</ButtonColor>
                 </div>
             </Modal>
@@ -135,7 +126,7 @@ watch(() => page.props.flash.message, (newValue) => {
         </UserTable>
 
         <UserTable :users="props.usersTrashed" searchName="userTrashed" v-slot="{user}" > >
-            <ButtonColor text="white" bg="blue" class="mx-2" v-if="page.props.auth.user.permissions.includes('restore_user')"  @click="openModalView(user.id, 'Restore')" >{{ $t('Restore') }}</ButtonColor>
+            <ButtonColor text="white" bg="gray" class="mx-2" v-if="page.props.auth.user.permissions.includes('restore_user')"  @click="openModalView(user.id, 'Restore')" >{{ $t('Restore') }}</ButtonColor>
             <ButtonColor text="white" bg="red" class="mx-2" v-if="page.props.auth.user.permissions.includes('forceDelete_user')"  @click="openModalView(user.id, 'Force Delete')" >{{ $t('Force Delete') }}</ButtonColor>
         </UserTable>     
 

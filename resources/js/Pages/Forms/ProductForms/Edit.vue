@@ -1,18 +1,16 @@
 <script setup>
-import { useForm, router, Link } from '@inertiajs/vue3'
+import { useForm, router, Link, usePage } from '@inertiajs/vue3'
 import { ref } from 'vue'
 import DropZone from "@/Components/DropZone.vue"
+import CardMobile from "@/Components/CardMobile.vue"
+import InputFull from "@/Components/InputFull.vue"
 
+
+const page = usePage()
 const props = defineProps({
-    errors: {type: Object},
     product: {type: Object}
 })
 
-const dropzoneFile = ref(props.product.image_01)
-
-const receiveImageFile = (image) => {
-    dropzoneFile.value = image
-}
 const form = useForm({
     id: props.product.id,
     productName: props.product.productName,
@@ -28,160 +26,160 @@ const form = useForm({
     remember: props.product.remember,
     image_01: props.product.image_01
 })
+////// Image ////////
+const dropzoneFile = ref(props.product.image_01)
+const receiveImageFile = (image) => { dropzoneFile.value = image }
 const handleFileChange = (event) => {
   form.image_01 = event.target.files[0]
   dropzoneFile.value = form.image_01.name
 }
+///// Form //////////
 const submit = () => {
-    form.post(route('product.update'))
-}
+    form.post(route('product.update'), {onSuccess: () => { emit('closeEdit') }}
+)}
+const emit = defineEmits(['closeEdit'])
 
-const deleteStore = (id) => {
-    router.delete(route('product.delete', [id]), {}, {});
-}
 </script>
 
 <template>
-  
-<div class="p-6 font-sans text-gray-900 bg-gray-100 dark:bg-gray-900 dark:text-gray-100 antialiased">
-<form v-on:submit.prevent="submit">
-<div class=" p-4 bg-white dark:bg-gray-800/50 dark:bg-gradient-to-bl from-gray-700/50 via-transparent dark:ring-1 dark:ring-inset dark:ring-white/5 rounded-lg shadow-2xl shadow-gray-500/20 dark:shadow-none motion-safe:hover:scale-[1.01] transition-all duration-250 ">
-    <p class="text-3xl text-center mb-2">EDIT PRODUCT</p>
-    <div class="grid xl:grid-cols-3 sm:grid-cols-1">
-    <!-- DropZone -->
-    <div class=" mr-5">
-        <DropZone @imageFile="receiveImageFile" @change="handleFileChange" :imageEdit="product.image_01" :class="{'border border-red-500 dark:border-red-500' : errors.image_01}" @focus="errors.image_01 = ''"/>
-        <input class='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full h-10 mt-5 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-white' :class="{'border-red-500 dark:border-red-500' : errors.image_01}" @focus="errors.image_01 = ''" :placeholder="dropzoneFile" disabled/>
-        <p v-if="errors.image_01" class="text-red-500 text-sm font-bold flex">{{ errors.image_01 }}</p>
-    </div>
-    <!-- Dropzone -->
-    <div class="xl:col-span-2 sm:col-span-1">
-        <label for=productName class='block m-2 text-sm text-gray-900 dark:text-white font-bold'>Product Name</label>
-        <input
-            v-model="form.productName" 
-            type='text' 
-            id=productName 
-            class='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:outline-none focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
-            :class="{'border-red-500 dark:border-red-500' : errors.productName}"
-            @focus="errors.productName = ''"
-        />
-        <div v-if="errors.productName" class="text-red-500 text-sm font-bold">{{ errors.productName }}</div>
-        <label for=shortDescription class='block m-2 text-sm text-gray-900 dark:text-white font-bold'>Short Description</label>
-        <input
-            v-model="form.shortDescription" 
-            type='text' 
-            id=shortDescription 
-            class='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:outline-none focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
-            :class="{'border-red-500 dark:border-red-500' : errors.shortDescription}"
-            @focus="errors.shortDescription = ''"
-        />
-        <div v-if="errors.shortDescription" class="text-red-500 text-sm font-bold">{{ errors.shortDescription }}</div>
-        <label for=company class='block m-2 text-sm text-gray-900 dark:text-white font-bold'>Company</label>
-        <input 
-            v-model="form.company"
-            type='text' 
-            id=company
-            class='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:outline-none focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
-            :class="{'border-red-500 dark:border-red-500' : errors.company}"
-            @focus="errors.company = ''"
-        />
-        <div v-if="errors.company" class="text-red-500 text-sm font-bold">{{ errors.company }}</div>
-        <label for=brand class='block m-2 text-sm text-gray-900 dark:text-white font-bold'>Brand</label>
-        <input 
-            v-model="form.brand"
-            type='text' 
-            id=brand
-            class='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:outline-none focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
-            :class="{'border-red-500 dark:border-red-500' : errors.brand}"
-            @focus="errors.brand = ''"
-        />
-        <div v-if="errors.brand" class="text-red-500 text-sm font-bold">{{ errors.brand }}</div>
-        <label for=price class='block m-2 text-sm text-gray-900 dark:text-white font-bold'>Price</label>
-        <input
-            v-model="form.price" 
-            type='text' 
-            id=price 
-            class='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:outline-none focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
-            :class="{'border-red-500 dark:border-red-500' : errors.price}"
-            @focus="errors.price = ''"
-        />
-        <div v-if="errors.price" class="text-red-500 text-sm font-bold">{{ errors.price }}</div>
-        <label for=stock class='block m-2 text-sm text-gray-900 dark:text-white font-bold'>Stock</label>
-        <input
-            v-model="form.stock" 
-            type='text' 
-            id=stock 
-            class='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:outline-none focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
-            :class="{'border-red-500 dark:border-red-500' : errors.stock}"
-            @focus="errors.stock = ''"
-        />
-        <div v-if="errors.stock" class="text-red-500 text-sm font-bold">{{ errors.stock }}</div>
-        <label for=address class='block m-2 text-sm text-gray-900 dark:text-white font-bold'>Address</label>
-        <input
-            v-model="form.address"
-            type='text' 
-            id=address
-            class='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:outline-none focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
-            :class="{'border-red-500 dark:border-red-500' : errors.address}"
-            @focus="errors.address = ''"
-        />
-        <div v-if="errors.address" class="text-red-500 text-sm font-bold">{{ errors.address }}</div>
-        <label for=website class='block m-2 text-sm text-gray-900 dark:text-white font-bold'>Website</label>
-        <input
-            v-model="form.website"
-            type='text' 
-            id=website
-            class='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:outline-none focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
-            :class="{'border-red-500 dark:border-red-500' : errors.website}"
-            @focus="errors.website = ''"
-        />
-        <div v-if="errors.website" class="text-red-500 text-sm font-bold">{{ errors.website }}</div>
-        <label for=email class='block m-2 text-sm text-gray-900 dark:text-white font-bold'>Email</label>
-        <input
-            v-model="form.email" 
-            type='text' 
-            id=email 
-            class='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:outline-none focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
-            :class="{'border-red-500 dark:border-red-500' : errors.email}"
-            @focus="errors.email = ''"
-        />
-        <div v-if="errors.email" class="text-red-500 text-sm font-bold">{{ errors.email }}</div>
-        <label for=priority class='block m-2 text-sm text-gray-900 dark:text-white font-bold'>Priority</label>
-        <select
-            v-model="form.priority" 
-            id="priority"
-            class='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:outline-none focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
-            :class="{'border-red-500 dark:border-red-500' : errors.priority}"
-            @focus="errors.priority = ''"
-        >
-            <option value="3">None</option>
-            <option value="2">Secondary</option>
-            <option value="1">Primary</option>
-        </select>
-        <div v-if="errors.priority" class="text-red-500 text-sm font-bold">{{ errors.priority }}</div>
-        <div class="flex items-center">
-            <label for=remember class='block m-2 text-sm text-gray-900 dark:text-white font-bold'>Remember</label>
-            <input
-                v-model="form.remember" 
-                type='checkbox' 
-                id=remember 
-                class='bg-gray-50 border border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-300 dark:border-gray-600'
-                :class="{'border-red-500 dark:border-red-500' : errors.remember}"
-                @focus="errors.remember = ''"
-            />
-            <span class="ml-3 text-blue-200 text-lg">Termino and condition</span>
-        </div>
-        <div v-if="errors.remember" class="text-red-500 text-sm font-bold">{{ errors.remember }}</div>
-        <div class="flex justify-end items-center gap-6">
-            <Link :href="route('product.index')" class="m-3 text-white bg-gray-700 hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-gray-700 dark:hover:bg-gray-900 dark:focus:ring-gray-900">{{ $t('Close') }}</Link>
-            <button type="submit" class="my-5 text-white bg-cyan-700 hover:bg-cyan-800 focus:ring-4 focus:outline-none focus:ring-cyan-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-cyan-600 dark:hover:bg-cyan-700 dark:focus:ring-cyan-800 ">{{ $t('Update') }}</button>
-            <button type="button" @click="deleteStore(props.product.id)" class="my-5 text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800">{{ $t('Delete') }}</button>
-        </div>
-    </div>
-</div>
-</div>
-</form>
-</div>
+<div class="w-full h-full p-16 fixed inset-0 flex items-center justify-center bg-black bg-opacity-60 z-50">
+<CardMobile >
 
+<form v-on:submit.prevent="submit" class="w-full h-[80vh]" >
+
+    <div class="flex justify-center items-center mb-5">
+        <span class="w-5/6 flex justify-center text-white dark:text-gray-300 text-3xl font-bold">Create New Product</span>
+        <div class="w-1/6 flex justify-end">
+            <button @click="emit('closeEdit')" class="text-gray-600 dark:text-white bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-700 dark:bg-gray-600">
+                <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+                </svg>
+            </button>
+        </div>
+    </div>
+
+    <div class="grid xl:grid-cols-3 sm:grid-cols-1 ">
+        <!-- DropZone -->
+        <div class="mr-5">
+            <DropZone @imageFile="receiveImageFile" @change="handleFileChange" :imageEdit="product.image_01" :class="{'border border-red-500 dark:border-red-500' : page.props.errors.image_01}" @focus="page.props.errors.image_01 = ''"/>
+            <InputFull
+                v-model:model="dropzoneFile"
+                v-model:errors="page.props.errors.image_01"
+                :label="$t('Profile Photo')"
+                :type="'text'"
+                :id="'image_01'"
+                ref="image_01"
+            />
+        </div>
+        <!-- Dropzone -->
+        <div class="xl:col-span-2 sm:col-span-1">
+            <InputFull
+                v-model:model="form.productName"
+                v-model:errors="page.props.errors.productName"
+                :label="$t('Product Name')"
+                :type="'text'"
+                :id="'productName'"
+                ref="productName"
+            />
+            <InputFull
+                v-model:model="form.shortDescription"
+                v-model:errors="page.props.errors.shortDescription"
+                :label="$t('Description')"
+                :type="'text'"
+                :id="'shortDescription'"
+                ref="shortDescription"
+            />
+            <InputFull
+                v-model:model="form.company"
+                v-model:errors="page.props.errors.company"
+                :label="$t('Company')"
+                :type="'text'"
+                :id="'company'"
+                ref="company"
+            />
+            <InputFull
+                v-model:model="form.brand"
+                v-model:errors="page.props.errors.brand"
+                :label="$t('Brand')"
+                :type="'text'"
+                :id="'brand'"
+                ref="brand"
+            />
+            <InputFull
+                v-model:model="form.price"
+                v-model:errors="page.props.errors.price"
+                :label="$t('Price')"
+                :type="'text'"
+                :id="'price'"
+                ref="price"
+            />
+            <InputFull
+                v-model:model="form.stock"
+                v-model:errors="page.props.errors.stock"
+                :label="$t('Stock')"
+                :type="'text'"
+                :id="'stock'"
+                ref="stock"
+            />
+            <InputFull
+                v-model:model="form.address"
+                v-model:errors="page.props.errors.address"
+                :label="$t('Address')"
+                :type="'text'"
+                :id="'address'"
+                ref="address"
+            />
+            <InputFull
+                v-model:model="form.website"
+                v-model:errors="page.props.errors.website"
+                :label="$t('Website')"
+                :type="'text'"
+                :id="'website'"
+                ref="website"
+            />
+            <InputFull
+                v-model:model="form.email"
+                v-model:errors="page.props.errors.email"
+                :label="$t('Email')"
+                :type="'email'"
+                :id="'email'"
+                ref="email"
+            />
+            <label for=priority class='block m-2 text-sm text-gray-900 dark:text-white font-bold'>Priority</label>
+            <select
+                v-model="form.priority" 
+                id="priority"
+                class='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:outline-none focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
+                :class="{'border-red-500 dark:border-red-500' : page.props.errors.priority}"
+                @focus="page.props.errors.priority = ''"
+            >
+                <option value="3">None</option>
+                <option value="2">Secondary</option>
+                <option value="1">Primary</option>
+            </select>
+            <div v-if="page.props.errors.priority" class="text-red-500 text-sm font-bold">{{ page.props.errors.priority }}</div>
+            <div class="flex items-center">
+                <label for=remember class='block m-2 text-sm text-gray-900 dark:text-white font-bold'>Remember</label>
+                <input
+                    v-model="form.remember" 
+                    type='checkbox' 
+                    id=remember 
+                    class='bg-gray-50 border border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-300 dark:border-gray-600'
+                    :class="{'border-red-500 dark:border-red-500' : page.props.errors.remember}"
+                    @focus="page.props.errors.remember = ''"
+                />
+                <span class="ml-3 text-blue-200 text-lg">Termino and condition</span>
+            </div>
+            <div v-if="page.props.errors.remember" class="text-red-500 text-sm font-bold">{{ page.props.errors.remember }}</div>
+            <div class="flex justify-end items-center gap-6">
+                <Link :href="route('product.index')" class="m-3 text-white bg-gray-700 hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-gray-700 dark:hover:bg-gray-800 dark:focus:ring-gray-900">{{ $t('Close') }}</Link>
+                <button type="submit" class="m-3 text-white bg-cyan-700 hover:bg-cyan-800 focus:ring-4 focus:outline-none focus:ring-cyan-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-cyan-600 dark:hover:bg-cyan-700 dark:focus:ring-cyan-800">{{ $t('Update Product') }}</button>
+            </div>
+        </div>
+    </div>
+
+</form>
+</CardMobile>
+</div>
 </template>
 

@@ -10,7 +10,6 @@ const props = defineProps({
     roles: { type: Array },
 })
 const page = usePage()
-const dropzoneFile = ref(props.user.profile_photo_path)
 
 const form = useForm({
     id: props.user.id,
@@ -28,13 +27,14 @@ const form = useForm({
     email: props.user.email,
     role_id: props.user.role.id,
 })
-const receiveImageFile = (image) => {
-    dropzoneFile.value = image
-}
+///// Image //////
+const dropzoneFile = ref(props.user.profile_photo_path)
+const receiveImageFile = (image) => { dropzoneFile.value = image }
 const handleFileChange = (event) => {
   form.profile_photo_path = event.target.files[0]
   dropzoneFile.value = form.profile_photo_path.name
 }
+/////// form //////
 const submit = () => {
     form.post(route('adminUser.update'), { onSuccess: () => {emit('closeEdit')} }
 )}
