@@ -33,6 +33,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/adminRole', [RoleController::class, 'index'])->name('adminRole.index');
     Route::get('/adminRole/create', [RoleController::class, 'create'])->name('adminRole.create');
+    Route::post('/adminRole/store', [RoleController::class, 'store'])->name('adminRole.store');
+    Route::post('/adminRole/update', [RoleController::class, 'update'])->name('adminRole.update');
 });
 
 Route::middleware(['auth', 'verified'])->group(function () {

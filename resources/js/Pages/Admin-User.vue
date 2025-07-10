@@ -1,7 +1,7 @@
 <script setup>
 import { ref, watch } from 'vue'
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue'
-import { Link, usePage, router, Head } from '@inertiajs/vue3'
+import { usePage, router, Head } from '@inertiajs/vue3'
 import Show from '@/Pages/Forms/UserForms/Show.vue'
 import Edit from '@/Pages/Forms/UserForms/Edit.vue'
 import Create from '@/Pages/Forms/UserForms/Create.vue'
