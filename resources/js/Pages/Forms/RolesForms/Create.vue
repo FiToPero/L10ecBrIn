@@ -3,15 +3,22 @@ import { ref, watch } from 'vue'
 import { usePage, router, useForm } from '@inertiajs/vue3'
 import ButtonColor from '@/Components/ButtonColor.vue'
 import CardMobile from '@/Components/CardMobile.vue'
+import InputFull from '@/Components/InputFull.vue'
+import Checkbox from '@/Components/Checkbox.vue'
+
 
 const page = usePage()
+const props = defineProps({ 
+    permissions: { type: Array, required: true  }
+})
 
 const form = useForm({
-    
+    name: '',
+    permissions: []
 })
 const store = () => {
-    form.post(route('product.store'))
-}
+    form.post(route('adminRole.store'), {onSuccess: () => { emit('closeCreate') }}
+)}
 
 
 const emit = defineEmits(['closeCreate'])
@@ -33,6 +40,33 @@ const emit = defineEmits(['closeCreate'])
                 </svg>
             </ButtonColor>
         </div>
+    </div>
+    <div>
+        <InputFull 
+            v-model:model="form.name"
+            v-model:errors="page.props.errors.name"
+            :id="'role_name'"
+            :label="$t('Role Name')"
+            :autofocus="true"
+        />
+        <span class='block mx-2 my-5 text-xl text-gray-900 dark:text-white font-bold' > {{ $t('Type permissions available') }}</span>
+        <div class="grid grid-cols-10 gap-4">
+            <template v-for="permission in props.permissions" :key="permission.id">
+                <Checkbox
+                    v-model:checked="form.permissions" 
+                    :label="$t(permission.name)"
+                    :value="permission.id" 
+                /> 
+            </template>
+        </div>
+        <ButtonColor 
+            type="submit" 
+            text="white" 
+            bg="green"
+            class="mt-5 flex justify-center mx-auto px-10 py-4" 
+        >
+            {{ $t('Create Role') }}
+        </ButtonColor>
     </div>
 </form>
 

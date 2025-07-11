@@ -78,7 +78,7 @@ const emit = defineEmits(['closeEdit'])
                         :label="$t('First Name')"
                         :type="'text'"
                         :id="'first_name'"
-                        ref="input"
+                        ref="first_name"
                         :autofocus="true"
                     />
                 </div>
@@ -89,7 +89,7 @@ const emit = defineEmits(['closeEdit'])
                         :label="$t('Last Name')"
                         :type="'text'"
                         :id="'last_name'"
-                        ref="input"
+                        ref="last_name"
                     />
                 </div>
             </div>

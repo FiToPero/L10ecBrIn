@@ -28,7 +28,6 @@ defineExpose({ focus: () => input.value.focus() });
         :disabled="disabled"
         :autofocus="autofocus"
         :type="type"
-        ref="input"
         @focus="errors = ''"
     />
     <div v-if="errors" class="text-red-500 text-sm font-bold">{{ errors }}</div>

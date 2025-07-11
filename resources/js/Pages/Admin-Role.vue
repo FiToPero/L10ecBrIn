@@ -36,7 +36,6 @@ const removeBadge = (id, index) => {
 
     if(!viewSave.value.some(item => item === index)){
         viewSave.value.push(index)
-        // viewSave.value = viewSave.value.filter(item => item !== index)
     } 
 }
 const saveRole = (save) => {
@@ -67,6 +66,12 @@ watch(addPermission, (newValue) => {
         viewSave.value.push(newValue.index)
     }
 })
+watch(
+  () => props.roles,
+  (newRoles) => {
+    rolesOld.value = JSON.parse(JSON.stringify(newRoles))
+  }
+)
 
 ///////  Mesage Flash ///////
 const closeMessage = () => { 
@@ -94,7 +99,7 @@ watch(() => page.props.flash.message, (newValue) => {
 
         <!-- CREATE BUTTON -->
         <div class="my-5">
-            <ButtonColor text="white" bg="green" v-if="page.props.auth.user.permissions.includes('create_role')" @click="openCreate()" >{{ $t('Create New Role') }}</ButtonColor>
+            <ButtonColor text="white" bg="green" v-if="page.props.auth.user.permissions.includes('create_role')" @click="openCreate()" class="px-10 py-4" >{{ $t('Create New Role') }}</ButtonColor>
         </div>
         <!-- MODAL CREATE -->
         <Create v-if="modalCreate" @closeCreate="openCreate" :permissions="props.permissions" />
@@ -103,7 +108,7 @@ watch(() => page.props.flash.message, (newValue) => {
             <p class="my-5 mx-auto text-xl dark:text-white font-semibold mb-4">{{ $t('Are you sure to Update this Role?') }}</p>
             <div class="flex justify-center my-5">
                 <ButtonColor text="white" bg="gray" @click="openModalView" class="mr-10">{{ $t('Cancel') }}</ButtonColor>
-                <ButtonColor text="white" bg="red"  @click=saveRole(responseSave)>{{ $t('Update Role') }}</ButtonColor>
+                <ButtonColor text="white" bg="cyan"  @click=saveRole(responseSave)>{{ $t('Update Role') }}</ButtonColor>
             </div>
         </Modal>
 
