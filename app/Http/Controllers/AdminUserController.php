@@ -8,10 +8,9 @@ use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use App\Models\Role;
 use App\Models\User;
 use App\Http\Requests\UserRequest;
-use stdClass;
 use App\Actions\UpdateUser;
 use App\Actions\CreateUser;
-
+use stdClass;
 
 class AdminUserController extends Controller
 {
@@ -39,13 +38,6 @@ class AdminUserController extends Controller
         return Inertia::render('Admin-User', compact('users', 'usersTrashed', 'roles'));
     }
 
-    public function create()
-    {
-        $this->authorize('create', User::class);
-        $roles = Role::all();
-        return Inertia::render('Forms/UserForms/Create', compact('roles'));
-    }
-
     public function store(UserRequest $request)
     {
         $this->authorize('create', User::class);
@@ -56,17 +48,6 @@ class AdminUserController extends Controller
         } catch (\Exception $e) {
             return redirect()->route('adminUser.index')->with(['message' => 'User created failed.', 'color' => 'red']);
         }
-    }
-
-    public function edit($id)
-    {
-        $this->authorize('update', User::class);
-
-        $user = User::with('role')->findOrFail($id);
-        $roles = Role::all();
-
-        return Inertia::render('Forms/UserForms/Edit', compact('user', 'roles'));
-     
     }
 
     public function update(UserRequest $request)

@@ -7,6 +7,13 @@ use App\Http\Controllers\WelcomeController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\CarouselController;
 use Illuminate\Support\Facades\Route;
+use App\Notifications\VerifyEmail;
+
+
+// Route::get('/test-email', function () {
+//     $user = \App\Models\User::first();
+//     return (new VerifyEmail())->toMail($user);
+// });
 
 Route::get('/', [WelcomeController::class, 'index'])->name('welcome.index');
 

@@ -32,12 +32,6 @@ class ProductController extends Controller
         return Inertia::render('Product', compact('products', 'productsTrashed'));
     }
 
-    public function create()
-    {
-        $this->authorize('create', Product::class);
-        return Inertia::render('Forms/ProductForms/Create');
-    }
-
     public function store(ProductRequest $request)
     {
         $this->authorize('create', Product::class);
@@ -47,18 +41,6 @@ class ProductController extends Controller
             return redirect()->route('product.index')->with(['message' => 'Product created successfully.', 'color' => 'green']);
         } catch(\Exception $e) {
             return redirect()->route('product.index')->with(['message' => 'Product creation failed.', 'color' => 'red']);
-        }
-    }
-
-    public function edit(string $id)
-    {
-        try {
-            $this->authorize('update', Product::class);
-            $product = Product::findOrFail($id);
-            
-            return Inertia::render('Forms/ProductForms/Edit', compact('product'));
-        } catch (\Exception $e) {
-            
         }
     }
 

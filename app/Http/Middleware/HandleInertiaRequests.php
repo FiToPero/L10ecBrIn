@@ -2,11 +2,10 @@
 
 namespace App\Http\Middleware;
 
-use Illuminate\Http\Request; // Para manejar las solicitudes HTTP
-use Inertia\Middleware; // Middleware base de Inertia.js
-use Illuminate\Support\Facades\Auth; // Para manejar la autenticación
+use Illuminate\Http\Request;
+use Inertia\Middleware; 
+use Illuminate\Support\Facades\Auth; 
 
-// Definimos la clase HandleInertiaRequests que extiende el Middleware de Inertia
 class HandleInertiaRequests extends Middleware
 {
     /**
@@ -43,8 +42,9 @@ class HandleInertiaRequests extends Middleware
                 'user' => function() {
                     // Verifica si hay un usuario autenticado.
                     if (Auth::check()) {
-                        // Obtiene el usuario autenticado.
-                        $user = Auth::user();
+                        
+                        /** @var \App\Models\User $user */
+                        $user = Auth::user();  // Obtiene el usuario autenticado.
 
                         // Convierte los atributos del usuario en un array.
                         $userArray = $user->toArray();  //(array)$user;
@@ -55,15 +55,12 @@ class HandleInertiaRequests extends Middleware
                         // Agrega los permisos del usuario al array, obteniéndolos como una lista de nombres.
                         $userArray['permissions'] = $user->role->permissions->pluck('name');
 
-                        // Devuelve el array con la información del usuario.
                         return $userArray;
                     }
                 }
             ],
 
-            // Agrega una propiedad 'flash' para manejar mensajes flash desde la sesión.
             'flash' => [
-                // Obtiene el mensaje flash almacenado en la sesión, si existe.
                 'message' => fn () => $request->session()->get('message'),
                 'color' => fn () => $request->session()->get('color'),
             ]

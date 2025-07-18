@@ -37,9 +37,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'profile_photo_path',
         'role_id',
     ];
-
-
-    
+  
     /**
      * The attributes that should be hidden for serialization.
      *
@@ -71,7 +69,10 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->role()->where('name', $role)->exists();
     }
 
-}
+    // public function sendEmailVerificationNotification()
+    // {
+    //     $this->notify(new \App\Notifications\CustomVerifyEmail);
+    // }
 
 
     /**
@@ -79,10 +80,32 @@ class User extends Authenticatable implements MustVerifyEmail
      *
      * @var array<int, string>
      */
-    // protected $appends = [
-    //     'profile_photo_url',
-    // ];
+    protected $appends = [
+        // 'profile_photo_url',
+    ];
 
+
+    // /**
+    //  * Accessor para obtener la URL de la foto de perfil del usuario.
+    //  * Esto permite que 'profile_photo_url' aparezca en el array/JSON del modelo.
+    //  */
+    // public function getProfilePhotoUrlAttribute()
+    // {
+    //     if ($this->profile_photo_path) {
+    //         // Si el usuario tiene una foto subida, devuelve la URL pública
+    //         return asset('storage/' . $this->profile_photo_path);
+    //     }
+    //     // Si no tiene foto, devuelve un avatar por defecto
+    //     return 'https://ui-avatars.com/api/?name=' . urlencode($this->first_name . ' ' . $this->last_name);
+    // }
+
+
+    
+
+}
+
+
+  
 
 
 

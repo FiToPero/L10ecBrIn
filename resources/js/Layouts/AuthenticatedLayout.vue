@@ -9,6 +9,7 @@ import { Link, usePage } from '@inertiajs/vue3'
 import Login from '@/Pages/Auth/Login.vue'
 import Register from '@/Pages/Auth/Register.vue'
 import VerifyEmail from '@/Pages/Auth/VerifyEmail.vue'
+import ButtonColor from '@/Components/ButtonColor.vue'
 import { useLoginStore } from '@/stores/useLoginStore'
 import { storeToRefs } from 'pinia'
 
@@ -74,10 +75,13 @@ const selectLang = (e) => { changeLocale(e.target.value) }
                                 <option value="it">Italiano</option>
                                 <option value="es">Español</option>
                             </select>
-                            <!-- <button @click="showModalLogin" class="m-3 text-white bg-gray-700 hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-800">Login</button>
-                            <button @click="showModalRegister" class="m-3 text-white bg-gray-700 hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-800">Register</button> -->
-                            <Link :href="route('login.create')" class="m-3 text-white bg-gray-700 hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-800">{{ $t('Login') }}</Link>
-                            <Link :href="route('register.create')" class="m-3 text-white bg-gray-700 hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-800">{{ $t('Register') }}</Link>
+                            
+                            <ButtonColor text="white" bg="gray" @click="showModalRegister" class="m-3 px-5 py-2.5" >Register</ButtonColor>
+                            <ButtonColor text="white" bg="gray" @click="showModalLogin" class="m-3 px-5 py-2.5">Login</ButtonColor>
+
+                            <!-- <Link :href="route('login.create')" class="m-3 text-white bg-gray-700 hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-800">{{ $t('Login') }}</Link> -->
+                            
+                            <!-- <Link :href="route('register.create')" class="m-3 text-white bg-gray-700 hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-800">{{ $t('Register') }}</Link> -->
                         </div>
                     </template>
                     <template v-else>
@@ -186,9 +190,9 @@ const selectLang = (e) => { changeLocale(e.target.value) }
                         </select>
                     </div>
                     <Link :href="route('login.create')" class="m-3 text-white bg-gray-700 hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-800">{{ $t('Login') }}</Link>
-                    <Link :href="route('register.create')" class="m-3 text-white bg-gray-700 hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-800">{{ $t('Register') }}</Link>
+                    <!-- <Link :href="route('register.create')" class="m-3 text-white bg-gray-700 hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-800">{{ $t('Register') }}</Link> -->
                     <!-- <button @click="showModalLogin" class="m-3 text-white bg-gray-700 hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-800">Login</button> -->
-                    <!-- <button @click="showModalRegister" class="m-3 text-white bg-gray-700 hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-800">Register</button> -->
+                    <ButtonColor text="white" bg="gray" @click="showModalRegister" class="m-3 px-5 py-2.5" >Register</ButtonColor>
                 </div>
             </template>
         </div>

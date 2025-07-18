@@ -3,14 +3,14 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Auth\LoginRequest; // Importa la clase LoginRequest para validación de login
-use App\Providers\RouteServiceProvider; // Importa el proveedor de rutas (no usado aquí)
-use Illuminate\Http\RedirectResponse; // Importa la clase para respuestas de redirección
-use Illuminate\Http\Request; // Importa la clase Request para manejar solicitudes HTTP
-use Illuminate\Support\Facades\Auth; // Importa el facade Auth para autenticación
-use Illuminate\Support\Facades\Route; // Importa el facade Route para manejo de rutas
-use Inertia\Inertia; // Importa Inertia para renderizar vistas
-use Inertia\Response; // Importa la clase Response de Inertia
+use App\Http\Requests\Auth\LoginRequest;
+use App\Providers\RouteServiceProvider;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
+use Inertia\Inertia;
+use Inertia\Response;
 
 class AuthenticatedSessionController extends Controller
 {

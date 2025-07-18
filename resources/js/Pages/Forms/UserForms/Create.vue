@@ -13,21 +13,8 @@ const page = usePage()
 const dropzoneFile = ref("")
 
 const form = useForm({
-    first_name: '',
-    last_name: '',
-    username: '',
-    phone: '',
-    address: '',
-    city: '',
-    state: '',
-    country: '',
-    zip_code: '',
-    company: '',
-    profile_photo_path: '',
-    email: '',
-    password: '',
-    password_confirmation: '',
-    role_id: ''
+    first_name: '', last_name: '', username: '', phone: '', address: '', city: '', state: '', country: '', zip_code: '', company: '',
+    profile_photo_path: '', email: '', password: '', password_confirmation: '', role_id: '', password: '', password_confirmation: '',
 })
 const receiveImageFile = (image) => {
     dropzoneFile.value = image
@@ -208,6 +195,28 @@ const emit = defineEmits(['closeCreate'])
                             <option v-for="role in roles" :key="role.id" :value="role.id">{{ role.name }}</option>
                         </select>
                         <div v-if="page.props.errors.role_id" class="text-red-500 text-sm font-bold">{{ page.props.errors.role_id }}</div>
+                    </div>
+                </div>
+                <div class="grid xl:grid-cols-2 sm:grid-cols-1">
+                    <div class="mx-2">
+                    <InputFull
+                            v-model:model="form.password"
+                            v-model:errors="page.props.errors.password"
+                            :label="$t('Password')"
+                            :type="'password'"
+                            :id="'password'"
+                            ref="password"
+                        />
+                    </div>
+                    <div class="mx-2">
+                        <InputFull
+                            v-model:model="form.password_confirmation"
+                            v-model:errors="page.props.errors.password"
+                            :label="$t('Password Confirmation')"
+                            :type="'password'"
+                            :id="'password_confirmation'"
+                            ref="password_confirmation"
+                        />
                     </div>
                 </div>
                 <div class="flex justify-end items-center gap-6 mt-3">

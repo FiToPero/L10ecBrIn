@@ -35,18 +35,18 @@ class UserRequest extends FormRequest
             'zip_code' => 'string|max:20',
             'company' => 'string|max:255',
             'profile_photo_path' => $this->hasFile('profile_photo_path') ? 'image|mimes:jpeg,png,jpg,gif,svg|max:2048' : 'nullable|string|max:255',
-            'role_id' => 'required|integer|exists:roles,id',
         ];
 
         if ($this->input('id')) {
             // $rules['password'] = 'nullable|string|min:8|confirmed';
             $rules['username'] = 'required|string|max:255|present_unless:users,username';
             $rules['email'] = 'required|string|email|max:255|present_unless:users,email';
+            $rules['role_id'] = 'required|integer|exists:roles,id';
         } else {
             $rules['username'] = 'required|string|max:255|unique:users,username';
             $rules['email'] = 'required|string|email|max:255|unique:users,email';
-            // $rules['password'] = 'required|string|min:8|confirmed';
-            //'password' => 'required|string|min:8|confirmed|regex:/[a-z]/|regex:/[A-Z]/|regex:/[0-9]/|regex:/[@$!%*?&]/',
+            $rules['password'] = 'required|string|min:8|confirmed';
+            //$rules['password'] = 'required|string|min:8|confirmed|regex:/[a-z]/|regex:/[A-Z]/|regex:/[0-9]/|regex:/[@$!%*?&]/',
         }
         return $rules;
     }
