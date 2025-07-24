@@ -9,6 +9,9 @@ import { Link, usePage } from '@inertiajs/vue3'
 import Login from '@/Pages/Auth/Login.vue'
 import Register from '@/Pages/Auth/Register.vue'
 import VerifyEmail from '@/Pages/Auth/VerifyEmail.vue'
+import ForgotPassword from '@/Pages/Auth/ForgotPassword.vue'
+import ResetPassword from '@/Pages/Auth/ResetPassword.vue'
+import ProfileEdit from '@/Pages/Profile/Edit.vue'
 import ButtonColor from '@/Components/ButtonColor.vue'
 import { useLoginStore } from '@/stores/useLoginStore'
 import { storeToRefs } from 'pinia'
@@ -16,8 +19,8 @@ import { storeToRefs } from 'pinia'
 
 ///// pinia ////
 const storeLogin = useLoginStore()
-const { modalLogin, modalRegister, modalVerified, localeLang } = storeToRefs(storeLogin)
-const { showModalLogin, showModalRegister, changeLocale } = storeLogin
+const { modalLogin, modalRegister, modalVerified, modalForgotPassword, modalResetPassword, modalProfileEdit } = storeToRefs(storeLogin)
+const { showModalLogin, showModalRegister, showModalForgotPassword, showModalResetPassword, showModalProfileEdit, changeLocale } = storeLogin
 ////// pinia ////
 
 const page = usePage()
@@ -77,11 +80,7 @@ const selectLang = (e) => { changeLocale(e.target.value) }
                             </select>
                             
                             <ButtonColor text="white" bg="gray" @click="showModalRegister" class="m-3 px-5 py-2.5" >Register</ButtonColor>
-                            <ButtonColor text="white" bg="gray" @click="showModalLogin" class="m-3 px-5 py-2.5">Login</ButtonColor>
-
-                            <!-- <Link :href="route('login.create')" class="m-3 text-white bg-gray-700 hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-800">{{ $t('Login') }}</Link> -->
-                            
-                            <!-- <Link :href="route('register.create')" class="m-3 text-white bg-gray-700 hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-800">{{ $t('Register') }}</Link> -->
+                            <ButtonColor text="white" bg="gray" @click="showModalLogin" class="m-3 px-5 py-2.5">Login</ButtonColor>                            
                         </div>
                     </template>
                     <template v-else>
@@ -109,7 +108,7 @@ const selectLang = (e) => { changeLocale(e.target.value) }
                                         </span>
                                     </template>
                                     <template #content>
-                                        <DropdownLink :href="route('profile.edit')"> {{ $t('Profile') }} </DropdownLink>
+                                        <DropdownLink :href="route('profile.edit')" > {{ $t('Profile') }} </DropdownLink>
                                         <DropdownLink :href="route('logout')" method="post" as="button"> {{ $t('Log Out') }} </DropdownLink>
                                     </template>
                                 </Dropdown>
@@ -189,10 +188,8 @@ const selectLang = (e) => { changeLocale(e.target.value) }
                             <option value="es">Español</option>
                         </select>
                     </div>
-                    <Link :href="route('login.create')" class="m-3 text-white bg-gray-700 hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-800">{{ $t('Login') }}</Link>
-                    <!-- <Link :href="route('register.create')" class="m-3 text-white bg-gray-700 hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-800">{{ $t('Register') }}</Link> -->
-                    <!-- <button @click="showModalLogin" class="m-3 text-white bg-gray-700 hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-800">Login</button> -->
                     <ButtonColor text="white" bg="gray" @click="showModalRegister" class="m-3 px-5 py-2.5" >Register</ButtonColor>
+                    <ButtonColor text="white" bg="gray" @click="showModalLogin" class="m-3 px-5 py-2.5">Login</ButtonColor>                            
                 </div>
             </template>
         </div>
@@ -212,6 +209,9 @@ const selectLang = (e) => { changeLocale(e.target.value) }
         <Login v-if="modalLogin" />
         <Register v-if="modalRegister" />
         <VerifyEmail v-if="modalVerified" />
+        <ForgotPassword v-if="modalForgotPassword" />
+        <ResetPassword v-if="modalResetPassword" />
+        <ProfileEdit v-if="modalProfileEdit"  />
         <slot />
     </main>
 </template>

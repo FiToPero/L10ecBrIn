@@ -4,6 +4,8 @@ import { ref } from 'vue'
 import DropZone from "@/Components/DropZone.vue"
 import CardMobile from '@/Components/CardMobile.vue'
 import InputFull from '@/Components/InputFull.vue'
+import UpdatePasswordForm from '@/Pages/Profile/Partials/UpdatePasswordForm.vue'
+import DeleteUserForm from '@/Pages/Profile/Partials/DeleteUserForm.vue'    
 
 const props = defineProps({
     user: { type: Object },
@@ -44,6 +46,7 @@ const emit = defineEmits(['closeEdit'])
 <template>
 <div class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-60 z-50">
 <CardMobile>
+<div class="overflow-y-auto max-h-[80vh]" >
 <form v-on:submit.prevent="submit">
     <div class="flex justify-center items-center m-5 ">
         <span class="w-5/6 flex justify-center text-white dark:text-gray-300 text-3xl font-bold">Edit User</span>
@@ -216,6 +219,18 @@ const emit = defineEmits(['closeEdit'])
         </div>
     </div>
 </form>
+
+
+           <div class="p-4 my-5 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg">
+                <UpdatePasswordForm class="max-w-xl" />
+            </div>
+
+            <div class="p-4 my-5 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg">
+                <DeleteUserForm class="max-w-xl" />
+            </div>
+
+
+</div>
 </CardMobile>
 </div>
 </template>

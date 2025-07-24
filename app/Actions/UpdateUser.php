@@ -2,7 +2,6 @@
 
 namespace App\Actions;
 
-use App\Http\Requests\UserRequest;
 use Lorisleiva\Actions\Concerns\AsAction;
 use App\Models\User;
 
@@ -37,6 +36,15 @@ class UpdateUser
             'profile_photo_path' => $imageUrl_01,
             'role_id' => $data['role_id'],
         ]);
+
+        if ($data['password'] !== null) {
+            
+
+        }
+        if ($data['email'] !== null){
+            
+        }
+
         return $response;
     }
 }

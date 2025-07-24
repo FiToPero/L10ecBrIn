@@ -14,14 +14,6 @@ use Inertia\Response;
 
 class AuthenticatedSessionController extends Controller
 {
-    public function create(): Response
-    {
-        return Inertia::render('Auth/Login', [
-            'canResetPassword' => Route::has('password.request'),
-            'status' => session('status'),
-        ]);
-    }
-
     public function store(LoginRequest $request): RedirectResponse
     {
         $request->authenticate(); // Llama al método authenticate() de LoginRequest para validar credenciales

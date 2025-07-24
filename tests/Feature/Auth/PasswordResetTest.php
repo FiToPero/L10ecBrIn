@@ -12,13 +12,6 @@ class PasswordResetTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function test_reset_password_link_screen_can_be_rendered(): void
-    {
-        $response = $this->get('/forgot-password');
-
-        $response->assertStatus(200);
-    }
-
     public function test_reset_password_link_can_be_requested(): void
     {
         Notification::fake();
@@ -68,7 +61,7 @@ class PasswordResetTest extends TestCase
 
             $response
                 ->assertSessionHasNoErrors()
-                ->assertRedirect(route('product.index'));
+                ->assertRedirect(route('welcome.index'));
 
             return true;
         });

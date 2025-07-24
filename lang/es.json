@@ -252,5 +252,12 @@
     "Your email address is unverified.": "Su dirección de correo electrónico no está verificada.",
     "Welcome": "Bienvenido",
     "Admin Root": "Administrador Root",
-    "Product Create": "Crear Producto"
+    "Product Create": "Crear Producto",
+    "Product Edit": "Editar Producto",
+    "Product": "Producto",
+    "Create New User": "Crear Nuevo Usuario",
+    "Edit User": "Editar Usuario",
+    "Carousel": "Carrusel",
+    "Admin-User": "Admin-Usuario",
+    "Admin-Role": "Admin-Rol"
 }

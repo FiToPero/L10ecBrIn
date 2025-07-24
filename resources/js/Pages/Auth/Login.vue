@@ -8,19 +8,10 @@ import { useLoginStore } from '@/stores/useLoginStore'
 
 ///// pinia ////
 const storeLogin = useLoginStore()
-const { showModalLogin } = storeLogin
+const { showModalLogin, showModalForgotPassword } = storeLogin
 ////// pinia ////
 
 const page = usePage()
-
-defineProps({
-    canResetPassword: {
-        type: Boolean,
-    },
-    status: {
-        type: String,
-    },
-});
 
 const form = useForm({
     email: '',
@@ -35,14 +26,9 @@ const submit = () => {
 
 <template>
 <div class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-60 z-50">
-<CardMobile>
-
-        <div v-if="status" class="mb-4 text-sm font-medium text-green-600">
-            {{ status }}
-        </div>
-        
-        <form @submit.prevent="submit">
-            <div class="flex justify-center items-center mb-5">
+<CardMobile>        
+    <form @submit.prevent="submit">
+        <div class="flex justify-center items-center mb-5">
             <span class="w-11/12 flex justify-center text-white dark:text-gray-300 text-3xl font-bold">Login</span>
             <div class="w-1/12 flex justify-end">
                 <ButtonColor @click="showModalLogin()" text="white" bg="gray" class="">
@@ -83,8 +69,7 @@ const submit = () => {
         </div>
         <div class="mt-4 flex items-center justify-end">
             <Link
-                v-if="canResetPassword"
-                :href="route('password.request')"
+                @click="showModalForgotPassword()"
                 class="rounded-md text-sm text-gray-600 underline hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:text-gray-400 dark:hover:text-gray-100 dark:focus:ring-offset-gray-800"
             >
                 Forgot your password?
@@ -99,9 +84,7 @@ const submit = () => {
                 Log in
             </ButtonColor>
         </div>
-        </form>
-
-
+    </form>
 </CardMobile>
 </div>
 </template>

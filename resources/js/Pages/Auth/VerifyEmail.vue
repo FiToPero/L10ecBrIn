@@ -1,8 +1,9 @@
 <script setup>
-import { computed } from 'vue';
-import GuestLayout from '@/Layouts/GuestLayout.vue';
-import PrimaryButton from '@/Components/PrimaryButton.vue';
-import { Head, Link, useForm } from '@inertiajs/vue3';
+import { computed } from 'vue'
+import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue'
+import ButtonColor from '@/Components/ButtonColor.vue'
+import CardMobile from '@/Components/CardMobile.vue'
+import { Head, Link, useForm, router } from '@inertiajs/vue3'
 
 const props = defineProps({
     status: {
@@ -18,21 +19,32 @@ const submit = () => {
 
 const verificationLinkSent = computed(
     () => props.status === 'verification-link-sent',
-);
+)
+const returnWelcome = () => {
+    router.get(route('welcome.index'))
+};
 </script>
 
 <template>
-    <GuestLayout>
+<AuthenticatedLayout>
         <Head title="Email Verification" />
 
-        <div class="flex justify-end mb-4">
-            <Link :href="route('product.index')" type="button" class="text-gray-600 dark:text-white bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 inline-flex justify-center items-center dark:hover:bg-gray-700 dark:bg-gray-600">
+<div class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-60 z-50">
+<CardMobile>   
+      
+<div>
+    <div class="flex justify-center items-center mb-5">
+        <span class="w-11/12 flex justify-center text-white dark:text-gray-300 text-3xl font-bold">{{ $t('Verification Email') }}</span>
+        <div class="w-1/12 flex justify-end">
+            <ButtonColor @click="returnWelcome()" text="white" bg="gray" class="">
                 <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
                 </svg>
-            </Link>
+            </ButtonColor>
         </div>
+    </div>
 
+    <form @submit.prevent="submit">  
         <div class="mb-4 text-sm text-gray-600 dark:text-gray-400">
             Thanks for signing up! Before getting started, could you verify your
             email address by clicking on the link we just emailed to you? If you
@@ -47,23 +59,24 @@ const verificationLinkSent = computed(
             provided during registration.
         </div>
 
-        <form @submit.prevent="submit">
-            <div class="mt-4 flex items-center justify-between">
-                <PrimaryButton
-                    :class="{ 'opacity-25': form.processing }"
-                    :disabled="form.processing"
-                >
-                    Resend Verification Email
-                </PrimaryButton>
+        
+        <div class="mt-4 flex items-center justify-between">
+            <ButtonColor @click="submit" text="white" bg="blue" :class="{ 'opacity-25': form.processing }" :disabled="form.processing" class="px-5 py-2.5" >
+                Resend Verification Email
+            </ButtonColor>
 
-                <Link
-                    :href="route('logout')"
-                    method="post"
-                    as="button"
-                    class="rounded-md text-sm text-gray-600 underline hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:text-gray-400 dark:hover:text-gray-100 dark:focus:ring-offset-gray-800"
-                    >Log Out</Link
-                >
-            </div>
-        </form>
-    </GuestLayout>
+            <Link
+                :href="route('logout')"
+                method="post"
+                as="button"
+                class="rounded-md text-sm text-gray-600 underline hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:text-gray-400 dark:hover:text-gray-100 dark:focus:ring-offset-gray-800"
+                >Log Out</Link
+            >
+        </div>
+    </form>
+</div>
+
+</CardMobile>
+</div>
+</AuthenticatedLayout>
 </template>

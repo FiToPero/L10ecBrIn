@@ -2,10 +2,10 @@
 
 namespace App\Actions;
 
-use App\Http\Requests\UserRequest;
 use App\Models\User;
 use Lorisleiva\Actions\Concerns\AsAction;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Auth\Events\Registered;
 
 
 class CreateUser
@@ -38,6 +38,9 @@ class CreateUser
             'password' => Hash::make($data['password']),
             'role_id' => $data['role_id'],
         ]);
+
+        event(new Registered($response));
+
         return $response;
     }
 }

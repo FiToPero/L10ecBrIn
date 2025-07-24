@@ -1,10 +1,11 @@
 <script setup>
-import InputError from '@/Components/InputError.vue';
-import InputLabel from '@/Components/InputLabel.vue';
-import PrimaryButton from '@/Components/PrimaryButton.vue';
-import InputText from '@/Components/InputText.vue';
-import { useForm } from '@inertiajs/vue3';
-import { ref } from 'vue';
+import InputError from '@/Components/InputError.vue'
+import InputLabel from '@/Components/InputLabel.vue'
+import InputFull from '@/Components/InputFull.vue'
+import PrimaryButton from '@/Components/PrimaryButton.vue'
+import InputText from '@/Components/InputText.vue'
+import { useForm } from '@inertiajs/vue3'
+import { ref } from 'vue'
 
 const passwordInput = ref(null);
 const currentPasswordInput = ref(null);
@@ -13,7 +14,7 @@ const form = useForm({
     current_password: '',
     password: '',
     password_confirmation: '',
-});
+})
 
 const updatePassword = () => {
     form.put(route('password.update'), {
@@ -29,8 +30,8 @@ const updatePassword = () => {
                 currentPasswordInput.value.focus();
             }
         },
-    });
-};
+    })
+}
 </script>
 
 <template>
@@ -87,6 +88,33 @@ const updatePassword = () => {
 
                 <InputError :message="form.errors.password_confirmation" class="mt-2" />
             </div>
+
+
+
+            <!-- <div class="grid xl:grid-cols-2 sm:grid-cols-1">
+                <div class="mx-2">
+                    <InputFull
+                        v-model:model="form.password"
+                        v-model:errors="page.props.errors.password"
+                        :label="$t('Password')"
+                        :type="'password'"
+                        :id="'password'"
+                        ref="password"
+                    />
+                </div>
+                <div class="mx-2">
+                    <InputFull
+                        v-model:model="form.password_confirmation"
+                        v-model:errors="page.props.errors.password_confirmation"
+                        :label="$t('Password Confirmation')"
+                        :type="'password'"
+                        :id="'password_confirmation'"
+                        ref="password_confirmation"
+                    />
+                </div>
+            </div> -->
+
+
 
             <div class="flex items-center gap-4">
                 <PrimaryButton :disabled="form.processing">Save</PrimaryButton>
