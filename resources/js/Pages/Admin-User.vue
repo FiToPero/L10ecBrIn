@@ -118,7 +118,6 @@ watch(() => page.props.flash.message, (newValue) => {
                 </div>
             </Modal>
         </div>
-             
         <UserTable :users="props.users" searchName="user" v-slot="{user}" >
             <ButtonColor text="white" bg="yellow" class="mx-2" @click="openShow(user)" >{{ $t('Show') }}</ButtonColor>
             <ButtonColor text="white" bg="cyan" class="mx-2" v-if="page.props.auth.user.permissions.includes('update_user')"  @click="openEdit(user)" >{{ $t('Edit') }}</ButtonColor>

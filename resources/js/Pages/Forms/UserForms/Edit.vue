@@ -4,8 +4,10 @@ import { ref } from 'vue'
 import DropZone from "@/Components/DropZone.vue"
 import CardMobile from '@/Components/CardMobile.vue'
 import InputFull from '@/Components/InputFull.vue'
+import ButtonColor from '@/Components/ButtonColor.vue'
 import UpdatePasswordForm from '@/Pages/Profile/Partials/UpdatePasswordForm.vue'
-import DeleteUserForm from '@/Pages/Profile/Partials/DeleteUserForm.vue'    
+import DeleteUserForm from '@/Pages/Profile/Partials/DeleteUserForm.vue'
+
 
 const props = defineProps({
     user: { type: Object },
@@ -28,6 +30,7 @@ const form = useForm({
     profile_photo_path: props.user.profile_photo_path,
     email: props.user.email,
     role_id: props.user.role.id,
+    role_name: props.user.role.name,
 })
 ///// Image //////
 const dropzoneFile = ref(props.user.profile_photo_path)
@@ -46,16 +49,16 @@ const emit = defineEmits(['closeEdit'])
 <template>
 <div class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-60 z-50">
 <CardMobile>
-<div class="overflow-y-auto max-h-[80vh]" >
+<div class="overflow-y-auto max-h-[80vh] hide-scrollbar" >
 <form v-on:submit.prevent="submit">
     <div class="flex justify-center items-center m-5 ">
         <span class="w-5/6 flex justify-center text-white dark:text-gray-300 text-3xl font-bold">Edit User</span>
         <div class="w-1/6 flex justify-end">
-            <Link :href="route('adminUser.index')" type="button" class="text-gray-600 dark:text-white bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-700 dark:bg-gray-600">
+            <ButtonColor text="white" bg="gray" @click="emit('closeEdit')" >
                 <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
                 </svg>
-            </Link>
+            </ButtonColor>
         </div>
     </div>
     <div class="grid xl:grid-cols-3 sm:grid-cols-1 ">
@@ -198,22 +201,35 @@ const emit = defineEmits(['closeEdit'])
                     />
                 </div>
                 <div class="mx-2">
-                    <label for=role_id class='block m-2 text-sm text-gray-900 dark:text-white font-bold'>Type Role</label>
-                    <select
-                        v-model="form.role_id" 
-                        id=role_id 
-                        class='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:outline-none focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
-                        :class="{'border-red-500 dark:border-red-500' : page.props.errors.role_id}"
-                        @focus="page.props.errors.role_id = ''"
-                    >
-                        <option value="" disabled >Select a role</option>        
-                        <option v-for="role in roles" :key="role.id" :value="role.id">{{ role.name }}</option>
-                    </select>
-                    <div v-if="page.props.errors.role_id" class="text-red-500 text-sm font-bold">{{ page.props.errors.role_id }}</div>
+                    <template v-if="roles">
+                        <label for=role_id class='block m-2 text-sm text-gray-900 dark:text-white font-bold'>Type Role</label>
+                        <select
+                            v-model="form.role_id" 
+                            id=role_id 
+                            class='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:outline-none focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
+                            :class="{'border-red-500 dark:border-red-500' : page.props.errors.role_id}"
+                            @focus="page.props.errors.role_id = ''"
+                        >
+                            <option value="" disabled >Select a role</option>        
+                            <option v-for="role in roles" :key="role.id" :value="role.id">{{ role.name }}</option>
+                        </select>
+                        <div v-if="page.props.errors.role_id" class="text-red-500 text-sm font-bold">{{ page.props.errors.role_id }}</div>
+                    </template>
+                    <template v-else>
+                        <InputFull
+                            v-model:model="form.role_name"
+                            v-model:errors="page.props.errors.role"
+                            :label="$t('Role')"
+                            :disabled="true"
+                            :type="'text'"
+                            :id="'role_id'"
+                            ref="role_id"
+                        />
+                    </template>
                 </div>
             </div>
             <div class="flex justify-end items-center gap-6 mt-3">
-                <Link :href="route('adminUser.index')" class="m-3 text-white bg-gray-700 hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-gray-700 dark:hover:bg-gray-800 dark:focus:ring-gray-900">{{ $t('Close') }}</Link>
+                <ButtonColor text="white" bg="gray" @click="emit('closeEdit')" >{{ $t('Close') }}</ButtonColor>
                 <button type="submit" class="m-3 text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">{{ $t('Edit User') }}</button>
             </div>
         </div>
@@ -221,16 +237,25 @@ const emit = defineEmits(['closeEdit'])
 </form>
 
 
-           <div class="p-4 my-5 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg">
-                <UpdatePasswordForm class="max-w-xl" />
-            </div>
+<div class="p-4 my-5 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg">
+    <UpdatePasswordForm class="max-w-xl" />
+</div>
 
-            <div class="p-4 my-5 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg">
-                <DeleteUserForm class="max-w-xl" />
-            </div>
+<div class="p-4 my-5 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg">
+    <DeleteUserForm class="max-w-xl" />
+</div>
 
 
 </div>
 </CardMobile>
 </div>
 </template>
+
+<style scoped>
+.hide-scrollbar {
+  scrollbar-width: none; /* Firefox */
+}
+.hide-scrollbar::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Edge */
+}
+</style>

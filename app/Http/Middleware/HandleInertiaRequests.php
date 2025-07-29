@@ -50,7 +50,8 @@ class HandleInertiaRequests extends Middleware
                         $userArray = $user->toArray();  //(array)$user;
 
                         // Agrega el rol del usuario al array.
-                        $userArray['role'] = $user->role->name;
+                        $userArray['role']['id'] = $user->role->id;
+                        $userArray['role']['name'] = $user->role->name;
 
                         // Agrega los permisos del usuario al array, obteniéndolos como una lista de nombres.
                         $userArray['permissions'] = $user->role->permissions->pluck('name');

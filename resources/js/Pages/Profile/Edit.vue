@@ -1,23 +1,24 @@
 <script setup>
-import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue'
-import { Head } from '@inertiajs/vue3'
 import Edit from '@/Pages/Forms/UserForms/Edit.vue'
+import { useLoginStore } from '../../stores/useLoginStore'
+
+const userStore = useLoginStore()
+const { showModalProfileEdit } = userStore
 
 const props = defineProps({
-    status: { type: String },
-    user: { type: Object },
-    roles: { type: Array },
-    errors: { type: Object },
+    props: { type: Object, required: true },
 })
+
+const closeEdit = () => {
+    showModalProfileEdit()
+}
 
 </script>
 
 <template>
-    <Head title="Profile" />
 
-    <AuthenticatedLayout>
+    <!-- <FlashMessage v-if="isMessage" :message=$page.props.flash.message :color="$page.props.flash.color" @closeMessage="closeMessage"  /> -->
 
-            <Edit :user="user" :roles="roles" :errors="errors" /> 
-       
-    </AuthenticatedLayout>
+    <Edit :user="props.props.auth.user" :roles="null" :errors="props.props.errors" @closeEdit="closeEdit()" />
+
 </template>

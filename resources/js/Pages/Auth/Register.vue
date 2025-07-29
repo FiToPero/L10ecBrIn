@@ -131,7 +131,7 @@ const submit = () => {
                     Already registered?
                 </Link>
 
-                <ButtonColor text="white" bg="green" type="submit" class="m-3 px-5 py-2.5">{{ $t('Create Register') }}</ButtonColor>
+                <ButtonColor text="white" bg="green" type="submit" class="m-3 ">{{ $t('Create Register') }}</ButtonColor>
             </div>
         </div>
     </form>    

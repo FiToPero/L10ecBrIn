@@ -21,7 +21,6 @@ import { storeToRefs } from 'pinia'
 const storeLogin = useLoginStore()
 const { modalLogin, modalRegister, modalVerified, modalForgotPassword, modalResetPassword, modalProfileEdit } = storeToRefs(storeLogin)
 const { showModalLogin, showModalRegister, showModalForgotPassword, showModalResetPassword, showModalProfileEdit, changeLocale } = storeLogin
-////// pinia ////
 
 const page = usePage()
 
@@ -79,8 +78,8 @@ const selectLang = (e) => { changeLocale(e.target.value) }
                                 <option value="es">Español</option>
                             </select>
                             
-                            <ButtonColor text="white" bg="gray" @click="showModalRegister" class="m-3 px-5 py-2.5" >Register</ButtonColor>
-                            <ButtonColor text="white" bg="gray" @click="showModalLogin" class="m-3 px-5 py-2.5">Login</ButtonColor>                            
+                            <ButtonColor text="white" bg="gray" @click="showModalRegister" class="m-3 " >Register</ButtonColor>
+                            <ButtonColor text="white" bg="gray" @click="showModalLogin" class="m-3 ">Login</ButtonColor>                            
                         </div>
                     </template>
                     <template v-else>
@@ -108,7 +107,7 @@ const selectLang = (e) => { changeLocale(e.target.value) }
                                         </span>
                                     </template>
                                     <template #content>
-                                        <DropdownLink :href="route('profile.edit')" > {{ $t('Profile') }} </DropdownLink>
+                                        <DropdownLink @click="showModalProfileEdit" > {{ $t('Profile') }} </DropdownLink>
                                         <DropdownLink :href="route('logout')" method="post" as="button"> {{ $t('Log Out') }} </DropdownLink>
                                     </template>
                                 </Dropdown>
@@ -171,7 +170,7 @@ const selectLang = (e) => { changeLocale(e.target.value) }
                     <div class="font-medium text-sm text-gray-500">{{ $page.props.auth.user.email }}</div>
                 </div>
                 <div class="mt-3 space-y-1">
-                    <ResponsiveNavLink :href="route('profile.edit')"> {{ $t('Profile') }} </ResponsiveNavLink>
+                    <ResponsiveNavLink @click="showModalProfileEdit" > {{ $t('Profile') }} </ResponsiveNavLink>
                     <ResponsiveNavLink :href="route('logout')" method="post" as="button"> {{ $t('Log Out') }} </ResponsiveNavLink>
                 </div>
             </div>
@@ -188,8 +187,8 @@ const selectLang = (e) => { changeLocale(e.target.value) }
                             <option value="es">Español</option>
                         </select>
                     </div>
-                    <ButtonColor text="white" bg="gray" @click="showModalRegister" class="m-3 px-5 py-2.5" >Register</ButtonColor>
-                    <ButtonColor text="white" bg="gray" @click="showModalLogin" class="m-3 px-5 py-2.5">Login</ButtonColor>                            
+                    <ButtonColor text="white" bg="gray" @click="showModalRegister" class="m-3 " >Register</ButtonColor>
+                    <ButtonColor text="white" bg="gray" @click="showModalLogin" class="m-3 ">Login</ButtonColor>                            
                 </div>
             </template>
         </div>
@@ -211,7 +210,7 @@ const selectLang = (e) => { changeLocale(e.target.value) }
         <VerifyEmail v-if="modalVerified" />
         <ForgotPassword v-if="modalForgotPassword" />
         <ResetPassword v-if="modalResetPassword" />
-        <ProfileEdit v-if="modalProfileEdit"  />
+        <ProfileEdit v-if="modalProfileEdit" :props="$page.props" />
         <slot />
     </main>
 </template>

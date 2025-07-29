@@ -12,6 +12,7 @@ use Inertia\Inertia;
 use Inertia\Response;
 use App\Models\Role;
 use App\Models\User;
+use Exception;
 
 class ProfileController extends Controller
 {
@@ -27,34 +28,25 @@ class ProfileController extends Controller
         ]);
     }
 
-    public function update(ProfileUpdateRequest $request): RedirectResponse
-    {
-        $request->user()->fill($request->validated());
-
-        if ($request->user()->isDirty('email')) {
-            $request->user()->email_verified_at = null;
-        }
-
-        $request->user()->save();
-
-        return Redirect::route('profile.edit');
-    }
-
     public function destroy(Request $request): RedirectResponse
     {
-        $request->validate([
-            'password' => ['required', 'current_password'],
-        ]);
+        try {
+            $request->validate([
+                'password_destroy' => ['required', 'current_password'],
+            ]);
 
-        $user = $request->user();
+            $user = $request->user();
 
-        Auth::logout();
+            Auth::logout();
 
-        $user->destroy();
+            $user->delete();
 
-        $request->session()->invalidate();
-        $request->session()->regenerateToken();
+            $request->session()->invalidate();
+            $request->session()->regenerateToken();
 
-        return redirect()->route('product.index')->with(['message' => 'User deleted.', 'color' => 'red']);
+            return redirect()->route('welcome.index')->with(['message' => 'User Deleted.', 'color' => 'red']);
+        } catch (Exception $e) {
+            return back()->with(['message' => 'User deletion failed.', 'color' => 'red']);  
+        }
     }
 }

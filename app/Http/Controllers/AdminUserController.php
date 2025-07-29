@@ -29,6 +29,7 @@ class AdminUserController extends Controller
             ->paginate(10, ['*'], 'userPage');  
 
         $usersTrashed = User::onlyTrashed()
+            ->with('role')
             ->when($filters['userTrashed'] ?? null, function($query, $search){$query->where('username', 'LIKE', "%". $search ."%");})
             ->paginate(5, ['*'], 'trashedPage')
             ->appends(['userPage' => $users->currentPage()]);
@@ -56,9 +57,9 @@ class AdminUserController extends Controller
         try {
             UpdateUser::run($request);
             
-            return redirect()->route('adminUser.index')->with(['message' => 'User updated successfully.', 'color' => 'cyan']);
+            return back()->with(['message' => 'User updated successfully.', 'color' => 'cyan']);
         }catch (\Exception $e) {
-            return redirect()->route('adminUser.index')->with(['message' => 'User updated failed.', 'color' => 'red']);
+            return back()->with(['message' => 'User updated failed.', 'color' => 'red']);
         }
     }
 

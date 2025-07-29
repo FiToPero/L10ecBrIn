@@ -27,9 +27,9 @@ const submit = () => {
 <template>
 <div class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-60 z-50">
 <CardMobile>        
-    <form @submit.prevent="submit">
+    <form @submit.prevent="submit" class="w-96">
         <div class="flex justify-center items-center mb-5">
-            <span class="w-11/12 flex justify-center text-white dark:text-gray-300 text-3xl font-bold">Login</span>
+            <span class="w-11/12 flex justify-center text-white dark:text-gray-300 text-3xl font-bold">{{ $t('Login') }}</span>
             <div class="w-1/12 flex justify-end">
                 <ButtonColor @click="showModalLogin()" text="white" bg="gray" class="">
                     <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
@@ -63,25 +63,24 @@ const submit = () => {
             <label class="flex items-center">
                 <Checkbox name="remember" v-model:checked="form.remember" />
                 <span class="ms-2 text-sm text-gray-600 dark:text-gray-400"
-                    >Remember me</span
+                    >{{ $t('Remember me') }}</span
                 >
             </label>
         </div>
-        <div class="mt-4 flex items-center justify-end">
+        <div class="mt-4 flex items-center justify-between">
             <Link
                 @click="showModalForgotPassword()"
                 class="rounded-md text-sm text-gray-600 underline hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:text-gray-400 dark:hover:text-gray-100 dark:focus:ring-offset-gray-800"
             >
-                Forgot your password?
+                {{ $t('Forgot your password?') }}
             </Link>
 
             <ButtonColor
                 text="white" bg="green"
-                class="ms-4 px-5 py-2.5"
                 :class="{ 'opacity-25': form.processing }"
                 :disabled="form.processing"
             >
-                Log in
+                {{ $t('Login') }}
             </ButtonColor>
         </div>
     </form>
