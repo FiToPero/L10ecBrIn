@@ -4,12 +4,18 @@ services:
     environment:
         WWWGROUP: '${APP_NAME}'
         PROJECT_NAME: '${APP_NAME}'
+        USER_ID: '${UID:-1000}'
+        GROUP_ID: '${GID:-1000}'
+        USERNAME: '${USER:-appuser}'
     # build:
     #   context: .
     #   dockerfile: Dockerfile
     #   args:
     #     WWWGROUP: '${APP_NAME}'
     #     PROJECT_NAME: '${APP_NAME}'
+    #     USER_ID: ${UID:-1000}
+    #     GROUP_ID: ${GID:-1000}
+    #     USERNAME: ${USER:-appuser}
     ports:
       - '80:80'
       - '5173:5173'
@@ -21,7 +27,6 @@ services:
       - mysql
       - redis
       - mailpit
-      - mongodb
   mysql:
     image: 'mysql/mysql-server:8.0'
     ports:
@@ -36,17 +41,6 @@ services:
       - 'data_mysql:/var/lib/mysql'
     networks:
       - project
-  mongodb:
-    image: 'mongo'
-    environment:
-        MONGO_INITDB_ROOT_USERNAME: '${DB_MONGO_USERNAME}'
-        MONGO_INITDB_ROOT_PASSWORD: '${DB_MONGO_PASSWORD}'
-    ports:
-        - '27017:${DB_MONGO_PORT}'
-    volumes:
-        - 'data_mongodb:/data/db'
-    networks:
-        - project
   redis:
     image: 'redis:alpine'
     ports:
@@ -72,10 +66,9 @@ services:
 networks:
   project:
     driver: bridge
+    external: true
 volumes:
   data_mysql:
     driver: local
   data-redis:
-    driver: local
-  data_mongodb:
     driver: local

@@ -62,6 +62,14 @@ RUN pecl channel-update pecl.php.net \
     && phpenmod mongodb
 # check install success php -m | grep mongodb
 
+# Crear usuario con mismo UID/GID que el usuario del host
+ARG USER_ID=1000
+ARG GROUP_ID=1000
+ARG USERNAME=appuser
+RUN groupadd -g $GROUP_ID $USERNAME && \
+    useradd -u $USER_ID -g $GROUP_ID -m -s /bin/bash $USERNAME && \
+    usermod -aG www-data $USERNAME
+
 RUN chown -R www-data:www-data /var/www/html && chmod -R 775 /var/www/html
 
 # Configurar umask para que los archivos creados tengan permisos de escritura
@@ -69,6 +77,10 @@ RUN chown -R www-data:www-data /var/www/html && chmod -R 775 /var/www/html
 # RUN echo "umask 000" >> /etc/profile
 
 COPY . /var/www/html/$PROJECT_NAME/
+
+# Cambiar permisos del directorio del proyecto para que el usuario pueda escribir
+RUN chown -R $USERNAME:www-data /var/www/html/$PROJECT_NAME && \
+    chmod -R 775 /var/www/html/$PROJECT_NAME
 
 RUN echo '<VirtualHost *:80> \n\
     ServerAdmin webmaster@localhost \n\

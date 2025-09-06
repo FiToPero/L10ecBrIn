@@ -61,6 +61,9 @@ const selectLang = (e) => { changeLocale(e.target.value) }
                         </NavLink>
                         <NavLink v-if="page.props.auth.user && page.props.auth.user.permissions && page.props.auth.user.permissions.includes('viewAny_role')" :href="route('adminRole.index')" :active="route().current('adminRole.index')">
                             {{ $t('Admin-Role') }}
+                        </NavLink>
+                        <NavLink v-if="page.props.auth.user && page.props.auth.user.permissions && page.props.auth.user.permissions.includes('viewAny_chat')" :href="route('chat.index')" :active="route().current('chat.index')">
+                            {{ $t('Chat-Whatsapp') }}
                         </NavLink> 
                         <!-- <div class="p-3 text-white text-sm">{{ page.props.auth.user.permissions }}</div> -->
                     </div>
@@ -149,6 +152,9 @@ const selectLang = (e) => { changeLocale(e.target.value) }
                 </ResponsiveNavLink>
                 <ResponsiveNavLink v-if="page.props.auth.user && page.props.auth.user.permissions && page.props.auth.user.permissions.includes('viewAny_role')" :href="route('adminRole.index')" :active="route().current('adminRole.index')">
                     {{ $t('Admin-Role') }}
+                </ResponsiveNavLink>
+                <ResponsiveNavLink v-if="page.props.auth.user && page.props.auth.user.permissions && page.props.auth.user.permissions.includes('viewAny_chat')" :href="route('chat.index')" :active="route().current('chat.index')">
+                    {{ $t('Chat-Whatsapp') }}
                 </ResponsiveNavLink>
             </div>
 

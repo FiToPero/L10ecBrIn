@@ -33,7 +33,7 @@ class DatabaseSeeder extends Seeder
                         'viewAny_role', 'view_role', 'create_role', 'update_role', 'delete_role', 'restore_role', 'forceDelete_role',
                         'viewAny_carousel', 'view_carousel', 'create_carousel', 'update_carousel', 'delete_carousel', 'restore_carousel', 'forceDelete_carousel',
                         'view_role', 'create_role', 'edit_role', 'delete_role',
-                        'superRoot_permission'
+                        'superRoot_permission', 'viewAny_chat', 'view_chat', 'create_chat', 'update_chat', 'delete_chat', 'restore_chat', 'forceDelete_chat'
                     ];
 
         foreach ($permissions as $permission) {
