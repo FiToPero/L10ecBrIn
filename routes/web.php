@@ -17,53 +17,6 @@ use App\Notifications\VerifyEmail;
 //     return (new VerifyEmail())->toMail($user);
 // });
 
-// Route::get('/test-mongo', function () {
-//     try {
-//         // Probar diferentes variantes de conexión
-//         $uris = [
-//             env('DB_MONGODB_URI'),
-//             'mongodb://fito:fito@whatsapp_api-mongodb-1:27017/admin',
-//             'mongodb://fito:fito@whatsapp_api-mongodb-1:27017/?authSource=admin',
-//         ];
-        
-//         $results = [];
-        
-//         foreach ($uris as $index => $uri) {
-//             try {
-//                 $client = new MongoDB\Client($uri);
-//                 $databases = $client->listDatabases();
-//                 $results["variant_$index"] = [
-//                     'uri' => $uri,
-//                     'status' => 'success',
-//                     'databases' => iterator_to_array($databases)
-//                 ];
-//                 break; // Si una funciona, usar esa
-//             } catch (\Exception $e) {
-//                 $results["variant_$index"] = [
-//                     'uri' => $uri,
-//                     'status' => 'error',
-//                     'message' => $e->getMessage()
-//                 ];
-//             }
-//         }
-        
-//         return response()->json($results);
-        
-//     } catch (\Exception $e) {
-//         return response()->json([
-//             'status' => 'error',
-//             'message' => $e->getMessage(),
-//             'config' => [
-//                 'host' => env('DB_MONGO_HOST'),
-//                 'port' => env('DB_MONGO_PORT'),
-//                 'database' => env('DB_MONGO_DATABASE'),
-//                 'username' => env('DB_MONGO_USERNAME'),
-//                 'uri' => env('DB_MONGODB_URI')
-//             ]
-//         ], 500);
-//     }
-// });
-
 Route::get('/', [WelcomeController::class, 'index'])->name('welcome.index');
 
 // Authentication Routes
@@ -111,33 +64,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/chat', [ChatController::class, 'index'])->name('chat.index');
-    Route::post('/chat', [ChatController::class, 'store'])->name('chat.store');
-    Route::get('/chat/conversation/{userId}', [ChatController::class, 'conversation'])->name('chat.conversation');
 });
 
-// Ruta de prueba para MongoDB
-Route::get('/test-mongo-chat', function () {
-    try {
-        // Probar el modelo Chat
-        $chatCount = \App\Models\Chat::count();
-        $recentChats = \App\Models\Chat::take(5)->get();
-        
-        return response()->json([
-            'status' => 'success',
-            'database' => env('DB_MONGO_DATABASE'),
-            'chat_count' => $chatCount,
-            'recent_chats' => $recentChats,
-            'collection_name' => 'deChat',
-            'connection' => 'mongodb'
-        ]);
-    } catch (\Exception $e) {
-        return response()->json([
-            'status' => 'error',
-            'message' => $e->getMessage(),
-            'line' => $e->getLine(),
-            'file' => $e->getFile()
-        ]);
-    }
-});
+
 
 require __DIR__.'/auth.php';

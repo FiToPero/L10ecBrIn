@@ -16,7 +16,7 @@ RUN echo 'umask 000' >> /etc/bash.bashrc
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
 RUN apt-get update \
-    && apt-get install -y apache2 libapache2-mod-fcgid gnupg gosu curl ca-certificates zip unzip git supervisor sqlite3 libcap2-bin libpng-dev python2 dnsutils librsvg2-bin fswatch ffmpeg nano \
+    && apt-get install -y apache2 libapache2-mod-fcgid gnupg gosu curl ca-certificates zip unzip git supervisor sqlite3 libcap2-bin libpng-dev python2 dnsutils librsvg2-bin fswatch ffmpeg nano sudo \
     && curl -sS 'https://keyserver.ubuntu.com/pks/lookup?op=get&search=0x14aa40ec0831756756d7f66c4f4ea0aae5267a6c' | gpg --dearmor | tee /etc/apt/keyrings/ppa_ondrej_php.gpg > /dev/null \
     && echo "deb [signed-by=/etc/apt/keyrings/ppa_ondrej_php.gpg] https://ppa.launchpadcontent.net/ondrej/php/ubuntu jammy main" > /etc/apt/sources.list.d/ppa_ondrej_php.list
 
@@ -68,17 +68,13 @@ ARG GROUP_ID=1000
 ARG USERNAME=appuser
 RUN groupadd -g $GROUP_ID $USERNAME && \
     useradd -u $USER_ID -g $GROUP_ID -m -s /bin/bash $USERNAME && \
-    usermod -aG www-data $USERNAME
-
-RUN chown -R www-data:www-data /var/www/html && chmod -R 775 /var/www/html
-
-# Configurar umask para que los archivos creados tengan permisos de escritura
-# Permitir lectura/escritura para usuario, grupo, y otros
-# RUN echo "umask 000" >> /etc/profile
+    usermod -aG www-data $USERNAME && \
+    usermod -aG sudo $USERNAME && \
+    echo "$USERNAME ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
 
 COPY . /var/www/html/$PROJECT_NAME/
 
-# Cambiar permisos del directorio del proyecto para que el usuario pueda escribir
+# Establecer permisos del directorio del proyecto
 RUN chown -R $USERNAME:www-data /var/www/html/$PROJECT_NAME && \
     chmod -R 775 /var/www/html/$PROJECT_NAME
 
@@ -107,6 +103,8 @@ RUN setcap "cap_net_bind_service=+ep" /usr/bin/php8.3
 
 EXPOSE 80/tcp 5176
 
-CMD ["sh", "-c", "service php8.3-fpm start && apache2ctl -D FOREGROUND"]
+USER $USERNAME
+
+CMD ["sh", "-c", "service php8.3-fpm start && apache2ctl -D FOREGROUND &; exec su - $USERNAME"]
 # CMD ["tail", "-f", "/dev/null"]
 

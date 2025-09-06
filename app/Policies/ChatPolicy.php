@@ -4,7 +4,7 @@ namespace App\Policies;
 
 use App\Models\User;
 
-class Chat
+class ChatPolicy
 {
     /**
      * Create a new policy instance.
