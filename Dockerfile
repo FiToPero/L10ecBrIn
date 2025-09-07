@@ -62,19 +62,23 @@ RUN pecl channel-update pecl.php.net \
     && phpenmod mongodb
 # check install success php -m | grep mongodb
 
-# Crear usuario con mismo UID/GID que el usuario del host
+# Crear usuario con mismo UID que el usuario del host
 ARG USER_ID=1000
-ARG GROUP_ID=1000
-ARG USERNAME=appuser
-RUN groupadd -g $GROUP_ID $USERNAME && \
-    useradd -u $USER_ID -g $GROUP_ID -m -s /bin/bash $USERNAME && \
-    usermod -aG www-data $USERNAME && \
+ARG USERNAME
+
+RUN useradd -u $USER_ID -g www-data -m -s /bin/bash $USERNAME && \
     usermod -aG sudo $USERNAME && \
     echo "$USERNAME ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
 
-COPY . /var/www/html/$PROJECT_NAME/
+# Crear directorio del proyecto con permisos correctos
+RUN mkdir -p /var/www/html/$PROJECT_NAME && \
+    chown -R $USERNAME:www-data /var/www/html/$PROJECT_NAME && \
+    chmod -R 775 /var/www/html/$PROJECT_NAME
 
-# Establecer permisos del directorio del proyecto
+# Copiar archivos como el usuario correcto
+COPY --chown=$USERNAME:www-data . /var/www/html/$PROJECT_NAME/
+
+# Asegurar que todos los archivos tengan el grupo www-data
 RUN chown -R $USERNAME:www-data /var/www/html/$PROJECT_NAME && \
     chmod -R 775 /var/www/html/$PROJECT_NAME
 
@@ -98,13 +102,10 @@ max_input_vars = 1500' > /etc/php/8.3/cli/conf.d/99-custom.ini
 
 RUN setcap "cap_net_bind_service=+ep" /usr/bin/php8.3
 
-#RUN composer install
-#RUN yarn install
-
 EXPOSE 80/tcp 5176
 
-USER $USERNAME
-
-CMD ["sh", "-c", "service php8.3-fpm start && apache2ctl -D FOREGROUND &; exec su - $USERNAME"]
+# Volver a root para iniciar servicios (Apache y PHP-FPM requieren root)
+USER root
+CMD ["sh", "-c", "service php8.3-fpm start && apache2ctl -D FOREGROUND"]
 # CMD ["tail", "-f", "/dev/null"]
 

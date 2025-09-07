@@ -10,9 +10,9 @@ class ChatController extends Controller
 {
     public function index()
     {
-        $chats = Chat::take(10)->get();
+        $chats = Chat::all();
         
-        return Inertia::render('Chat-Whatsapp', ['chats' => $chats]);
+        return Inertia::render('Chat-Whatsapp', compact('chats'));
     }
 
 }

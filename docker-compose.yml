@@ -1,21 +1,19 @@
 services:
   php:
-    image: 'fitopero/laravel_apache_node:latest'
-    environment:
-        WWWGROUP: '${APP_NAME}'
-        PROJECT_NAME: '${APP_NAME}'
-        USER_ID: '${UID:-1000}'
-        GROUP_ID: '${GID:-1000}'
-        USERNAME: '${USER:-appuser}'
-    # build:
-    #   context: .
-    #   dockerfile: Dockerfile
-    #   args:
+    # image: 'fitopero/laravel_apache_node:latest'
+    # environment:
     #     WWWGROUP: '${APP_NAME}'
     #     PROJECT_NAME: '${APP_NAME}'
-    #     USER_ID: ${UID:-1000}
-    #     GROUP_ID: ${GID:-1000}
-    #     USERNAME: ${USER:-appuser}
+    #     USER_ID: '${UID:-1000}'
+    #     USERNAME: '${USER}'
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        WWWGROUP: '${APP_NAME}'
+        PROJECT_NAME: '${APP_NAME}'
+        USER_ID: ${UID:-1000}
+        USERNAME: ${USER}
     ports:
       - '80:80'
       - '5173:5173'

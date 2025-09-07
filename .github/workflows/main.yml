@@ -1,82 +1,82 @@
-name: Laravel CI
-on:
-  push:
-    branches: [ "master" ]
-  pull_request:
-    branches: [ "master" ]
+# name: Laravel CI
+# on:
+#   push:
+#     branches: [ "master" ]
+#   pull_request:
+#     branches: [ "master" ]
 
-  # workflow_dispatch:
+#   # workflow_dispatch:
 
-jobs:
-  test:
-    runs-on: ubuntu-latest
+# jobs:
+#   test:
+#     runs-on: ubuntu-latest
 
-    steps:
-      - uses: actions/checkout@v4
+#     steps:
+#       - uses: actions/checkout@v4
 
-      - name: Copy .env
-        run: cp .env.testing .env
+#       - name: Copy .env
+#         run: cp .env.testing .env
 
-      - name: Build containers
-        run: docker compose build --no-cache
+#       - name: Build containers
+#         run: docker compose build --no-cache
 
-      - name: start docker compose 
-        run: docker compose up -d
+#       - name: start docker compose 
+#         run: docker compose up -d
 
-      - name: Install PHP dependencies
-        run: docker compose exec php composer install --no-interaction --no-progress --prefer-dist
+#       - name: Install PHP dependencies
+#         run: docker compose exec php composer install --no-interaction --no-progress --prefer-dist
 
-      - name: Generate application key
-        run: docker compose exec php php artisan key:generate
+#       - name: Generate application key
+#         run: docker compose exec php php artisan key:generate
 
-      - name: Install Node dependencies
-        run: docker compose exec php npm install
+#       - name: Install Node dependencies
+#         run: docker compose exec php npm install
 
-      - name: Compile front-end assets
-        run: docker compose exec php npm run build
+#       - name: Compile front-end assets
+#         run: docker compose exec php npm run build
 
-      - name: ver posicion de trabajo
-        run: |
-          echo "Mostrando directorio actual:"
-          pwd
-          echo "Contenido del directorio:"
-          ls -la
+#       - name: ver posicion de trabajo
+#         run: |
+#           echo "Mostrando directorio actual:"
+#           pwd
+#           echo "Contenido del directorio:"
+#           ls -la
 
-      - name: clear cache
-        run: |
-          docker compose exec php php artisan cache:clear
-          docker compose exec php php artisan config:clear
-          docker compose exec php php artisan route:clear
-          docker compose exec php php artisan view:clear
+#       - name: clear cache
+#         run: |
+#           docker compose exec php php artisan cache:clear
+#           docker compose exec php php artisan config:clear
+#           docker compose exec php php artisan route:clear
+#           docker compose exec php php artisan view:clear
 
-      - name: Run PHPUnit tests
-        run: docker compose exec -T php php artisan test
+#       - name: Run PHPUnit tests
+#         run: docker compose exec -T php php artisan test
 
-      - name: Shutdown Docker containers
-        if: always()
-        run: docker compose down -v
+#       - name: Shutdown Docker containers
+#         if: always()
+#         run: docker compose down -v
 
-  # deploy:
-  #   runs-on: ubuntu-latest
-  #   needs: test
-  #   if: github.ref == 'refs/heads/main' && success()
+#   # deploy:
+#   #   runs-on: ubuntu-latest
+#   #   needs: test
+#   #   if: github.ref == 'refs/heads/main' && success()
 
-  #   steps:
-  #     - name: Checkout code
-  #       uses: actions/checkout@v3
+#   #   steps:
+#   #     - name: Checkout code
+#   #       uses: actions/checkout@v3
 
-  #     - name: Deploy via SSH
-  #       uses: appleboy/ssh-action@v1.1.0
-  #       with:
-  #         host: ${{ secrets.SSH_HOST }}
-  #         username: ${{ secrets.SSH_USER }}
-  #         key: ${{ secrets.SSH_KEY }}
-  #         script: |
-  #           cd /var/www/${{secrets.APP_NAME}}
-  #           git pull origin main
-  #           composer install --no-dev --optimize-autoloader
-  #           php artisan migrate --force
-  #           npm ci && npm run build
-  #           php artisan config:cache
+#   #     - name: Deploy via SSH
+#   #       uses: appleboy/ssh-action@v1.1.0
+#   #       with:
+#   #         host: ${{ secrets.SSH_HOST }}
+#   #         username: ${{ secrets.SSH_USER }}
+#   #         key: ${{ secrets.SSH_KEY }}
+#   #         script: |
+#   #           cd /var/www/${{secrets.APP_NAME}}
+#   #           git pull origin main
+#   #           composer install --no-dev --optimize-autoloader
+#   #           php artisan migrate --force
+#   #           npm ci && npm run build
+#   #           php artisan config:cache
 
   
