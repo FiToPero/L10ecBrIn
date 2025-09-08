@@ -64,7 +64,10 @@ const selectLang = (e) => { changeLocale(e.target.value) }
                         </NavLink>
                         <NavLink v-if="page.props.auth.user && page.props.auth.user.permissions && page.props.auth.user.permissions.includes('viewAny_chat')" :href="route('chat.index')" :active="route().current('chat.index')">
                             {{ $t('Chat-Whatsapp') }}
-                        </NavLink> 
+                        </NavLink>
+                        <NavLink v-if="page.props.auth.user && page.props.auth.user.permissions && page.props.auth.user.permissions.includes('viewAny_chat')" :href="route('schedule.index')" :active="route().current('schedule.index')">
+                            {{ $t('Schedule') }}
+                        </NavLink>
                         <!-- <div class="p-3 text-white text-sm">{{ page.props.auth.user.permissions }}</div> -->
                     </div>
                 </div>
@@ -155,6 +158,9 @@ const selectLang = (e) => { changeLocale(e.target.value) }
                 </ResponsiveNavLink>
                 <ResponsiveNavLink v-if="page.props.auth.user && page.props.auth.user.permissions && page.props.auth.user.permissions.includes('viewAny_chat')" :href="route('chat.index')" :active="route().current('chat.index')">
                     {{ $t('Chat-Whatsapp') }}
+                </ResponsiveNavLink>
+                <ResponsiveNavLink v-if="page.props.auth.user && page.props.auth.user.permissions && page.props.auth.user.permissions.includes('viewAny_chat')" :href="route('schedule.index')" :active="route().current('schedule.index')">
+                    {{ $t('Schedule') }}
                 </ResponsiveNavLink>
             </div>
 

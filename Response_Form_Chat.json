@@ -1,0 +1,1520 @@
+{
+    "chatId": "120363048029041695@g.us",
+    "__v": 0,
+    "createdAt": "2025-09-01T19:41:31.941000Z",
+    "groupMetadata": {
+        "creation": "1970-01-20T07:57:54.338000Z",
+        "owner": null,
+        "description": "Grupo de Argentinos en Abruzzo",
+        "participants": [
+            {
+                "id": "393513914122@c.us",
+                "isAdmin": false,
+                "isSuperAdmin": false,
+                "_id": {
+                    "$oid": "68b91529235a96d8714e02c9"
+                }
+            },
+            {
+                "id": "393715413153@c.us",
+                "isAdmin": true,
+                "isSuperAdmin": false,
+                "_id": {
+                    "$oid": "68b91529235a96d8714e02ca"
+                }
+            },
+            {
+                "id": "61411966098@c.us",
+                "isAdmin": false,
+                "isSuperAdmin": false,
+                "_id": {
+                    "$oid": "68b91529235a96d8714e02cb"
+                }
+            },
+            {
+                "id": "393517061682@c.us",
+                "isAdmin": false,
+                "isSuperAdmin": false,
+                "_id": {
+                    "$oid": "68b91529235a96d8714e02cc"
+                }
+            },
+            {
+                "id": "5492215578979@c.us",
+                "isAdmin": false,
+                "isSuperAdmin": false,
+                "_id": {
+                    "$oid": "68b91529235a96d8714e02cd"
+                }
+            },
+            {
+                "id": "5491136068891@c.us",
+                "isAdmin": false,
+                "isSuperAdmin": false,
+                "_id": {
+                    "$oid": "68b91529235a96d8714e02ce"
+                }
+            },
+            {
+                "id": "5493541593267@c.us",
+                "isAdmin": false,
+                "isSuperAdmin": false,
+                "_id": {
+                    "$oid": "68b91529235a96d8714e02cf"
+                }
+            },
+            {
+                "id": "5491130849977@c.us",
+                "isAdmin": false,
+                "isSuperAdmin": false,
+                "_id": {
+                    "$oid": "68b91529235a96d8714e02d0"
+                }
+            },
+            {
+                "id": "573183897503@c.us",
+                "isAdmin": false,
+                "isSuperAdmin": false,
+                "_id": {
+                    "$oid": "68b91529235a96d8714e02d1"
+                }
+            },
+            {
+                "id": "393201360018@c.us",
+                "isAdmin": false,
+                "isSuperAdmin": false,
+                "_id": {
+                    "$oid": "68b91529235a96d8714e02d2"
+                }
+            },
+            {
+                "id": "393513351491@c.us",
+                "isAdmin": false,
+                "isSuperAdmin": false,
+                "_id": {
+                    "$oid": "68b91529235a96d8714e02d3"
+                }
+            },
+            {
+                "id": "15716359957@c.us",
+                "isAdmin": false,
+                "isSuperAdmin": false,
+                "_id": {
+                    "$oid": "68b91529235a96d8714e02d4"
+                }
+            },
+            {
+                "id": "393514204199@c.us",
+                "isAdmin": false,
+                "isSuperAdmin": false,
+                "_id": {
+                    "$oid": "68b91529235a96d8714e02d5"
+                }
+            },
+            {
+                "id": "393512767596@c.us",
+                "isAdmin": false,
+                "isSuperAdmin": false,
+                "_id": {
+                    "$oid": "68b91529235a96d8714e02d6"
+                }
+            },
+            {
+                "id": "393508020960@c.us",
+                "isAdmin": false,
+                "isSuperAdmin": false,
+                "_id": {
+                    "$oid": "68b91529235a96d8714e02d7"
+                }
+            },
+            {
+                "id": "393806330821@c.us",
+                "isAdmin": false,
+                "isSuperAdmin": false,
+                "_id": {
+                    "$oid": "68b91529235a96d8714e02d8"
+                }
+            },
+            {
+                "id": "5493517035763@c.us",
+                "isAdmin": false,
+                "isSuperAdmin": false,
+                "_id": {
+                    "$oid": "68b91529235a96d8714e02d9"
+                }
+            },
+            {
+                "id": "393516651460@c.us",
+                "isAdmin": false,
+                "isSuperAdmin": false,
+                "_id": {
+                    "$oid": "68b91529235a96d8714e02da"
+                }
+            },
+            {
+                "id": "393482209075@c.us",
+                "isAdmin": false,
+                "isSuperAdmin": false,
+                "_id": {
+                    "$oid": "68b91529235a96d8714e02db"
+                }
+            },
+            {
+                "id": "5491123908904@c.us",
+                "isAdmin": false,
+                "isSuperAdmin": false,
+                "_id": {
+                    "$oid": "68b91529235a96d8714e02dc"
+                }
+            },
+            {
+                "id": "393887824472@c.us",
+                "isAdmin": false,
+                "isSuperAdmin": false,
+                "_id": {
+                    "$oid": "68b91529235a96d8714e02dd"
+                }
+            },
+            {
+                "id": "393761392108@c.us",
+                "isAdmin": false,
+                "isSuperAdmin": false,
+                "_id": {
+                    "$oid": "68b91529235a96d8714e02de"
+                }
+            },
+            {
+                "id": "393339961907@c.us",
+                "isAdmin": true,
+                "isSuperAdmin": false,
+                "_id": {
+                    "$oid": "68b91529235a96d8714e02df"
+                }
+            },
+            {
+                "id": "393319960478@c.us",
+                "isAdmin": false,
+                "isSuperAdmin": false,
+                "_id": {
+                    "$oid": "68b91529235a96d8714e02e0"
+                }
+            },
+            {
+                "id": "393284180140@c.us",
+                "isAdmin": false,
+                "isSuperAdmin": false,
+                "_id": {
+                    "$oid": "68b91529235a96d8714e02e1"
+                }
+            },
+            {
+                "id": "393318916704@c.us",
+                "isAdmin": false,
+                "isSuperAdmin": false,
+                "_id": {
+                    "$oid": "68b91529235a96d8714e02e2"
+                }
+            },
+            {
+                "id": "393348062829@c.us",
+                "isAdmin": false,
+                "isSuperAdmin": false,
+                "_id": {
+                    "$oid": "68b91529235a96d8714e02e3"
+                }
+            },
+            {
+                "id": "393474917003@c.us",
+                "isAdmin": false,
+                "isSuperAdmin": false,
+                "_id": {
+                    "$oid": "68b91529235a96d8714e02e4"
+                }
+            },
+            {
+                "id": "393922565610@c.us",
+                "isAdmin": false,
+                "isSuperAdmin": false,
+                "_id": {
+                    "$oid": "68b91529235a96d8714e02e5"
+                }
+            },
+            {
+                "id": "5491130450784@c.us",
+                "isAdmin": false,
+                "isSuperAdmin": false,
+                "_id": {
+                    "$oid": "68b91529235a96d8714e02e6"
+                }
+            },
+            {
+                "id": "5492216491478@c.us",
+                "isAdmin": false,
+                "isSuperAdmin": false,
+                "_id": {
+                    "$oid": "68b91529235a96d8714e02e7"
+                }
+            },
+            {
+                "id": "393343427109@c.us",
+                "isAdmin": false,
+                "isSuperAdmin": false,
+                "_id": {
+                    "$oid": "68b91529235a96d8714e02e8"
+                }
+            },
+            {
+                "id": "393337647664@c.us",
+                "isAdmin": false,
+                "isSuperAdmin": false,
+                "_id": {
+                    "$oid": "68b91529235a96d8714e02e9"
+                }
+            },
+            {
+                "id": "393381500529@c.us",
+                "isAdmin": false,
+                "isSuperAdmin": false,
+                "_id": {
+                    "$oid": "68b91529235a96d8714e02ea"
+                }
+            },
+            {
+                "id": "393716886615@c.us",
+                "isAdmin": false,
+                "isSuperAdmin": false,
+                "_id": {
+                    "$oid": "68b91529235a96d8714e02eb"
+                }
+            },
+            {
+                "id": "491794671749@c.us",
+                "isAdmin": false,
+                "isSuperAdmin": false,
+                "_id": {
+                    "$oid": "68b91529235a96d8714e02ec"
+                }
+            },
+            {
+                "id": "393930498717@c.us",
+                "isAdmin": false,
+                "isSuperAdmin": false,
+                "_id": {
+                    "$oid": "68b91529235a96d8714e02ed"
+                }
+            },
+            {
+                "id": "393514667507@c.us",
+                "isAdmin": false,
+                "isSuperAdmin": false,
+                "_id": {
+                    "$oid": "68b91529235a96d8714e02ee"
+                }
+            },
+            {
+                "id": "34605045507@c.us",
+                "isAdmin": false,
+                "isSuperAdmin": false,
+                "_id": {
+                    "$oid": "68b91529235a96d8714e02ef"
+                }
+            },
+            {
+                "id": "5492215451555@c.us",
+                "isAdmin": false,
+                "isSuperAdmin": false,
+                "_id": {
+                    "$oid": "68b91529235a96d8714e02f0"
+                }
+            },
+            {
+                "id": "393517679341@c.us",
+                "isAdmin": false,
+                "isSuperAdmin": false,
+                "_id": {
+                    "$oid": "68b91529235a96d8714e02f1"
+                }
+            },
+            {
+                "id": "393312361469@c.us",
+                "isAdmin": false,
+                "isSuperAdmin": false,
+                "_id": {
+                    "$oid": "68b91529235a96d8714e02f2"
+                }
+            },
+            {
+                "id": "393516301747@c.us",
+                "isAdmin": false,
+                "isSuperAdmin": false,
+                "_id": {
+                    "$oid": "68b91529235a96d8714e02f3"
+                }
+            },
+            {
+                "id": "393408058555@c.us",
+                "isAdmin": false,
+                "isSuperAdmin": false,
+                "_id": {
+                    "$oid": "68b91529235a96d8714e02f4"
+                }
+            },
+            {
+                "id": "393509103952@c.us",
+                "isAdmin": false,
+                "isSuperAdmin": false,
+                "_id": {
+                    "$oid": "68b91529235a96d8714e02f5"
+                }
+            },
+            {
+                "id": "393348764634@c.us",
+                "isAdmin": false,
+                "isSuperAdmin": false,
+                "_id": {
+                    "$oid": "68b91529235a96d8714e02f6"
+                }
+            },
+            {
+                "id": "34614745581@c.us",
+                "isAdmin": false,
+                "isSuperAdmin": false,
+                "_id": {
+                    "$oid": "68b91529235a96d8714e02f7"
+                }
+            },
+            {
+                "id": "4915216196939@c.us",
+                "isAdmin": false,
+                "isSuperAdmin": false,
+                "_id": {
+                    "$oid": "68b91529235a96d8714e02f8"
+                }
+            },
+            {
+                "id": "393331209698@c.us",
+                "isAdmin": false,
+                "isSuperAdmin": false,
+                "_id": {
+                    "$oid": "68b91529235a96d8714e02f9"
+                }
+            },
+            {
+                "id": "5491124501538@c.us",
+                "isAdmin": false,
+                "isSuperAdmin": false,
+                "_id": {
+                    "$oid": "68b91529235a96d8714e02fa"
+                }
+            },
+            {
+                "id": "393516001737@c.us",
+                "isAdmin": false,
+                "isSuperAdmin": false,
+                "_id": {
+                    "$oid": "68b91529235a96d8714e02fb"
+                }
+            },
+            {
+                "id": "393773380385@c.us",
+                "isAdmin": false,
+                "isSuperAdmin": false,
+                "_id": {
+                    "$oid": "68b91529235a96d8714e02fc"
+                }
+            },
+            {
+                "id": "393717622467@c.us",
+                "isAdmin": false,
+                "isSuperAdmin": false,
+                "_id": {
+                    "$oid": "68b91529235a96d8714e02fd"
+                }
+            },
+            {
+                "id": "5493794657589@c.us",
+                "isAdmin": false,
+                "isSuperAdmin": false,
+                "_id": {
+                    "$oid": "68b91529235a96d8714e02fe"
+                }
+            },
+            {
+                "id": "393447309871@c.us",
+                "isAdmin": false,
+                "isSuperAdmin": false,
+                "_id": {
+                    "$oid": "68b91529235a96d8714e02ff"
+                }
+            },
+            {
+                "id": "393485176512@c.us",
+                "isAdmin": false,
+                "isSuperAdmin": false,
+                "_id": {
+                    "$oid": "68b91529235a96d8714e0300"
+                }
+            },
+            {
+                "id": "393890075358@c.us",
+                "isAdmin": false,
+                "isSuperAdmin": false,
+                "_id": {
+                    "$oid": "68b91529235a96d8714e0301"
+                }
+            },
+            {
+                "id": "393485876286@c.us",
+                "isAdmin": false,
+                "isSuperAdmin": false,
+                "_id": {
+                    "$oid": "68b91529235a96d8714e0302"
+                }
+            },
+            {
+                "id": "393920095834@c.us",
+                "isAdmin": false,
+                "isSuperAdmin": false,
+                "_id": {
+                    "$oid": "68b91529235a96d8714e0303"
+                }
+            },
+            {
+                "id": "393516103075@c.us",
+                "isAdmin": false,
+                "isSuperAdmin": false,
+                "_id": {
+                    "$oid": "68b91529235a96d8714e0304"
+                }
+            },
+            {
+                "id": "393299764145@c.us",
+                "isAdmin": false,
+                "isSuperAdmin": false,
+                "_id": {
+                    "$oid": "68b91529235a96d8714e0305"
+                }
+            },
+            {
+                "id": "393513850189@c.us",
+                "isAdmin": false,
+                "isSuperAdmin": false,
+                "_id": {
+                    "$oid": "68b91529235a96d8714e0306"
+                }
+            },
+            {
+                "id": "393401982071@c.us",
+                "isAdmin": false,
+                "isSuperAdmin": false,
+                "_id": {
+                    "$oid": "68b91529235a96d8714e0307"
+                }
+            },
+            {
+                "id": "393518146622@c.us",
+                "isAdmin": false,
+                "isSuperAdmin": false,
+                "_id": {
+                    "$oid": "68b91529235a96d8714e0308"
+                }
+            },
+            {
+                "id": "5491137783851@c.us",
+                "isAdmin": false,
+                "isSuperAdmin": false,
+                "_id": {
+                    "$oid": "68b91529235a96d8714e0309"
+                }
+            },
+            {
+                "id": "393914831281@c.us",
+                "isAdmin": false,
+                "isSuperAdmin": false,
+                "_id": {
+                    "$oid": "68b91529235a96d8714e030a"
+                }
+            },
+            {
+                "id": "34634759825@c.us",
+                "isAdmin": false,
+                "isSuperAdmin": false,
+                "_id": {
+                    "$oid": "68b91529235a96d8714e030b"
+                }
+            },
+            {
+                "id": "393514734282@c.us",
+                "isAdmin": false,
+                "isSuperAdmin": false,
+                "_id": {
+                    "$oid": "68b91529235a96d8714e030c"
+                }
+            },
+            {
+                "id": "393513612891@c.us",
+                "isAdmin": false,
+                "isSuperAdmin": false,
+                "_id": {
+                    "$oid": "68b91529235a96d8714e030d"
+                }
+            },
+            {
+                "id": "393514217400@c.us",
+                "isAdmin": false,
+                "isSuperAdmin": false,
+                "_id": {
+                    "$oid": "68b91529235a96d8714e030e"
+                }
+            },
+            {
+                "id": "5493582432937@c.us",
+                "isAdmin": false,
+                "isSuperAdmin": false,
+                "_id": {
+                    "$oid": "68b91529235a96d8714e030f"
+                }
+            },
+            {
+                "id": "393717615752@c.us",
+                "isAdmin": false,
+                "isSuperAdmin": false,
+                "_id": {
+                    "$oid": "68b91529235a96d8714e0310"
+                }
+            },
+            {
+                "id": "393383570980@c.us",
+                "isAdmin": false,
+                "isSuperAdmin": false,
+                "_id": {
+                    "$oid": "68b91529235a96d8714e0311"
+                }
+            },
+            {
+                "id": "393284037734@c.us",
+                "isAdmin": false,
+                "isSuperAdmin": false,
+                "_id": {
+                    "$oid": "68b91529235a96d8714e0312"
+                }
+            },
+            {
+                "id": "393245421781@c.us",
+                "isAdmin": false,
+                "isSuperAdmin": false,
+                "_id": {
+                    "$oid": "68b91529235a96d8714e0313"
+                }
+            },
+            {
+                "id": "393713816708@c.us",
+                "isAdmin": false,
+                "isSuperAdmin": false,
+                "_id": {
+                    "$oid": "68b91529235a96d8714e0314"
+                }
+            },
+            {
+                "id": "393478629654@c.us",
+                "isAdmin": false,
+                "isSuperAdmin": false,
+                "_id": {
+                    "$oid": "68b91529235a96d8714e0315"
+                }
+            },
+            {
+                "id": "393447339018@c.us",
+                "isAdmin": false,
+                "isSuperAdmin": false,
+                "_id": {
+                    "$oid": "68b91529235a96d8714e0316"
+                }
+            },
+            {
+                "id": "17866635607@c.us",
+                "isAdmin": false,
+                "isSuperAdmin": false,
+                "_id": {
+                    "$oid": "68b91529235a96d8714e0317"
+                }
+            },
+            {
+                "id": "393444786873@c.us",
+                "isAdmin": false,
+                "isSuperAdmin": false,
+                "_id": {
+                    "$oid": "68b91529235a96d8714e0318"
+                }
+            },
+            {
+                "id": "393311707758@c.us",
+                "isAdmin": false,
+                "isSuperAdmin": false,
+                "_id": {
+                    "$oid": "68b91529235a96d8714e0319"
+                }
+            },
+            {
+                "id": "393204191046@c.us",
+                "isAdmin": false,
+                "isSuperAdmin": false,
+                "_id": {
+                    "$oid": "68b91529235a96d8714e031a"
+                }
+            },
+            {
+                "id": "393917703309@c.us",
+                "isAdmin": false,
+                "isSuperAdmin": false,
+                "_id": {
+                    "$oid": "68b91529235a96d8714e031b"
+                }
+            },
+            {
+                "id": "393279538695@c.us",
+                "isAdmin": false,
+                "isSuperAdmin": false,
+                "_id": {
+                    "$oid": "68b91529235a96d8714e031c"
+                }
+            },
+            {
+                "id": "393513908505@c.us",
+                "isAdmin": false,
+                "isSuperAdmin": false,
+                "_id": {
+                    "$oid": "68b91529235a96d8714e031d"
+                }
+            },
+            {
+                "id": "5493415840463@c.us",
+                "isAdmin": false,
+                "isSuperAdmin": false,
+                "_id": {
+                    "$oid": "68b91529235a96d8714e031e"
+                }
+            },
+            {
+                "id": "393285951117@c.us",
+                "isAdmin": false,
+                "isSuperAdmin": false,
+                "_id": {
+                    "$oid": "68b91529235a96d8714e031f"
+                }
+            },
+            {
+                "id": "5491140992861@c.us",
+                "isAdmin": false,
+                "isSuperAdmin": false,
+                "_id": {
+                    "$oid": "68b91529235a96d8714e0320"
+                }
+            },
+            {
+                "id": "393445082338@c.us",
+                "isAdmin": false,
+                "isSuperAdmin": false,
+                "_id": {
+                    "$oid": "68b91529235a96d8714e0321"
+                }
+            },
+            {
+                "id": "5493534230388@c.us",
+                "isAdmin": false,
+                "isSuperAdmin": false,
+                "_id": {
+                    "$oid": "68b91529235a96d8714e0322"
+                }
+            },
+            {
+                "id": "5491138165980@c.us",
+                "isAdmin": false,
+                "isSuperAdmin": false,
+                "_id": {
+                    "$oid": "68b91529235a96d8714e0323"
+                }
+            },
+            {
+                "id": "5491149493266@c.us",
+                "isAdmin": false,
+                "isSuperAdmin": false,
+                "_id": {
+                    "$oid": "68b91529235a96d8714e0324"
+                }
+            },
+            {
+                "id": "385957910467@c.us",
+                "isAdmin": false,
+                "isSuperAdmin": false,
+                "_id": {
+                    "$oid": "68b91529235a96d8714e0325"
+                }
+            },
+            {
+                "id": "393505684675@c.us",
+                "isAdmin": false,
+                "isSuperAdmin": false,
+                "_id": {
+                    "$oid": "68b91529235a96d8714e0326"
+                }
+            },
+            {
+                "id": "393445354083@c.us",
+                "isAdmin": false,
+                "isSuperAdmin": false,
+                "_id": {
+                    "$oid": "68b91529235a96d8714e0327"
+                }
+            },
+            {
+                "id": "393517178806@c.us",
+                "isAdmin": false,
+                "isSuperAdmin": false,
+                "_id": {
+                    "$oid": "68b91529235a96d8714e0328"
+                }
+            },
+            {
+                "id": "5491165640984@c.us",
+                "isAdmin": false,
+                "isSuperAdmin": false,
+                "_id": {
+                    "$oid": "68b91529235a96d8714e0329"
+                }
+            },
+            {
+                "id": "5493541563235@c.us",
+                "isAdmin": false,
+                "isSuperAdmin": false,
+                "_id": {
+                    "$oid": "68b91529235a96d8714e032a"
+                }
+            },
+            {
+                "id": "393513803195@c.us",
+                "isAdmin": false,
+                "isSuperAdmin": false,
+                "_id": {
+                    "$oid": "68b91529235a96d8714e032b"
+                }
+            },
+            {
+                "id": "393801222264@c.us",
+                "isAdmin": false,
+                "isSuperAdmin": false,
+                "_id": {
+                    "$oid": "68b91529235a96d8714e032c"
+                }
+            },
+            {
+                "id": "5492346651985@c.us",
+                "isAdmin": false,
+                "isSuperAdmin": false,
+                "_id": {
+                    "$oid": "68b91529235a96d8714e032d"
+                }
+            },
+            {
+                "id": "5491132512323@c.us",
+                "isAdmin": false,
+                "isSuperAdmin": false,
+                "_id": {
+                    "$oid": "68b91529235a96d8714e032e"
+                }
+            },
+            {
+                "id": "393505882033@c.us",
+                "isAdmin": false,
+                "isSuperAdmin": false,
+                "_id": {
+                    "$oid": "68b91529235a96d8714e032f"
+                }
+            },
+            {
+                "id": "393343669801@c.us",
+                "isAdmin": false,
+                "isSuperAdmin": false,
+                "_id": {
+                    "$oid": "68b91529235a96d8714e0330"
+                }
+            },
+            {
+                "id": "5492233056462@c.us",
+                "isAdmin": false,
+                "isSuperAdmin": false,
+                "_id": {
+                    "$oid": "68b91529235a96d8714e0331"
+                }
+            },
+            {
+                "id": "393446487598@c.us",
+                "isAdmin": false,
+                "isSuperAdmin": false,
+                "_id": {
+                    "$oid": "68b91529235a96d8714e0332"
+                }
+            },
+            {
+                "id": "393713519621@c.us",
+                "isAdmin": false,
+                "isSuperAdmin": false,
+                "_id": {
+                    "$oid": "68b91529235a96d8714e0333"
+                }
+            },
+            {
+                "id": "393500808483@c.us",
+                "isAdmin": false,
+                "isSuperAdmin": false,
+                "_id": {
+                    "$oid": "68b91529235a96d8714e0334"
+                }
+            },
+            {
+                "id": "5492216250131@c.us",
+                "isAdmin": false,
+                "isSuperAdmin": false,
+                "_id": {
+                    "$oid": "68b91529235a96d8714e0335"
+                }
+            },
+            {
+                "id": "393533886703@c.us",
+                "isAdmin": false,
+                "isSuperAdmin": false,
+                "_id": {
+                    "$oid": "68b91529235a96d8714e0336"
+                }
+            },
+            {
+                "id": "393517056489@c.us",
+                "isAdmin": false,
+                "isSuperAdmin": false,
+                "_id": {
+                    "$oid": "68b91529235a96d8714e0337"
+                }
+            },
+            {
+                "id": "5491124039375@c.us",
+                "isAdmin": false,
+                "isSuperAdmin": false,
+                "_id": {
+                    "$oid": "68b91529235a96d8714e0338"
+                }
+            },
+            {
+                "id": "393931092177@c.us",
+                "isAdmin": false,
+                "isSuperAdmin": false,
+                "_id": {
+                    "$oid": "68b91529235a96d8714e0339"
+                }
+            },
+            {
+                "id": "393388943189@c.us",
+                "isAdmin": false,
+                "isSuperAdmin": false,
+                "_id": {
+                    "$oid": "68b91529235a96d8714e033a"
+                }
+            },
+            {
+                "id": "393513367924@c.us",
+                "isAdmin": false,
+                "isSuperAdmin": false,
+                "_id": {
+                    "$oid": "68b91529235a96d8714e033b"
+                }
+            },
+            {
+                "id": "17054839562@c.us",
+                "isAdmin": false,
+                "isSuperAdmin": false,
+                "_id": {
+                    "$oid": "68b91529235a96d8714e033c"
+                }
+            },
+            {
+                "id": "34663452781@c.us",
+                "isAdmin": false,
+                "isSuperAdmin": false,
+                "_id": {
+                    "$oid": "68b91529235a96d8714e033d"
+                }
+            },
+            {
+                "id": "34665185470@c.us",
+                "isAdmin": false,
+                "isSuperAdmin": false,
+                "_id": {
+                    "$oid": "68b91529235a96d8714e033e"
+                }
+            },
+            {
+                "id": "34671676649@c.us",
+                "isAdmin": false,
+                "isSuperAdmin": false,
+                "_id": {
+                    "$oid": "68b91529235a96d8714e033f"
+                }
+            },
+            {
+                "id": "385957926694@c.us",
+                "isAdmin": false,
+                "isSuperAdmin": false,
+                "_id": {
+                    "$oid": "68b91529235a96d8714e0340"
+                }
+            },
+            {
+                "id": "393206193367@c.us",
+                "isAdmin": false,
+                "isSuperAdmin": false,
+                "_id": {
+                    "$oid": "68b91529235a96d8714e0341"
+                }
+            },
+            {
+                "id": "393276060979@c.us",
+                "isAdmin": false,
+                "isSuperAdmin": false,
+                "_id": {
+                    "$oid": "68b91529235a96d8714e0342"
+                }
+            },
+            {
+                "id": "393290973005@c.us",
+                "isAdmin": false,
+                "isSuperAdmin": false,
+                "_id": {
+                    "$oid": "68b91529235a96d8714e0343"
+                }
+            },
+            {
+                "id": "393292937118@c.us",
+                "isAdmin": false,
+                "isSuperAdmin": false,
+                "_id": {
+                    "$oid": "68b91529235a96d8714e0344"
+                }
+            },
+            {
+                "id": "393298535814@c.us",
+                "isAdmin": false,
+                "isSuperAdmin": false,
+                "_id": {
+                    "$oid": "68b91529235a96d8714e0345"
+                }
+            },
+            {
+                "id": "393311707754@c.us",
+                "isAdmin": false,
+                "isSuperAdmin": false,
+                "_id": {
+                    "$oid": "68b91529235a96d8714e0346"
+                }
+            },
+            {
+                "id": "393312558053@c.us",
+                "isAdmin": false,
+                "isSuperAdmin": false,
+                "_id": {
+                    "$oid": "68b91529235a96d8714e0347"
+                }
+            },
+            {
+                "id": "393312579262@c.us",
+                "isAdmin": false,
+                "isSuperAdmin": false,
+                "_id": {
+                    "$oid": "68b91529235a96d8714e0348"
+                }
+            },
+            {
+                "id": "393341995032@c.us",
+                "isAdmin": false,
+                "isSuperAdmin": false,
+                "_id": {
+                    "$oid": "68b91529235a96d8714e0349"
+                }
+            },
+            {
+                "id": "393381330785@c.us",
+                "isAdmin": false,
+                "isSuperAdmin": false,
+                "_id": {
+                    "$oid": "68b91529235a96d8714e034a"
+                }
+            },
+            {
+                "id": "393389221822@c.us",
+                "isAdmin": false,
+                "isSuperAdmin": false,
+                "_id": {
+                    "$oid": "68b91529235a96d8714e034b"
+                }
+            },
+            {
+                "id": "393393363567@c.us",
+                "isAdmin": false,
+                "isSuperAdmin": false,
+                "_id": {
+                    "$oid": "68b91529235a96d8714e034c"
+                }
+            },
+            {
+                "id": "393395632742@c.us",
+                "isAdmin": false,
+                "isSuperAdmin": false,
+                "_id": {
+                    "$oid": "68b91529235a96d8714e034d"
+                }
+            },
+            {
+                "id": "393444403658@c.us",
+                "isAdmin": false,
+                "isSuperAdmin": false,
+                "_id": {
+                    "$oid": "68b91529235a96d8714e034e"
+                }
+            },
+            {
+                "id": "393445089899@c.us",
+                "isAdmin": false,
+                "isSuperAdmin": false,
+                "_id": {
+                    "$oid": "68b91529235a96d8714e034f"
+                }
+            },
+            {
+                "id": "393447757508@c.us",
+                "isAdmin": false,
+                "isSuperAdmin": false,
+                "_id": {
+                    "$oid": "68b91529235a96d8714e0350"
+                }
+            },
+            {
+                "id": "393458495890@c.us",
+                "isAdmin": false,
+                "isSuperAdmin": false,
+                "_id": {
+                    "$oid": "68b91529235a96d8714e0351"
+                }
+            },
+            {
+                "id": "393485749225@c.us",
+                "isAdmin": false,
+                "isSuperAdmin": false,
+                "_id": {
+                    "$oid": "68b91529235a96d8714e0352"
+                }
+            },
+            {
+                "id": "393498244134@c.us",
+                "isAdmin": false,
+                "isSuperAdmin": false,
+                "_id": {
+                    "$oid": "68b91529235a96d8714e0353"
+                }
+            },
+            {
+                "id": "393501403502@c.us",
+                "isAdmin": false,
+                "isSuperAdmin": false,
+                "_id": {
+                    "$oid": "68b91529235a96d8714e0354"
+                }
+            },
+            {
+                "id": "393508372758@c.us",
+                "isAdmin": false,
+                "isSuperAdmin": false,
+                "_id": {
+                    "$oid": "68b91529235a96d8714e0355"
+                }
+            },
+            {
+                "id": "393510529888@c.us",
+                "isAdmin": false,
+                "isSuperAdmin": false,
+                "_id": {
+                    "$oid": "68b91529235a96d8714e0356"
+                }
+            },
+            {
+                "id": "393511392219@c.us",
+                "isAdmin": false,
+                "isSuperAdmin": false,
+                "_id": {
+                    "$oid": "68b91529235a96d8714e0357"
+                }
+            },
+            {
+                "id": "393513292209@c.us",
+                "isAdmin": false,
+                "isSuperAdmin": false,
+                "_id": {
+                    "$oid": "68b91529235a96d8714e0358"
+                }
+            },
+            {
+                "id": "393516616262@c.us",
+                "isAdmin": false,
+                "isSuperAdmin": false,
+                "_id": {
+                    "$oid": "68b91529235a96d8714e0359"
+                }
+            },
+            {
+                "id": "393517407541@c.us",
+                "isAdmin": false,
+                "isSuperAdmin": false,
+                "_id": {
+                    "$oid": "68b91529235a96d8714e035a"
+                }
+            },
+            {
+                "id": "393517837685@c.us",
+                "isAdmin": false,
+                "isSuperAdmin": false,
+                "_id": {
+                    "$oid": "68b91529235a96d8714e035b"
+                }
+            },
+            {
+                "id": "393518630442@c.us",
+                "isAdmin": false,
+                "isSuperAdmin": false,
+                "_id": {
+                    "$oid": "68b91529235a96d8714e035c"
+                }
+            },
+            {
+                "id": "393533568483@c.us",
+                "isAdmin": false,
+                "isSuperAdmin": false,
+                "_id": {
+                    "$oid": "68b91529235a96d8714e035d"
+                }
+            },
+            {
+                "id": "393533691040@c.us",
+                "isAdmin": false,
+                "isSuperAdmin": false,
+                "_id": {
+                    "$oid": "68b91529235a96d8714e035e"
+                }
+            },
+            {
+                "id": "393533769300@c.us",
+                "isAdmin": false,
+                "isSuperAdmin": false,
+                "_id": {
+                    "$oid": "68b91529235a96d8714e035f"
+                }
+            },
+            {
+                "id": "393717775238@c.us",
+                "isAdmin": false,
+                "isSuperAdmin": false,
+                "_id": {
+                    "$oid": "68b91529235a96d8714e0360"
+                }
+            },
+            {
+                "id": "393757200041@c.us",
+                "isAdmin": false,
+                "isSuperAdmin": false,
+                "_id": {
+                    "$oid": "68b91529235a96d8714e0361"
+                }
+            },
+            {
+                "id": "393759777731@c.us",
+                "isAdmin": false,
+                "isSuperAdmin": false,
+                "_id": {
+                    "$oid": "68b91529235a96d8714e0362"
+                }
+            },
+            {
+                "id": "393773606738@c.us",
+                "isAdmin": false,
+                "isSuperAdmin": false,
+                "_id": {
+                    "$oid": "68b91529235a96d8714e0363"
+                }
+            },
+            {
+                "id": "393791548416@c.us",
+                "isAdmin": false,
+                "isSuperAdmin": false,
+                "_id": {
+                    "$oid": "68b91529235a96d8714e0364"
+                }
+            },
+            {
+                "id": "393806946280@c.us",
+                "isAdmin": false,
+                "isSuperAdmin": false,
+                "_id": {
+                    "$oid": "68b91529235a96d8714e0365"
+                }
+            },
+            {
+                "id": "393923355227@c.us",
+                "isAdmin": false,
+                "isSuperAdmin": false,
+                "_id": {
+                    "$oid": "68b91529235a96d8714e0366"
+                }
+            },
+            {
+                "id": "393925318555@c.us",
+                "isAdmin": false,
+                "isSuperAdmin": false,
+                "_id": {
+                    "$oid": "68b91529235a96d8714e0367"
+                }
+            },
+            {
+                "id": "393926453765@c.us",
+                "isAdmin": false,
+                "isSuperAdmin": false,
+                "_id": {
+                    "$oid": "68b91529235a96d8714e0368"
+                }
+            },
+            {
+                "id": "393933395335@c.us",
+                "isAdmin": false,
+                "isSuperAdmin": false,
+                "_id": {
+                    "$oid": "68b91529235a96d8714e0369"
+                }
+            },
+            {
+                "id": "393933913930@c.us",
+                "isAdmin": false,
+                "isSuperAdmin": false,
+                "_id": {
+                    "$oid": "68b91529235a96d8714e036a"
+                }
+            },
+            {
+                "id": "5491126258888@c.us",
+                "isAdmin": false,
+                "isSuperAdmin": false,
+                "_id": {
+                    "$oid": "68b91529235a96d8714e036b"
+                }
+            },
+            {
+                "id": "5491126670326@c.us",
+                "isAdmin": false,
+                "isSuperAdmin": false,
+                "_id": {
+                    "$oid": "68b91529235a96d8714e036c"
+                }
+            },
+            {
+                "id": "5491139283165@c.us",
+                "isAdmin": false,
+                "isSuperAdmin": false,
+                "_id": {
+                    "$oid": "68b91529235a96d8714e036d"
+                }
+            },
+            {
+                "id": "5491149741740@c.us",
+                "isAdmin": false,
+                "isSuperAdmin": false,
+                "_id": {
+                    "$oid": "68b91529235a96d8714e036e"
+                }
+            },
+            {
+                "id": "5491164510670@c.us",
+                "isAdmin": false,
+                "isSuperAdmin": false,
+                "_id": {
+                    "$oid": "68b91529235a96d8714e036f"
+                }
+            },
+            {
+                "id": "5491164706146@c.us",
+                "isAdmin": false,
+                "isSuperAdmin": false,
+                "_id": {
+                    "$oid": "68b91529235a96d8714e0370"
+                }
+            },
+            {
+                "id": "5491164849706@c.us",
+                "isAdmin": false,
+                "isSuperAdmin": false,
+                "_id": {
+                    "$oid": "68b91529235a96d8714e0371"
+                }
+            },
+            {
+                "id": "5492235892842@c.us",
+                "isAdmin": false,
+                "isSuperAdmin": false,
+                "_id": {
+                    "$oid": "68b91529235a96d8714e0372"
+                }
+            },
+            {
+                "id": "5492494010861@c.us",
+                "isAdmin": false,
+                "isSuperAdmin": false,
+                "_id": {
+                    "$oid": "68b91529235a96d8714e0373"
+                }
+            },
+            {
+                "id": "5492616091107@c.us",
+                "isAdmin": false,
+                "isSuperAdmin": false,
+                "_id": {
+                    "$oid": "68b91529235a96d8714e0374"
+                }
+            },
+            {
+                "id": "5492804625433@c.us",
+                "isAdmin": false,
+                "isSuperAdmin": false,
+                "_id": {
+                    "$oid": "68b91529235a96d8714e0375"
+                }
+            },
+            {
+                "id": "5493385599140@c.us",
+                "isAdmin": false,
+                "isSuperAdmin": false,
+                "_id": {
+                    "$oid": "68b91529235a96d8714e0376"
+                }
+            },
+            {
+                "id": "5493401440032@c.us",
+                "isAdmin": false,
+                "isSuperAdmin": false,
+                "_id": {
+                    "$oid": "68b91529235a96d8714e0377"
+                }
+            },
+            {
+                "id": "5493416040720@c.us",
+                "isAdmin": false,
+                "isSuperAdmin": false,
+                "_id": {
+                    "$oid": "68b91529235a96d8714e0378"
+                }
+            },
+            {
+                "id": "5493416519451@c.us",
+                "isAdmin": false,
+                "isSuperAdmin": false,
+                "_id": {
+                    "$oid": "68b91529235a96d8714e0379"
+                }
+            },
+            {
+                "id": "5493434051249@c.us",
+                "isAdmin": false,
+                "isSuperAdmin": false,
+                "_id": {
+                    "$oid": "68b91529235a96d8714e037a"
+                }
+            },
+            {
+                "id": "5493434541553@c.us",
+                "isAdmin": false,
+                "isSuperAdmin": false,
+                "_id": {
+                    "$oid": "68b91529235a96d8714e037b"
+                }
+            },
+            {
+                "id": "5493525537966@c.us",
+                "isAdmin": false,
+                "isSuperAdmin": false,
+                "_id": {
+                    "$oid": "68b91529235a96d8714e037c"
+                }
+            },
+            {
+                "id": "5493534794560@c.us",
+                "isAdmin": false,
+                "isSuperAdmin": false,
+                "_id": {
+                    "$oid": "68b91529235a96d8714e037d"
+                }
+            },
+            {
+                "id": "5493543556515@c.us",
+                "isAdmin": false,
+                "isSuperAdmin": false,
+                "_id": {
+                    "$oid": "68b91529235a96d8714e037e"
+                }
+            },
+            {
+                "id": "5493544626260@c.us",
+                "isAdmin": false,
+                "isSuperAdmin": false,
+                "_id": {
+                    "$oid": "68b91529235a96d8714e037f"
+                }
+            },
+            {
+                "id": "5493624005756@c.us",
+                "isAdmin": false,
+                "isSuperAdmin": false,
+                "_id": {
+                    "$oid": "68b91529235a96d8714e0380"
+                }
+            },
+            {
+                "id": "5493625257772@c.us",
+                "isAdmin": false,
+                "isSuperAdmin": false,
+                "_id": {
+                    "$oid": "68b91529235a96d8714e0381"
+                }
+            },
+            {
+                "id": "5493815189246@c.us",
+                "isAdmin": false,
+                "isSuperAdmin": false,
+                "_id": {
+                    "$oid": "68b91529235a96d8714e0382"
+                }
+            }
+        ]
+    },
+    "isGroup": true,
+    "name": "Argentinos en Abruzzo",
+    "unreadCount": 1,
+    "updatedAt": "2025-09-04T04:27:21.277000Z",
+    "id": "68b5f6eb495cb368172db17a"
+}
+
+
+{
+    "chatId": "5493417028585@c.us",
+    "__v": 0,
+    "createdAt": "2025-09-01T19:41:33.613000Z",
+    "groupMetadata": {
+        "participants": []
+    },
+    "isGroup": false,
+    "name": "AAAA",
+    "unreadCount": 0,
+    "updatedAt": "2025-09-04T04:27:22.132000Z",
+    "id": "68b5f6ed495cb368172db1d7"
+}

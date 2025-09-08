@@ -7,10 +7,9 @@ use App\Http\Controllers\WelcomeController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\CarouselController;
 use App\Http\Controllers\ChatController;
+use App\Http\Controllers\ScheduleController;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\DB;
 use App\Notifications\VerifyEmail;
-
 
 // Route::get('/test-email', function () {
 //     $user = \App\Models\User::first();
@@ -64,6 +63,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/chat', [ChatController::class, 'index'])->name('chat.index');
+    Route::get('/schedule', [ScheduleController::class, 'index'])->name('schedule.index');
 });
 
 
